@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính toán thông số hoạt động cho máy phun PU</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .formula-display {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .input-field {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus-within {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .input-field label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .input-field .unit {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .results {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .results h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .result-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .result-value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #27ae60;
+        }
+
+        .material-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .material-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .material-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .material-value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #8e44ad;
+        }
+
+        .tabs {
+            display: flex;
+            background: #ecf0f1;
+            border-radius: 8px;
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .warning {
+            background: #f39c12;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tính toán thông số hoạt động cho máy phun PU</h1>
+            <p>Máy tính chuyên dụng cho quá trình phun polyurethane</p>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2>Công thức cơ bản</h2>
+                <div class="formula-display">
+                    O = C × L
+                </div>
+                <p style="text-align: center; color: #7f8c8d; font-size: 1.1em; margin-bottom: 20px;">
+                    Trong đó: O (Output), C (Concentration), L (Line speed)
+                </p>
+
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="lineSpeed">L - Tốc độ dây chuyền (Line speed)</label>
+                        <input type="number" id="lineSpeed" step="0.1" placeholder="Nhập 0 để tính toán">
+                        <div class="unit">Đơn vị: m/min</div>
+                    </div>
+                    <div class="input-field">
+                        <label for="output">O - Sản lượng (Output)</label>
+                        <input type="number" id="output" step="0.01" placeholder="Nhập 0 để tính toán">
+                        <div class="unit">Đơn vị: g/s hoặc kg/min</div>
+                    </div>
+                    <div class="input-field">
+                        <label for="concentration">C - Nồng độ (Concentration)</label>
+                        <input type="number" id="concentration" step="0.01" placeholder="Nhập 0 để tính toán">
+                        <div class="unit">Đơn vị: g/m hoặc kg/m</div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="ratio">Tỷ lệ (Ratio)</label>
+                        <input type="number" id="ratio" value="1.65" step="0.01">
+                        <div class="unit">Tỷ lệ Iso/Pol</div>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateBasic()">Tính toán</button>
+                <button class="calculate-btn" onclick="clearInputs()">Xóa dữ liệu</button>
+            </div>
+
+            <div class="section">
+                <h2>Kết quả chi tiết</h2>
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('tab1')">Tính O khi L = 0</button>
+                    <button class="tab" onclick="showTab('tab2')">Tính C khi O = 0</button>
+                    <button class="tab" onclick="showTab('tab3')">Tính L khi C = 0</button>
+                </div>
+
+                <div id="tab1" class="tab-content active">
+                    <div class="results">
+                        <h3>Kết quả tính toán O (Output)</h3>
+                        <div id="result-o"></div>
+                    </div>
+                </div>
+
+                <div id="tab2" class="tab-content">
+                    <div class="results">
+                        <h3>Kết quả tính toán C (Concentration)</h3>
+                        <div id="result-c"></div>
+                    </div>
+                </div>
+
+                <div id="tab3" class="tab-content">
+                    <div class="results">
+                        <h3>Kết quả tính toán L (Line speed)</h3>
+                        <div id="result-l"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Phân tích thành phần vật liệu</h2>
+                <div class="material-breakdown" id="materialBreakdown">
+                    <!-- Material breakdown will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateBasic() {
+            const lineSpeed = parseFloat(document.getElementById('lineSpeed').value) || 0;
+            const output = parseFloat(document.getElementById('output').value) || 0;
+            const concentration = parseFloat(document.getElementById('concentration').value) || 0;
+            const ratio = parseFloat(document.getElementById('ratio').value) || 1.65;
+
+            // Clear previous results
+            document.getElementById('result-o').innerHTML = '';
+            document.getElementById('result-c').innerHTML = '';
+            document.getElementById('result-l').innerHTML = '';
+
+            // Calculate based on which parameter is 0
+            if (lineSpeed === 0 && output > 0 && concentration > 0) {
+                // Calculate L when L = 0
+                // Need to convert units: O is in g/s, C is in g/m
+                // L = O / C, but need to convert O from g/s to g/min first
+                const outputInGmin = output * 60; // Convert g/s to g/min
+                const calculatedL = outputInGmin / concentration;
+                displayResult('result-l', 'L (Tốc độ dây chuyền)', calculatedL.toFixed(1), 'm/min');
+                calculateMaterialBreakdown(output, ratio);
+            } else if (output === 0 && lineSpeed > 0 && concentration > 0) {
+                // Calculate O when O = 0
+                // O = C × L, where C is in g/m and L is in m/min
+                // Result O will be in g/min, need to convert to g/s
+                const calculatedO_gmin = concentration * lineSpeed; // Result in g/min
+                const calculatedO_gs = calculatedO_gmin / 60; // Convert to g/s
+                const calculatedO_kgmin = calculatedO_gs * 0.06; // Convert g/s to kg/min
+                
+                displayResult('result-o', 'O (Sản lượng)', calculatedO_gs.toFixed(2), 'g/s');
+                displayResult('result-o', 'O (Sản lượng)', calculatedO_kgmin.toFixed(3), 'kg/min');
+                calculateMaterialBreakdown(calculatedO_gs, ratio);
+            } else if (concentration === 0 && lineSpeed > 0 && output > 0) {
+                // Calculate C when C = 0
+                // C = O / L, where O is in g/s and L is in m/min
+                // Need to convert O from g/s to g/min first: O_gmin = O_gs × 60
+                const outputInGmin = output * 60; // Convert g/s to g/min
+                const calculatedC = outputInGmin / lineSpeed; // Result in g/m
+                displayResult('result-c', 'C (Nồng độ)', calculatedC.toFixed(2), 'g/m');
+                displayResult('result-c', 'C (Nồng độ)', (calculatedC / 1000).toFixed(3), 'kg/m');
+                calculateMaterialBreakdown(output, ratio);
+            } else {
+                // Show error if not exactly one parameter is 0
+                showError('Vui lòng nhập 0 cho chính xác một thông số để tính toán.');
+            }
+        }
+
+        function displayResult(containerId, label, value, unit) {
+            const container = document.getElementById(containerId);
+            const resultItem = document.createElement('div');
+            resultItem.className = 'result-item';
+            resultItem.innerHTML = `
+                <span class="result-label">${label}</span>
+                <span class="result-value">${value} ${unit}</span>
+            `;
+            container.appendChild(resultItem);
+        }
+
+        function calculateMaterialBreakdown(output, ratio) {
+            const container = document.getElementById('materialBreakdown');
+            container.innerHTML = '';
+
+            // Calculate Pol and Iso based on ratio
+            const totalRatio = 1 + ratio;
+            const polAmount = output / totalRatio;
+            const isoAmount = output * ratio / totalRatio;
+
+            // Create material breakdown for different multipliers
+            const multipliers = [1, 4, 6];
+            
+            multipliers.forEach(multiplier => {
+                const pol = polAmount * multiplier;
+                const iso = isoAmount * multiplier;
+                const sum = pol + iso;
+
+                const materialItem = document.createElement('div');
+                materialItem.className = 'material-item';
+                materialItem.innerHTML = `
+                    <h4>Khối lượng x${multiplier}</h4>
+                    <div class="material-value">Pol: ${pol.toFixed(1)}g</div>
+                    <div class="material-value">Iso: ${iso.toFixed(1)}g</div>
+                    <div class="material-value">Tổng: ${sum.toFixed(1)}g</div>
+                `;
+                container.appendChild(materialItem);
+            });
+        }
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'warning';
+            errorDiv.innerHTML = message;
+            document.querySelector('.main-content').insertBefore(errorDiv, document.querySelector('.section'));
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+
+        function clearInputs() {
+            document.getElementById('lineSpeed').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('concentration').value = '';
+            document.getElementById('ratio').value = '1.65';
+            document.getElementById('result-o').innerHTML = '';
+            document.getElementById('result-c').innerHTML = '';
+            document.getElementById('result-l').innerHTML = '';
+            document.getElementById('materialBreakdown').innerHTML = '';
+        }
+
+        function showTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Initialize with default values from the Excel file
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('output').value = '88';
+            document.getElementById('concentration').value = '620';
+            document.getElementById('ratio').value = '1.65';
+        });
+    </script>
+</body>
+</html>
