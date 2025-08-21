@@ -43,6 +43,209 @@
           "source_part2_iso_rpm": 40
         }
       };
+
+      // Language translations
+      const translations = {
+        en: {
+          title: "PU Spraying Machine Operation Parameters Calculator",
+          subtitle: "Specialized calculator for polyurethane spraying process",
+          part1: "Part 1: Basic Calculator",
+          part2: "Part 2: Test Data Analysis",
+          part3: "Part 3: Parameter Adjustment",
+          formula_desc: "Where: O (Output), C (Consumption), L (Line speed)",
+          lineSpeed: "L - Line Speed",
+          output: "O - Output",
+          consumption: "C - Consumption",
+          ratio: "Ratio",
+          calculate: "Calculate",
+          clearData: "Clear Data",
+          calculationResults: "Calculation Results",
+          materialAnalysis: "Material Component Analysis",
+          testDataAnalysis: "Test Data Analysis",
+          testDataDesc: "Calculate parameters based on actual test data",
+          testLineSpeed: "L - Test Line Speed",
+          testTime: "T - Test Time",
+          polyolWeight: "P - Polyol Weight",
+          isocyanateWeight: "I - Isocyanate Weight",
+          polyolRPM: "PR - Polyol RPM",
+          isoRPM: "IR - Iso RPM",
+          part2Results: "Part 2 Results",
+          parameterAdjustment: "Parameter Adjustment",
+          parameterDesc: "Adjust parameters based on Part 2 results",
+          newLineSpeed: "Ln - New Line Speed",
+          newConsumption: "Cn - New Consumption",
+          newRatio: "Rn - New Ratio",
+          part3Results: "Part 3 Results",
+          rpmAdjustment: "RPM Adjustment Parameters",
+          totalOutput: "Total Output",
+          componentWeights: "Component Weights (per second)",
+          timeBasedBreakdown: "Time-based Breakdown",
+          total: "Total",
+          unitMMin: "Unit: m/min",
+          unitGs: "Unit: g/s",
+          unitGm: "Unit: g/m",
+          unitSeconds: "Unit: seconds",
+          unitGPerT: "Unit: g (per T seconds)",
+          unitHz: "Unit: Hz",
+          isoPolRatio: "Iso/Pol Ratio",
+          placeholder: "Enter 0 to calculate",
+          errorMandatory: "Please enter all mandatory Part 2 parameters (L, T, P, I).",
+          errorRPMWarning: "Warning: PR (Polyol RPM) and IR (Iso RPM) are not provided. RPM calculations in Part 3 will be inaccurate without these values.",
+          errorPart1: "Please enter 0 for exactly one parameter to calculate.",
+          errorPart3: "Please enter all Part 3 parameters.",
+          mass: "Mass"
+        },
+        vi: {
+          title: "Máy Tính Thông Số Hoạt Động Máy Phun PU",
+          subtitle: "Máy tính chuyên dụng cho quá trình phun polyurethane",
+          part1: "Phần 1: Máy Tính Cơ Bản",
+          part2: "Phần 2: Phân Tích Dữ Liệu Test",
+          part3: "Phần 3: Điều Chỉnh Thông Số",
+          formula_desc: "Trong đó: O (Sản lượng), C (Tiêu hao), L (Tốc độ dây chuyền)",
+          lineSpeed: "L - Tốc Độ Dây Chuyền",
+          output: "O - Sản Lượng",
+          consumption: "C - Tiêu Hao",
+          ratio: "Tỷ Lệ",
+          calculate: "Tính Toán",
+          clearData: "Xóa Dữ Liệu",
+          calculationResults: "Kết Quả Tính Toán",
+          materialAnalysis: "Phân Tích Thành Phần Vật Liệu",
+          testDataAnalysis: "Phân Tích Dữ Liệu Test",
+          testDataDesc: "Tính toán các thông số dựa trên dữ liệu test thực tế",
+          testLineSpeed: "L - Tốc Độ Dây Chuyền Test",
+          testTime: "T - Thời Gian Test",
+          polyolWeight: "P - Khối Lượng Polyol",
+          isocyanateWeight: "I - Khối Lượng Isocyanate",
+          polyolRPM: "PR - Polyol RPM",
+          isoRPM: "IR - Iso RPM",
+          part2Results: "Kết Quả Phần 2",
+          parameterAdjustment: "Điều Chỉnh Thông Số",
+          parameterDesc: "Điều chỉnh thông số dựa trên kết quả Phần 2",
+          newLineSpeed: "Ln - Tốc Độ Dây Chuyền Mới",
+          newConsumption: "Cn - Tiêu Hao Mới",
+          newRatio: "Rn - Tỷ Lệ Mới",
+          part3Results: "Kết Quả Phần 3",
+          rpmAdjustment: "Thông Số Điều Chỉnh RPM",
+          totalOutput: "Tổng Sản Lượng",
+          componentWeights: "Khối Lượng Thành Phần (mỗi giây)",
+          timeBasedBreakdown: "Phân Tích Theo Thời Gian",
+          total: "Tổng",
+          unitMMin: "Đơn vị: m/phút",
+          unitGs: "Đơn vị: g/s",
+          unitGm: "Đơn vị: g/m",
+          unitSeconds: "Đơn vị: giây",
+          unitGPerT: "Đơn vị: g (mỗi T giây)",
+          unitHz: "Đơn vị: Hz",
+          isoPolRatio: "Tỷ Lệ Iso/Pol",
+          placeholder: "Nhập 0 để tính toán",
+          errorMandatory: "Vui lòng nhập tất cả thông số bắt buộc Phần 2 (L, T, P, I).",
+          errorRPMWarning: "Cảnh báo: PR (Polyol RPM) và IR (Iso RPM) không được cung cấp. Tính toán RPM ở Phần 3 sẽ không chính xác.",
+          errorPart1: "Vui lòng nhập 0 cho chính xác một thông số để tính toán.",
+          errorPart3: "Vui lòng nhập tất cả thông số Phần 3.",
+          mass: "Khối Lượng"
+        },
+        th: {
+          title: "เครื่องคำนวณพารามิเตอร์การทำงานเครื่องพ่น PU",
+          subtitle: "เครื่องคำนวณเฉพาะสำหรับกระบวนการพ่นโพลียูรีเทน",
+          part1: "ส่วนที่ 1: เครื่องคำนวณพื้นฐาน",
+          part2: "ส่วนที่ 2: การวิเคราะห์ข้อมูลทดสอบ",
+          part3: "ส่วนที่ 3: การปรับพารามิเตอร์",
+          formula_desc: "โดยที่: O (ผลผลิต), C (การใช้), L (ความเร็วสาย)",
+          lineSpeed: "L - ความเร็วสาย",
+          output: "O - ผลผลิต",
+          consumption: "C - การใช้",
+          ratio: "อัตราส่วน",
+          calculate: "คำนวณ",
+          clearData: "ล้างข้อมูล",
+          calculationResults: "ผลการคำนวณ",
+          materialAnalysis: "การวิเคราะห์องค์ประกอบวัสดุ",
+          testDataAnalysis: "การวิเคราะห์ข้อมูลทดสอบ",
+          testDataDesc: "คำนวณพารามิเตอร์จากข้อมูลทดสอบจริง",
+          testLineSpeed: "L - ความเร็วสายทดสอบ",
+          testTime: "T - เวลาทดสอบ",
+          polyolWeight: "P - น้ำหนัก Polyol",
+          isocyanateWeight: "I - น้ำหนัก Isocyanate",
+          polyolRPM: "PR - Polyol RPM",
+          isoRPM: "IR - Iso RPM",
+          part2Results: "ผลลัพธ์ส่วนที่ 2",
+          parameterAdjustment: "การปรับพารามิเตอร์",
+          parameterDesc: "ปรับพารามิเตอร์จากผลลัพธ์ส่วนที่ 2",
+          newLineSpeed: "Ln - ความเร็วสายใหม่",
+          newConsumption: "Cn - การใช้ใหม่",
+          newRatio: "Rn - อัตราส่วนใหม่",
+          part3Results: "ผลลัพธ์ส่วนที่ 3",
+          rpmAdjustment: "พารามิเตอร์ปรับ RPM",
+          totalOutput: "ผลผลิตรวม",
+          componentWeights: "น้ำหนักองค์ประกอบ (ต่อวินาที)",
+          timeBasedBreakdown: "การแบ่งตามเวลา",
+          total: "รวม",
+          unitMMin: "หน่วย: ม./นาที",
+          unitGs: "หน่วย: ก./วินาที",
+          unitGm: "หน่วย: ก./ม.",
+          unitSeconds: "หน่วย: วินาที",
+          unitGPerT: "หน่วย: ก. (ต่อ T วินาที)",
+          unitHz: "หน่วย: Hz",
+          isoPolRatio: "อัตราส่วน Iso/Pol",
+          placeholder: "ใส่ 0 เพื่อคำนวณ",
+          errorMandatory: "กรุณากรอกพารามิเตอร์บังคับทั้งหมดของส่วนที่ 2 (L, T, P, I)",
+          errorRPMWarning: "คำเตือน: PR (Polyol RPM) และ IR (Iso RPM) ไม่ได้ระบุ การคำนวณ RPM ในส่วนที่ 3 จะไม่ถูกต้อง",
+          errorPart1: "กรุณาใส่ 0 สำหรับพารามิเตอร์เดียวเพื่อคำนวณ",
+          errorPart3: "กรุณากรอกพารามิเตอร์ส่วนที่ 3 ทั้งหมด",
+          mass: "มวล"
+        },
+        cn: {
+          title: "PU喷涂机操作参数计算器",
+          subtitle: "聚氨酯喷涂工艺专用计算器",
+          part1: "第1部分：基础计算器",
+          part2: "第2部分：测试数据分析",
+          part3: "第3部分：参数调整",
+          formula_desc: "其中：O（产量），C（消耗），L（线速度）",
+          lineSpeed: "L - 线速度",
+          output: "O - 产量",
+          consumption: "C - 消耗",
+          ratio: "比例",
+          calculate: "计算",
+          clearData: "清除数据",
+          calculationResults: "计算结果",
+          materialAnalysis: "材料成分分析",
+          testDataAnalysis: "测试数据分析",
+          testDataDesc: "基于实际测试数据计算参数",
+          testLineSpeed: "L - 测试线速度",
+          testTime: "T - 测试时间",
+          polyolWeight: "P - 聚醚重量",
+          isocyanateWeight: "I - 异氰酸酯重量",
+          polyolRPM: "PR - 聚醚转速",
+          isoRPM: "IR - 异氰酸酯转速",
+          part2Results: "第2部分结果",
+          parameterAdjustment: "参数调整",
+          parameterDesc: "基于第2部分结果调整参数",
+          newLineSpeed: "Ln - 新线速度",
+          newConsumption: "Cn - 新消耗",
+          newRatio: "Rn - 新比例",
+          part3Results: "第3部分结果",
+          rpmAdjustment: "转速调整参数",
+          totalOutput: "总产量",
+          componentWeights: "组件重量（每秒）",
+          timeBasedBreakdown: "基于时间的分解",
+          total: "总计",
+          unitMMin: "单位：米/分钟",
+          unitGs: "单位：克/秒",
+          unitGm: "单位：克/米",
+          unitSeconds: "单位：秒",
+          unitGPerT: "单位：克（每T秒）",
+          unitHz: "单位：赫兹",
+          isoPolRatio: "异氰酸酯/聚醚比例",
+          placeholder: "输入0进行计算",
+          errorMandatory: "请输入第2部分所有必需参数（L，T，P，I）。",
+          errorRPMWarning: "警告：未提供PR（聚醚转速）和IR（异氰酸酯转速）。第3部分的转速计算将不准确。",
+          errorPart1: "请为一个参数输入0进行计算。",
+          errorPart3: "请输入第3部分的所有参数。",
+          mass: "质量"
+        }
+      };
+
+      // Current language
+      let currentLang = 'en';
     </script>
     <style>
         * {
@@ -84,6 +287,27 @@
         .header p {
             font-size: 1.1em;
             opacity: 0.9;
+        }
+
+        .language-selector {
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        .lang-link {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-link.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
         }
 
         .main-content {
@@ -369,7 +593,16 @@
     <div class="container">
         <div class="header">
             <h1>PU Spraying Machine Operation Parameters Calculator</h1>
-            <p>Specialized calculator for polyurethane spraying process</p>
+            <div class="language-selector">
+                <span style="font-size: 1.1em; opacity: 0.9;">Language: </span>
+                <span class="lang-link active" onclick="switchLanguage('en')">En</span>
+                <span style="opacity: 0.7;"> | </span>
+                <span class="lang-link" onclick="switchLanguage('vi')">Vi</span>
+                <span style="opacity: 0.7;"> | </span>
+                <span class="lang-link" onclick="switchLanguage('th')">Th</span>
+                <span style="opacity: 0.7;"> | </span>
+                <span class="lang-link" onclick="switchLanguage('cn')">Cn</span>
+            </div>
         </div>
 
         <div class="main-content">
@@ -519,6 +752,103 @@
     </div>
 
     <script>
+        // Language switching function
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active language selector
+            document.querySelectorAll('.lang-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update all translatable elements
+            updateTranslations();
+        }
+        
+        function updateTranslations() {
+            const t = translations[currentLang];
+            
+            // Update title
+            document.querySelector('h1').textContent = t.title;
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn')[0].textContent = t.part1;
+            document.querySelectorAll('.nav-btn')[1].textContent = t.part2;
+            document.querySelectorAll('.nav-btn')[2].textContent = t.part3;
+            
+            // Update Part 1
+            document.querySelector('#part1-section h2').textContent = t.part1;
+            document.querySelector('#part1-section p').textContent = t.formula_desc;
+            document.querySelector('label[for="lineSpeed"]').textContent = t.lineSpeed;
+            document.querySelector('label[for="output"]').textContent = t.output;
+            document.querySelector('label[for="concentration"]').textContent = t.consumption;
+            document.querySelector('label[for="ratio"]').textContent = t.ratio;
+            
+            // Update units
+            document.querySelectorAll('.unit')[0].textContent = t.unitMMin;
+            document.querySelectorAll('.unit')[1].textContent = t.unitGs;
+            document.querySelectorAll('.unit')[2].textContent = t.unitGm;
+            document.querySelectorAll('.unit')[3].textContent = t.isoPolRatio;
+            
+            // Update placeholders
+            document.querySelectorAll('input[placeholder]').forEach(input => {
+                input.placeholder = t.placeholder;
+            });
+            
+            // Update buttons
+            document.querySelector('#part1-section .calculate-btn:first-of-type').textContent = t.calculate;
+            document.querySelector('#part1-section .calculate-btn:last-of-type').textContent = t.clearData;
+            
+            // Update Part 2
+            document.querySelector('#part2-section h2').textContent = t.part2;
+            document.querySelector('#part2-section > p').textContent = t.testDataDesc;
+            document.querySelector('label[for="part2_linespeed"]').textContent = t.testLineSpeed;
+            document.querySelector('label[for="part2_test_time"]').textContent = t.testTime;
+            document.querySelector('label[for="part2_polyol"]').textContent = t.polyolWeight;
+            document.querySelector('label[for="part2_iso"]').textContent = t.isocyanateWeight;
+            document.querySelector('label[for="part2_polyol_rpm"]').textContent = t.polyolRPM;
+            document.querySelector('label[for="part2_iso_rpm"]').textContent = t.isoRPM;
+            
+            // Update Part 2 units
+            const part2Units = document.querySelectorAll('#part2-section .unit');
+            part2Units[0].textContent = t.unitMMin;
+            part2Units[1].textContent = t.unitSeconds;
+            part2Units[2].textContent = t.unitGPerT;
+            part2Units[3].textContent = t.unitGPerT;
+            part2Units[4].textContent = t.unitHz;
+            part2Units[5].textContent = t.unitHz;
+            
+            // Update Part 2 buttons
+            document.querySelector('#part2-section .calculate-btn:first-of-type').textContent = t.calculate;
+            document.querySelector('#part2-section .calculate-btn:last-of-type').textContent = t.clearData;
+            
+            // Update Part 3
+            document.querySelector('#part3-section h2').textContent = t.part3;
+            document.querySelector('#part3-section > p').textContent = t.parameterDesc;
+            document.querySelector('label[for="part3_new_linespeed"]').textContent = t.newLineSpeed;
+            document.querySelector('label[for="part3_new_consumption"]').textContent = t.newConsumption;
+            document.querySelector('label[for="part3_new_ratio"]').textContent = t.newRatio;
+            
+            // Update Part 3 units
+            const part3Units = document.querySelectorAll('#part3-section .unit');
+            part3Units[0].textContent = t.unitMMin;
+            part3Units[1].textContent = t.unitGm;
+            part3Units[2].textContent = t.isoPolRatio;
+            
+            // Update Part 3 buttons
+            document.querySelector('#part3-section .calculate-btn:first-of-type').textContent = t.calculate;
+            document.querySelector('#part3-section .calculate-btn:last-of-type').textContent = t.clearData;
+            
+            // Update result headings
+            const resultHeadings = document.querySelectorAll('h3');
+            if (resultHeadings[0]) resultHeadings[0].textContent = t.calculationResults;
+            if (resultHeadings[1]) resultHeadings[1].textContent = t.materialAnalysis;
+            if (resultHeadings[2]) resultHeadings[2].textContent = t.part2Results;
+            if (resultHeadings[3]) resultHeadings[3].textContent = t.part3Results;
+            if (resultHeadings[4]) resultHeadings[4].textContent = t.rpmAdjustment;
+        }
+
         // Navigation between parts
         function showPart(partNumber) {
             // Hide all sections
@@ -547,24 +877,24 @@
             if (lineSpeed === 0 && output > 0 && concentration > 0) {
                 const outputInGmin = output * 60;
                 const calculatedL = outputInGmin / concentration;
-                displayResult('part1-result-content', 'L (Line Speed)', calculatedL.toFixed(1), 'm/min');
+                displayResult('part1-result-content', translations[currentLang].lineSpeed, calculatedL.toFixed(1), 'm/min');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
             } else if (output === 0 && lineSpeed > 0 && concentration > 0) {
                 const calculatedO_gmin = concentration * lineSpeed;
                 const calculatedO_gs = calculatedO_gmin / 60;
                 
-                displayResult('part1-result-content', 'O (Output)', calculatedO_gs.toFixed(2), 'g/s');
+                displayResult('part1-result-content', translations[currentLang].output, calculatedO_gs.toFixed(2), 'g/s');
                 calculatePart1MaterialBreakdown(calculatedO_gs, ratio);
                 document.getElementById('part1-results').style.display = 'block';
             } else if (concentration === 0 && lineSpeed > 0 && output > 0) {
                 const outputInGmin = output * 60;
                 const calculatedC = outputInGmin / lineSpeed;
-                displayResult('part1-result-content', 'C (Consumption)', calculatedC.toFixed(2), 'g/m');
+                displayResult('part1-result-content', translations[currentLang].consumption, calculatedC.toFixed(2), 'g/m');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
             } else {
-                showError('Please enter 0 for exactly one parameter to calculate.');
+                showError(translations[currentLang].errorPart1);
             }
         }
 
@@ -586,10 +916,10 @@
                 const materialItem = document.createElement('div');
                 materialItem.className = 'material-item';
                 materialItem.innerHTML = `
-                    <h4>Weight x ${multiplier}s</h4>
+                    <h4>${translations[currentLang].mass} x ${multiplier}s</h4>
                     <div class="material-value">Pol: ${pol.toFixed(1)}g</div>
                     <div class="material-value">Iso: ${iso.toFixed(1)}g</div>
-                    <div class="material-value">Total: ${sum.toFixed(1)}g</div>
+                    <div class="material-value">${translations[currentLang].total}: ${sum.toFixed(1)}g</div>
                 `;
                 container.appendChild(materialItem);
             });
@@ -615,13 +945,13 @@
             const isoRpm = parseFloat(document.getElementById('part2_iso_rpm').value) || 0;
 
             if (linespeed <= 0 || testTime <= 0 || polyolWeight <= 0 || isoWeight <= 0) {
-                showError('Please enter all mandatory Part 2 parameters (L, T, P, I).');
+                showError(translations[currentLang].errorMandatory);
                 return;
             }
 
             // Check if RPM values are missing and show warning
             if (polyolRpm <= 0 || isoRpm <= 0) {
-                showError('Warning: PR (Polyol RPM) and IR (Iso RPM) are not provided. RPM calculations in Part 3 will be inaccurate without these values.');
+                showError(translations[currentLang].errorRPMWarning);
             }
 
             const ratio = isoWeight / polyolWeight;
@@ -632,9 +962,9 @@
             const resultContainer = document.getElementById('part2-result-content');
             resultContainer.innerHTML = '';
 
-            displayResult('part2-result-content', 'Ratio', ratio.toFixed(2), '');
-            displayResult('part2-result-content', 'Output', outputGs.toFixed(2), 'g/s');
-            displayResult('part2-result-content', 'Consumption C', consumptionGM.toFixed(2), 'g/m');
+            displayResult('part2-result-content', translations[currentLang].ratio, ratio.toFixed(2), '');
+            displayResult('part2-result-content', translations[currentLang].output, outputGs.toFixed(2), 'g/s');
+            displayResult('part2-result-content', translations[currentLang].consumption + ' C', consumptionGM.toFixed(2), 'g/m');
 
             document.getElementById('part2-results').style.display = 'block';
 
@@ -672,7 +1002,7 @@
             const newRatio = parseFloat(document.getElementById('part3_new_ratio').value) || 0;
 
             if (newLinespeed <= 0 || newConsumption <= 0 || newRatio <= 0) {
-                showError('Please enter all Part 3 parameters.');
+                showError(translations[currentLang].errorPart3);
                 return;
             }
 
@@ -705,24 +1035,24 @@
             resultContainer.innerHTML = '';
 
             // Main output results
-            displayResult('part3-result-content', 'Total Output', newOutputGs.toFixed(2), 'g/s');
+            displayResult('part3-result-content', translations[currentLang].totalOutput, newOutputGs.toFixed(2), 'g/s');
             
             // Component breakdown section
             const componentHeader = document.createElement('div');
             componentHeader.className = 'result-section-header';
-            componentHeader.innerHTML = '<h4 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">Component Weights (per second)</h4>';
+            componentHeader.innerHTML = `<h4 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">${translations[currentLang].componentWeights}</h4>`;
             resultContainer.appendChild(componentHeader);
             
-            displayResult('part3-result-content', 'Polyol Weight', polyolWeightGs.toFixed(2), 'g/s');
-            displayResult('part3-result-content', 'Iso Weight', isoWeightGs.toFixed(2), 'g/s');
+            displayResult('part3-result-content', translations[currentLang].polyolWeight, polyolWeightGs.toFixed(2), 'g/s');
+            displayResult('part3-result-content', translations[currentLang].isocyanateWeight.replace('I - ', ''), isoWeightGs.toFixed(2), 'g/s');
 
             // Time-based breakdown section
             const timeHeader = document.createElement('div');
             timeHeader.className = 'result-section-header';
-            timeHeader.innerHTML = '<h4 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">Time-based Breakdown</h4>';
+            timeHeader.innerHTML = `<h4 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">${translations[currentLang].timeBasedBreakdown}</h4>`;
             resultContainer.appendChild(timeHeader);
             
-            const timeMultipliers = [1, 4, 6];
+            const timeMultipliers = [4, 6];
             timeMultipliers.forEach(multiplier => {
                 const pol = polyolWeightGs * multiplier;
                 const iso = isoWeightGs * multiplier;
@@ -736,10 +1066,10 @@
                 timeGroup.style.alignItems = 'flex-start';
                 timeGroup.innerHTML = `
                     <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 5px;">
-                        <span class="result-label" style="font-weight: 700;">${timeLabel} Total</span>
+                        <span class="result-label" style="font-weight: 700;">${timeLabel} ${translations[currentLang].total}</span>
                         <span class="result-value">${total.toFixed(1)}g</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; width: 100%; font-size: 0.9em; opacity: 0.8;">
+                    <div style="display: flex; justify-content: space-between; width: 100%; font-size: 1.1em; opacity: 0.8;">
                         <span>Polyol: ${pol.toFixed(1)}g</span>
                         <span>Iso: ${iso.toFixed(1)}g</span>
                     </div>
@@ -750,8 +1080,8 @@
             const rpmContainer = document.getElementById('part3-rpm-content');
             rpmContainer.innerHTML = '';
 
-            displayResult('part3-rpm-content', 'Polyol RPM', polyolRpm.toFixed(2), 'Hz');
-            displayResult('part3-rpm-content', 'Iso RPM', isoRpm.toFixed(2), 'Hz');
+            displayResult('part3-rpm-content', translations[currentLang].polyolRPM, polyolRpm.toFixed(2), 'Hz');
+            displayResult('part3-rpm-content', translations[currentLang].isoRPM, isoRpm.toFixed(2), 'Hz');
 
             document.getElementById('part3-results').style.display = 'block';
         }
