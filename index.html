@@ -560,6 +560,17 @@
             transform: translateY(-2px);
         }
 
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 5px;
@@ -874,12 +885,24 @@
             const resultContainer = document.getElementById('part1-result-content');
             resultContainer.innerHTML = '';
 
+            let clipboardText = "=== Part 1: Basic Calculator ===\n\n";
+            clipboardText += "Input Parameters:\n";
+            clipboardText += `L - Line Speed: ${lineSpeed === 0 ? '0 (calculated)' : lineSpeed} m/min\n`;
+            clipboardText += `O - Output: ${output === 0 ? '0 (calculated)' : output} g/s\n`;
+            clipboardText += `C - Consumption: ${concentration === 0 ? '0 (calculated)' : concentration} g/m\n`;
+            clipboardText += `Ratio: ${ratio}\n\n`;
+
             if (lineSpeed === 0 && output > 0 && concentration > 0) {
                 const outputInGmin = output * 60;
                 const calculatedL = outputInGmin / concentration;
                 displayResult('part1-result-content', translations[currentLang].lineSpeed, calculatedL.toFixed(1), 'm/min');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
+                
+                clipboardText += "Results:\n";
+                clipboardText += `${translations[currentLang].lineSpeed}: ${calculatedL.toFixed(1)} m/min\n\n`;
+                clipboardText += generatePart1MaterialText(output, ratio);
+                
             } else if (output === 0 && lineSpeed > 0 && concentration > 0) {
                 const calculatedO_gmin = concentration * lineSpeed;
                 const calculatedO_gs = calculatedO_gmin / 60;
@@ -887,15 +910,47 @@
                 displayResult('part1-result-content', translations[currentLang].output, calculatedO_gs.toFixed(2), 'g/s');
                 calculatePart1MaterialBreakdown(calculatedO_gs, ratio);
                 document.getElementById('part1-results').style.display = 'block';
+                
+                clipboardText += "Results:\n";
+                clipboardText += `${translations[currentLang].output}: ${calculatedO_gs.toFixed(2)} g/s\n\n`;
+                clipboardText += generatePart1MaterialText(calculatedO_gs, ratio);
+                
             } else if (concentration === 0 && lineSpeed > 0 && output > 0) {
                 const outputInGmin = output * 60;
                 const calculatedC = outputInGmin / lineSpeed;
                 displayResult('part1-result-content', translations[currentLang].consumption, calculatedC.toFixed(2), 'g/m');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
+                
+                clipboardText += "Results:\n";
+                clipboardText += `${translations[currentLang].consumption}: ${calculatedC.toFixed(2)} g/m\n\n`;
+                clipboardText += generatePart1MaterialText(output, ratio);
+                
             } else {
                 showError(translations[currentLang].errorPart1);
+                return;
             }
+
+            // Copy to clipboard
+            copyToClipboard(clipboardText);
+        }
+
+        function generatePart1MaterialText(output, ratio) {
+            const totalRatio = 1 + ratio;
+            const polAmount = output / totalRatio;
+            const isoAmount = output * ratio / totalRatio;
+
+            let materialText = "Material Component Analysis:\n";
+            const multipliers = [1, 4, 6];
+            
+            multipliers.forEach(multiplier => {
+                const pol = polAmount * multiplier;
+                const iso = isoAmount * multiplier;
+                const sum = pol + iso;
+                materialText += `Weight x ${multiplier}s: Pol: ${pol.toFixed(1)}g, Iso: ${iso.toFixed(1)}g, Total: ${sum.toFixed(1)}g\n`;
+            });
+
+            return materialText;
         }
 
         function calculatePart1MaterialBreakdown(output, ratio) {
@@ -916,7 +971,7 @@
                 const materialItem = document.createElement('div');
                 materialItem.className = 'material-item';
                 materialItem.innerHTML = `
-                    <h4>${translations[currentLang].mass} x ${multiplier}s</h4>
+                    <h4>Weight x ${multiplier}s</h4>
                     <div class="material-value">Pol: ${pol.toFixed(1)}g</div>
                     <div class="material-value">Iso: ${iso.toFixed(1)}g</div>
                     <div class="material-value">${translations[currentLang].total}: ${sum.toFixed(1)}g</div>
@@ -982,6 +1037,24 @@
             document.getElementById('part3_new_linespeed').value = linespeed;
             document.getElementById('part3_new_consumption').value = Math.round(consumptionGM);
             document.getElementById('part3_new_ratio').value = ratio.toFixed(2);
+
+            // Generate clipboard text
+            let clipboardText = "=== Part 2: Test Data Analysis ===\n\n";
+            clipboardText += "Input Parameters:\n";
+            clipboardText += `L - Test Line Speed: ${linespeed} m/min\n`;
+            clipboardText += `T - Test Time: ${testTime} seconds\n`;
+            clipboardText += `P - Polyol Weight: ${polyolWeight} g\n`;
+            clipboardText += `I - Isocyanate Weight: ${isoWeight} g\n`;
+            clipboardText += `PR - Polyol RPM: ${polyolRpm} Hz\n`;
+            clipboardText += `IR - Iso RPM: ${isoRpm} Hz\n\n`;
+
+            clipboardText += "Results:\n";
+            clipboardText += `${translations[currentLang].ratio}: ${ratio.toFixed(2)}\n`;
+            clipboardText += `${translations[currentLang].output}: ${outputGs.toFixed(2)} g/s\n`;
+            clipboardText += `${translations[currentLang].consumption} C: ${consumptionGM.toFixed(2)} g/m\n\n`;
+
+            // Copy to clipboard
+            copyToClipboard(clipboardText);
         }
 
         function clearPart2() {
@@ -1053,11 +1126,14 @@
             resultContainer.appendChild(timeHeader);
             
             const timeMultipliers = [4, 6];
+            let timeBreakdownText = "";
             timeMultipliers.forEach(multiplier => {
                 const pol = polyolWeightGs * multiplier;
                 const iso = isoWeightGs * multiplier;
                 const total = pol + iso;
                 const timeLabel = `${multiplier}s`;
+                
+                timeBreakdownText += `${timeLabel} Total: ${total.toFixed(1)}g (Polyol: ${pol.toFixed(1)}g, Iso: ${iso.toFixed(1)}g)\n`;
                 
                 // Create a grouped display for each time period
                 const timeGroup = document.createElement('div');
@@ -1084,6 +1160,30 @@
             displayResult('part3-rpm-content', translations[currentLang].isoRPM, isoRpm.toFixed(2), 'Hz');
 
             document.getElementById('part3-results').style.display = 'block';
+
+            // Generate clipboard text
+            let clipboardText = "=== Part 3: Parameter Adjustment ===\n\n";
+            clipboardText += "Input Parameters:\n";
+            clipboardText += `Ln - New Line Speed: ${newLinespeed} m/min\n`;
+            clipboardText += `Cn - New Consumption: ${newConsumption} g/m\n`;
+            clipboardText += `Rn - New Ratio: ${newRatio}\n\n`;
+
+            clipboardText += "Results:\n";
+            clipboardText += `${translations[currentLang].totalOutput}: ${newOutputGs.toFixed(2)} g/s\n\n`;
+            
+            clipboardText += "Component Weights (per second):\n";
+            clipboardText += `${translations[currentLang].polyolWeight}: ${polyolWeightGs.toFixed(2)} g/s\n`;
+            clipboardText += `${translations[currentLang].isocyanateWeight.replace('I - ', '')}: ${isoWeightGs.toFixed(2)} g/s\n\n`;
+            
+            clipboardText += "Time-based Breakdown:\n";
+            clipboardText += timeBreakdownText + "\n";
+            
+            clipboardText += "RPM Adjustment Parameters:\n";
+            clipboardText += `${translations[currentLang].polyolRPM}: ${polyolRpm.toFixed(2)} Hz\n`;
+            clipboardText += `${translations[currentLang].isoRPM}: ${isoRpm.toFixed(2)} Hz\n\n`;
+
+            // Copy to clipboard
+            copyToClipboard(clipboardText);
         }
 
         function clearPart3() {
@@ -1105,6 +1205,91 @@
                 <span class="result-value">${value} ${unit}</span>
             `;
             container.appendChild(resultItem);
+        }
+
+        // Clipboard functionality
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                // Use modern clipboard API
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopySuccess();
+                }).catch(err => {
+                    console.error('Failed to copy to clipboard:', err);
+                    fallbackCopyToClipboard(text);
+                });
+            } else {
+                // Fallback for older browsers or non-HTTPS contexts
+                fallbackCopyToClipboard(text);
+            }
+        }
+
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                console.error('Fallback: Failed to copy to clipboard:', err);
+                showCopyError();
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess() {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'copy-notification success';
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #27ae60;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            successDiv.textContent = '✓ Copied to clipboard!';
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        function showCopyError() {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'copy-notification error';
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #e74c3c;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            errorDiv.textContent = '✗ Failed to copy to clipboard';
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
         }
 
         function showError(message) {
