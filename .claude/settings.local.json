@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(python:*)",
-      "Bash(start index.html)"
+      "Bash(start index.html)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": [],
     "ask": [],

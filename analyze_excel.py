@@ -78,9 +78,7 @@ def analyze_excel_file(file_path):
             # Calculate Part 2 derived values (as shown in Excel)
             part2_ratio = part2_iso / part2_polyol if part2_polyol > 0 else 1.5
             part2_output_gs = (part2_polyol + part2_iso) / part2_test_time  # g/s
-            part2_output_kgmin = part2_output_gs * 0.06  # kg/min
-            part2_consumption_kgm = (part2_output_gs * 60) / (part2_linespeed * 1000)  # kg/m
-            part2_consumption_gm = part2_consumption_kgm * 1000  # g/m
+            part2_consumption_gm = (part2_output_gs * 60) / part2_linespeed  # g/m
             
             part2_data = {
                 "linespeed": part2_linespeed,
@@ -91,8 +89,6 @@ def analyze_excel_file(file_path):
                 "iso_rpm": part2_iso_rpm,
                 "ratio": round(part2_ratio, 2),
                 "output_gs": round(part2_output_gs, 2),
-                "output_kgmin": round(part2_output_kgmin, 3),
-                "consumption_kgm": round(part2_consumption_kgm, 4),
                 "consumption_gm": round(part2_consumption_gm, 2)
             }
             
@@ -105,7 +101,6 @@ def analyze_excel_file(file_path):
                 part3_new_ratio = df.iloc[58, 2] if 58 < len(df) else 1.4        # New Ratio = 1.4
                 
                 # Part 3 calculated output data (from Excel formulas)
-                part3_output_kgmin = df.iloc[59, 8] if 59 < len(df) else 5.36       # Output = 5.36 kg/min
                 part3_output_gs = df.iloc[59, 10] if 59 < len(df) else 89.33        # Output = 89.33 g/s
                 part3_polyol_rpm = df.iloc[63, 8] if 63 < len(df) else 37.22        # Polyol RPM = 37.22 Hz
                 part3_iso_rpm = df.iloc[64, 8] if 64 < len(df) else 46.32           # Iso RPM = 46.32 Hz
@@ -118,10 +113,8 @@ def analyze_excel_file(file_path):
                 part3_data = {
                     "new_linespeed": part3_new_linespeed,
                     "new_consumption_gm": part3_new_consumption,
-                    "new_consumption_kgm": part3_new_consumption / 1000,
                     "new_ratio": part3_new_ratio,
                     "output_gs": round(part3_output_gs, 2),
-                    "output_kgmin": round(part3_output_kgmin, 2),
                     "polyol_weight_gs": round(part3_polyol_weight_gs, 2),
                     "iso_weight_gs": round(part3_iso_weight_gs, 2),
                     "polyol_rpm": round(part3_polyol_rpm, 2),
@@ -138,10 +131,8 @@ def analyze_excel_file(file_path):
                 part3_data = {
                     "new_linespeed": 8,
                     "new_consumption_gm": 670,
-                    "new_consumption_kgm": 0.67,
                     "new_ratio": 1.4,
                     "output_gs": 89.33,
-                    "output_kgmin": 5.36,
                     "polyol_weight_gs": 37.22,
                     "iso_weight_gs": 52.11,
                     "polyol_rpm": 37.22,

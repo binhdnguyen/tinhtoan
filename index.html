@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tính toán thông số hoạt động cho máy phun PU - PU Spraying Machine Operation Parameters Calculator</title>
+    <title>PU Spraying Machine Operation Parameters Calculator</title>
     <script>
       const excelData = {
         "initial_values": {
@@ -26,17 +26,13 @@
           "iso_rpm": 40,
           "ratio": 1.5,
           "output_gs": 75.0,
-          "output_kgmin": 4.5,
-          "consumption_kgm": 0.6429,
           "consumption_gm": 642.86
         },
         "part3": {
           "new_linespeed": 8,
           "new_consumption_gm": 670,
-          "new_consumption_kgm": 0.67,
           "new_ratio": 1.4,
           "output_gs": 89.33,
-          "output_kgmin": 5.36,
           "polyol_weight_gs": 37.22,
           "iso_weight_gs": 52.11,
           "polyol_rpm": 37.22,
@@ -372,8 +368,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Tính toán thông số hoạt động cho máy phun PU<br><span style="font-size: 0.8em; opacity: 0.8;">PU Spraying Machine Operation Parameters Calculator</span></h1>
-            <p>Máy tính chuyên dụng cho quá trình phun polyurethane<br><span style="font-size: 0.9em; opacity: 0.8;">Specialized calculator for polyurethane spraying process</span></p>
+            <h1>PU Spraying Machine Operation Parameters Calculator</h1>
+            <p>Specialized calculator for polyurethane spraying process</p>
         </div>
 
         <div class="main-content">
@@ -385,48 +381,48 @@
 
             <!-- Part 1: Basic Calculator -->
             <div id="part1-section" class="section">
-                <h2>Part 1: Công thức cơ bản - Basic Formula Calculator</h2>
+                <h2>Part 1: Basic Formula Calculator</h2>
                 <div class="formula-display">
                     O = C × L
                 </div>
                 <p style="text-align: center; color: #7f8c8d; font-size: 1.1em; margin-bottom: 20px;">
-                    Trong đó: O (Output), C (Consumption), L (Line speed)
+                    O (Output), C (Consumption), L (Line speed)
                 </p>
 
                 <div class="input-group">
                     <div class="input-field">
-                        <label for="lineSpeed">L - Tốc độ dây chuyền<br><span style="font-size: 0.9em; opacity: 0.7;">Line Speed</span></label>
-                        <input type="number" id="lineSpeed" step="0.1" placeholder="Nhập 0 để tính toán - Enter 0 to calculate" inputmode="decimal">
-                        <div class="unit">Đơn vị: m/min</div>
-                    </div>
-                    <div class="input-field">
-                        <label for="output">O - Sản lượng<br><span style="font-size: 0.9em; opacity: 0.7;">Output</span></label>
-                        <input type="number" id="output" step="0.01" placeholder="Nhập 0 để tính toán - Enter 0 to calculate" inputmode="decimal">
-                        <div class="unit">Đơn vị: g/s hoặc kg/min</div>
-                    </div>
-                    <div class="input-field">
-                        <label for="concentration">C - Tiêu hao<br><span style="font-size: 0.9em; opacity: 0.7;">Consumption</span></label>
-                        <input type="number" id="concentration" step="0.01" placeholder="Nhập 0 để tính toán - Enter 0 to calculate" inputmode="decimal">
-                        <div class="unit">Đơn vị: g/m hoặc kg/m</div>
-                    </div>
-                    <div class="input-field">
-                        <label for="ratio">Tỷ lệ<br><span style="font-size: 0.9em; opacity: 0.7;">Ratio</span></label>
+                        <label for="ratio">Ratio</label>
                         <input type="number" id="ratio" value="1.65" step="0.01" inputmode="decimal">
-                        <div class="unit">Tỷ lệ Iso/Pol - Iso/Pol Ratio</div>
+                        <div class="unit">Iso/Pol Ratio</div>
+                    </div>
+                    <div class="input-field">
+                        <label for="lineSpeed">L - Line Speed</label>
+                        <input type="number" id="lineSpeed" step="0.1" placeholder="Enter 0 to calculate" inputmode="decimal">
+                        <div class="unit">Unit: m/min</div>
+                    </div>
+                    <div class="input-field">
+                        <label for="output">O - Output</label>
+                        <input type="number" id="output" step="0.01" placeholder="Enter 0 to calculate" inputmode="decimal">
+                        <div class="unit">Unit: g/s</div>
+                    </div>
+                    <div class="input-field">
+                        <label for="concentration">C - Consumption</label>
+                        <input type="number" id="concentration" step="0.01" placeholder="Enter 0 to calculate" inputmode="decimal">
+                        <div class="unit">Unit: g/m</div>
                     </div>
                 </div>
 
-                <button type="button" class="calculate-btn" onclick="calculateBasic()">Tính toán<br><span style="font-size: 0.8em;">Calculate</span></button>
-                <button type="button" class="calculate-btn" onclick="clearPart1()">Xóa dữ liệu<br><span style="font-size: 0.8em;">Clear Data</span></button>
+                <button type="button" class="calculate-btn" onclick="calculateBasic()">Calculate</button>
+                <button type="button" class="calculate-btn" onclick="clearPart1()">Clear Data</button>
 
                 <div id="part1-results" style="display: none;">
                     <div class="results">
-                        <h3>Kết quả tính toán - Calculation Results</h3>
+                        <h3>Calculation Results</h3>
                         <div id="part1-result-content"></div>
                     </div>
                     
                     <div class="results">
-                        <h3>Phân tích thành phần vật liệu - Material Component Analysis</h3>
+                        <h3>Material Component Analysis</h3>
                         <div class="material-breakdown" id="part1MaterialBreakdown"></div>
                     </div>
                 </div>
@@ -434,83 +430,83 @@
 
             <!-- Part 2: Test Data Analysis -->
             <div id="part2-section" class="section part2" style="display: none;">
-                <h2>Part 2: Phân tích dữ liệu test - Test Data Analysis</h2>
-                <p style="color: #7f8c8d; margin-bottom: 20px;">Tính toán các thông số dựa trên dữ liệu test thực tế - Calculate parameters based on actual test data</p>
+                <h2>Part 2: Test Data Analysis</h2>
+                <p style="color: #7f8c8d; margin-bottom: 20px;">Calculate parameters based on actual test data</p>
                 
                 <div class="input-group">
                     <div class="input-field">
-                        <label for="part2_linespeed">L - Tốc độ dây chuyền test<br><span style="font-size: 0.9em; opacity: 0.7;">Test Line Speed</span></label>
+                        <label for="part2_linespeed">L - Test Line Speed</label>
                         <input type="number" id="part2_linespeed" step="0.1" inputmode="decimal">
-                        <div class="unit">Đơn vị: m/min</div>
+                        <div class="unit">Unit: m/min</div>
                     </div>
                     <div class="input-field">
-                        <label for="part2_test_time">T - Thời gian test<br><span style="font-size: 0.9em; opacity: 0.7;">Test Time</span></label>
+                        <label for="part2_test_time">T - Test Time</label>
                         <input type="number" id="part2_test_time" step="1" inputmode="decimal">
-                        <div class="unit">Đơn vị: seconds</div>
+                        <div class="unit">Unit: seconds</div>
                     </div>
                     <div class="input-field">
-                        <label for="part2_polyol">P - Khối lượng Polyol<br><span style="font-size: 0.9em; opacity: 0.7;">Polyol Weight</span></label>
+                        <label for="part2_polyol">P - Polyol Weight</label>
                         <input type="number" id="part2_polyol" step="0.1" inputmode="decimal">
-                        <div class="unit">Đơn vị: g (per T seconds)</div>
+                        <div class="unit">Unit: g (per T seconds)</div>
                     </div>
                     <div class="input-field">
-                        <label for="part2_iso">I - Khối lượng Isocyanate<br><span style="font-size: 0.9em; opacity: 0.7;">Isocyanate Weight</span></label>
+                        <label for="part2_iso">I - Isocyanate Weight</label>
                         <input type="number" id="part2_iso" step="0.1" inputmode="decimal">
-                        <div class="unit">Đơn vị: g (per T seconds)</div>
+                        <div class="unit">Unit: g (per T seconds)</div>
                     </div>
                     <div class="input-field">
-                        <label for="part2_polyol_rpm">PR - Polyol RPM<br><span style="font-size: 0.9em; opacity: 0.7;">Polyol RPM</span></label>
+                        <label for="part2_polyol_rpm">PR - Polyol RPM</label>
                         <input type="number" id="part2_polyol_rpm" step="0.1" inputmode="decimal">
-                        <div class="unit">Đơn vị: Hz</div>
+                        <div class="unit">Unit: Hz</div>
                     </div>
                     <div class="input-field">
-                        <label for="part2_iso_rpm">IR - Iso RPM<br><span style="font-size: 0.9em; opacity: 0.7;">Iso RPM</span></label>
+                        <label for="part2_iso_rpm">IR - Iso RPM</label>
                         <input type="number" id="part2_iso_rpm" step="0.1" inputmode="decimal">
-                        <div class="unit">Đơn vị: Hz</div>
+                        <div class="unit">Unit: Hz</div>
                     </div>
                 </div>
 
-                <button type="button" class="calculate-btn part2" onclick="calculatePart2()">Tính toán Part 2<br><span style="font-size: 0.8em;">Calculate Part 2</span></button>
-                <button type="button" class="calculate-btn part2" onclick="clearPart2()">Xóa dữ liệu Part 2<br><span style="font-size: 0.8em;">Clear Part 2 Data</span></button>
+                <button type="button" class="calculate-btn part2" onclick="calculatePart2()">Calculate</button>
+                <button type="button" class="calculate-btn part2" onclick="clearPart2()">Clear Data</button>
 
                 <div class="results" id="part2-results" style="display: none;">
-                    <h3>Kết quả Part 2 - Part 2 Results</h3>
+                    <h3>Part 2 Results</h3>
                     <div id="part2-result-content"></div>
                 </div>
             </div>
 
             <!-- Part 3: Parameter Adjustment -->
             <div id="part3-section" class="section part3" style="display: none;">
-                <h2>Part 3: Điều chỉnh thông số - Parameter Adjustment</h2>
-                <p style="color: #7f8c8d; margin-bottom: 20px;">Điều chỉnh thông số dựa trên kết quả Part 2 - Adjust parameters based on Part 2 results</p>
+                <h2>Part 3: Parameter Adjustment</h2>
+                <p style="color: #7f8c8d; margin-bottom: 20px;">Adjust parameters based on Part 2 results</p>
                 
                 <div class="input-group">
                     <div class="input-field">
-                        <label for="part3_new_linespeed">Ln - Tốc độ dây chuyền mới<br><span style="font-size: 0.9em; opacity: 0.7;">New Line Speed</span></label>
+                        <label for="part3_new_linespeed">Ln - New Line Speed</label>
                         <input type="number" id="part3_new_linespeed" step="0.1" inputmode="decimal">
-                        <div class="unit">Đơn vị: m/min</div>
+                        <div class="unit">Unit: m/min</div>
                     </div>
                     <div class="input-field">
-                        <label for="part3_new_consumption">Cn - Tiêu hao mới<br><span style="font-size: 0.9em; opacity: 0.7;">New Consumption</span></label>
+                        <label for="part3_new_consumption">Cn - New Consumption</label>
                         <input type="number" id="part3_new_consumption" step="1" inputmode="decimal">
-                        <div class="unit">Đơn vị: g/m</div>
+                        <div class="unit">Unit: g/m</div>
                     </div>
                     <div class="input-field">
-                        <label for="part3_new_ratio">Rn - Tỷ lệ mới<br><span style="font-size: 0.9em; opacity: 0.7;">New Ratio</span></label>
+                        <label for="part3_new_ratio">Rn - New Ratio</label>
                         <input type="number" id="part3_new_ratio" step="0.01" inputmode="decimal">
-                        <div class="unit">Tỷ lệ Iso/Pol</div>
+                        <div class="unit">Iso/Pol Ratio</div>
                     </div>
                 </div>
 
-                <button type="button" class="calculate-btn part3" onclick="calculatePart3()">Tính toán Part 3<br><span style="font-size: 0.8em;">Calculate Part 3</span></button>
-                <button type="button" class="calculate-btn part3" onclick="clearPart3()">Xóa dữ liệu Part 3<br><span style="font-size: 0.8em;">Clear Part 3 Data</span></button>
+                <button type="button" class="calculate-btn part3" onclick="calculatePart3()">Calculate</button>
+                <button type="button" class="calculate-btn part3" onclick="clearPart3()">Clear Data</button>
 
                 <div class="results" id="part3-results" style="display: none;">
-                    <h3>Kết quả Part 3 - Part 3 Results</h3>
+                    <h3>Part 3 Results</h3>
                     <div id="part3-result-content"></div>
                     
                     <div class="results" style="margin-top: 20px;">
-                        <h3>Thông số điều chỉnh RPM - RPM Adjustment Parameters</h3>
+                        <h3>RPM Adjustment Parameters</h3>
                         <div id="part3-rpm-content"></div>
                     </div>
                 </div>
@@ -551,27 +547,24 @@
             if (lineSpeed === 0 && output > 0 && concentration > 0) {
                 const outputInGmin = output * 60;
                 const calculatedL = outputInGmin / concentration;
-                displayResult('part1-result-content', 'L (Tốc độ dây chuyền - Line Speed)', calculatedL.toFixed(1), 'm/min');
+                displayResult('part1-result-content', 'L (Line Speed)', calculatedL.toFixed(1), 'm/min');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
             } else if (output === 0 && lineSpeed > 0 && concentration > 0) {
                 const calculatedO_gmin = concentration * lineSpeed;
                 const calculatedO_gs = calculatedO_gmin / 60;
-                const calculatedO_kgmin = calculatedO_gs * 0.06;
                 
-                displayResult('part1-result-content', 'O (Sản lượng - Output)', calculatedO_gs.toFixed(2), 'g/s');
-                displayResult('part1-result-content', 'O (Sản lượng - Output)', calculatedO_kgmin.toFixed(3), 'kg/min');
+                displayResult('part1-result-content', 'O (Output)', calculatedO_gs.toFixed(2), 'g/s');
                 calculatePart1MaterialBreakdown(calculatedO_gs, ratio);
                 document.getElementById('part1-results').style.display = 'block';
             } else if (concentration === 0 && lineSpeed > 0 && output > 0) {
                 const outputInGmin = output * 60;
                 const calculatedC = outputInGmin / lineSpeed;
-                displayResult('part1-result-content', 'C (Tiêu hao - Consumption)', calculatedC.toFixed(2), 'g/m');
-                displayResult('part1-result-content', 'C (Tiêu hao - Consumption)', (calculatedC / 1000).toFixed(3), 'kg/m');
+                displayResult('part1-result-content', 'C (Consumption)', calculatedC.toFixed(2), 'g/m');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
             } else {
-                showError('Vui lòng nhập 0 cho chính xác một thông số để tính toán.<br>Please enter 0 for exactly one parameter to calculate.');
+                showError('Please enter 0 for exactly one parameter to calculate.');
             }
         }
 
@@ -593,10 +586,10 @@
                 const materialItem = document.createElement('div');
                 materialItem.className = 'material-item';
                 materialItem.innerHTML = `
-                    <h4>Khối lượng x${multiplier}<br><span style="font-size: 0.8em; opacity: 0.7;">Mass x${multiplier}</span></h4>
+                    <h4>Weight x ${multiplier}s</h4>
                     <div class="material-value">Pol: ${pol.toFixed(1)}g</div>
                     <div class="material-value">Iso: ${iso.toFixed(1)}g</div>
-                    <div class="material-value">Tổng - Total: ${sum.toFixed(1)}g</div>
+                    <div class="material-value">Total: ${sum.toFixed(1)}g</div>
                 `;
                 container.appendChild(materialItem);
             });
@@ -622,25 +615,26 @@
             const isoRpm = parseFloat(document.getElementById('part2_iso_rpm').value) || 0;
 
             if (linespeed <= 0 || testTime <= 0 || polyolWeight <= 0 || isoWeight <= 0) {
-                showError('Vui lòng nhập tất cả các thông số Part 2.<br>Please enter all Part 2 parameters.');
+                showError('Please enter all mandatory Part 2 parameters (L, T, P, I).');
                 return;
+            }
+
+            // Check if RPM values are missing and show warning
+            if (polyolRpm <= 0 || isoRpm <= 0) {
+                showError('Warning: PR (Polyol RPM) and IR (Iso RPM) are not provided. RPM calculations in Part 3 will be inaccurate without these values.');
             }
 
             const ratio = isoWeight / polyolWeight;
             const totalWeight = polyolWeight + isoWeight;
             const outputGs = totalWeight / testTime;
-            const outputKgMin = outputGs * 0.06;
-            const consumptionKgM = (outputGs * 60) / (linespeed * 1000);
-            const consumptionGM = consumptionKgM * 1000;
+            const consumptionGM = (outputGs * 60) / linespeed;
 
             const resultContainer = document.getElementById('part2-result-content');
             resultContainer.innerHTML = '';
 
-            displayResult('part2-result-content', 'Tỷ lệ (Ratio)', ratio.toFixed(2), '');
-            displayResult('part2-result-content', 'Sản lượng (Output)', outputGs.toFixed(2), 'g/s');
-            displayResult('part2-result-content', 'Sản lượng (Output)', outputKgMin.toFixed(2), 'kg/min');
-            displayResult('part2-result-content', 'Tiêu hao (Consumption C)', consumptionKgM.toFixed(4), 'kg/m');
-            displayResult('part2-result-content', 'Tiêu hao (Consumption C)', consumptionGM.toFixed(2), 'g/m');
+            displayResult('part2-result-content', 'Ratio', ratio.toFixed(2), '');
+            displayResult('part2-result-content', 'Output', outputGs.toFixed(2), 'g/s');
+            displayResult('part2-result-content', 'Consumption C', consumptionGM.toFixed(2), 'g/m');
 
             document.getElementById('part2-results').style.display = 'block';
 
@@ -648,13 +642,16 @@
             window.part2Results = {
                 ratio: ratio,
                 outputGs: outputGs,
-                outputKgMin: outputKgMin,
-                consumptionKgM: consumptionKgM,
                 consumptionGM: consumptionGM,
                 polyolRpm: polyolRpm,
                 isoRpm: isoRpm,
                 linespeed: linespeed
             };
+
+            // Auto-populate Part 3 inputs with Part 2 results
+            document.getElementById('part3_new_linespeed').value = linespeed;
+            document.getElementById('part3_new_consumption').value = Math.round(consumptionGM);
+            document.getElementById('part3_new_ratio').value = ratio.toFixed(2);
         }
 
         function clearPart2() {
@@ -675,13 +672,12 @@
             const newRatio = parseFloat(document.getElementById('part3_new_ratio').value) || 0;
 
             if (newLinespeed <= 0 || newConsumption <= 0 || newRatio <= 0) {
-                showError('Vui lòng nhập tất cả các thông số Part 3.<br>Please enter all Part 3 parameters.');
+                showError('Please enter all Part 3 parameters.');
                 return;
             }
 
             // Calculate new output based on new parameters
             const newOutputGs = (newConsumption * newLinespeed) / 60; // Convert g/m to g/s
-            const newOutputKgMin = newOutputGs * 0.06;
 
             // Calculate component weights based on new ratio
             const totalRatio = 1 + newRatio;
@@ -708,27 +704,54 @@
             const resultContainer = document.getElementById('part3-result-content');
             resultContainer.innerHTML = '';
 
-            displayResult('part3-result-content', 'Sản lượng (Output)', newOutputGs.toFixed(2), 'g/s');
-            displayResult('part3-result-content', 'Sản lượng (Output)', newOutputKgMin.toFixed(2), 'kg/min');
-            displayResult('part3-result-content', 'Khối lượng Polyol', polyolWeightGs.toFixed(2), 'g/s');
-            displayResult('part3-result-content', 'Khối lượng Iso', isoWeightGs.toFixed(2), 'g/s');
+            // Main output results
+            displayResult('part3-result-content', 'Total Output', newOutputGs.toFixed(2), 'g/s');
+            
+            // Component breakdown section
+            const componentHeader = document.createElement('div');
+            componentHeader.className = 'result-section-header';
+            componentHeader.innerHTML = '<h4 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">Component Weights (per second)</h4>';
+            resultContainer.appendChild(componentHeader);
+            
+            displayResult('part3-result-content', 'Polyol Weight', polyolWeightGs.toFixed(2), 'g/s');
+            displayResult('part3-result-content', 'Iso Weight', isoWeightGs.toFixed(2), 'g/s');
+
+            // Time-based breakdown section
+            const timeHeader = document.createElement('div');
+            timeHeader.className = 'result-section-header';
+            timeHeader.innerHTML = '<h4 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">Time-based Breakdown</h4>';
+            resultContainer.appendChild(timeHeader);
+            
+            const timeMultipliers = [1, 4, 6];
+            timeMultipliers.forEach(multiplier => {
+                const pol = polyolWeightGs * multiplier;
+                const iso = isoWeightGs * multiplier;
+                const total = pol + iso;
+                const timeLabel = `${multiplier}s`;
+                
+                // Create a grouped display for each time period
+                const timeGroup = document.createElement('div');
+                timeGroup.className = 'result-item';
+                timeGroup.style.flexDirection = 'column';
+                timeGroup.style.alignItems = 'flex-start';
+                timeGroup.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 5px;">
+                        <span class="result-label" style="font-weight: 700;">${timeLabel} Total</span>
+                        <span class="result-value">${total.toFixed(1)}g</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%; font-size: 0.9em; opacity: 0.8;">
+                        <span>Polyol: ${pol.toFixed(1)}g</span>
+                        <span>Iso: ${iso.toFixed(1)}g</span>
+                    </div>
+                `;
+                resultContainer.appendChild(timeGroup);
+            });
 
             const rpmContainer = document.getElementById('part3-rpm-content');
             rpmContainer.innerHTML = '';
 
             displayResult('part3-rpm-content', 'Polyol RPM', polyolRpm.toFixed(2), 'Hz');
             displayResult('part3-rpm-content', 'Iso RPM', isoRpm.toFixed(2), 'Hz');
-
-            // Show time-based breakdown
-            const timeMultipliers = [1, 4, 6];
-            timeMultipliers.forEach(multiplier => {
-                const pol = polyolWeightGs * multiplier;
-                const iso = isoWeightGs * multiplier;
-                const timeLabel = `${multiplier}s`;
-                
-                displayResult('part3-result-content', `Polyol ${timeLabel}`, pol.toFixed(1), 'g');
-                displayResult('part3-result-content', `Iso ${timeLabel}`, iso.toFixed(1), 'g');
-            });
 
             document.getElementById('part3-results').style.display = 'block';
         }
