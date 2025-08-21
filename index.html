@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PU Machine Operation Parameters Calculator</title>
+    <script src="config.js"></script>
     <script>
       const excelData = {
         "initial_values": {
@@ -246,6 +247,15 @@
 
       // Current language
       let currentLang = 'en';
+
+      // Google Sheets Integration Configuration
+      const GOOGLE_SHEETS_CONFIG = {
+        webAppUrl: (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_SHEETS_WEBAPP_URL) ? 
+          CONFIG.GOOGLE_SHEETS_WEBAPP_URL : 
+          // Fallback: Base64 encoded URL (basic obfuscation)
+          atob('aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5LTJyX1V2eDJ6TDdxaXFlV1NyRGRHMnh1cGRpUlZsbFREd0tCejZpUnBtd3UzOHNxNDZhZ0owNHdxQk5taXNFWEkvZXhlYw=='),
+        enabled: true
+      };
     </script>
     <style>
         * {
@@ -933,6 +943,58 @@
 
             // Copy to clipboard
             copyToClipboard(clipboardText);
+
+            // Send data to Google Sheets
+            const googleSheetsData = {
+                part: 'part1',
+                language: currentLang,
+                inputs: {
+                    lineSpeed: lineSpeed,
+                    output: output,
+                    concentration: concentration,
+                    ratio: ratio
+                },
+                results: {},
+                materialBreakdown: {}
+            };
+
+            // Add results based on calculation type
+            if (lineSpeed === 0) {
+                const calculatedL = (output * 60) / concentration;
+                googleSheetsData.results = {
+                    calculatedType: 'Line Speed',
+                    calculatedValue: calculatedL.toFixed(1),
+                    calculatedUnit: 'm/min'
+                };
+            } else if (output === 0) {
+                const calculatedO_gs = (concentration * lineSpeed) / 60;
+                googleSheetsData.results = {
+                    calculatedType: 'Output',
+                    calculatedValue: calculatedO_gs.toFixed(2),
+                    calculatedUnit: 'g/s'
+                };
+            } else if (concentration === 0) {
+                const calculatedC = (output * 60) / lineSpeed;
+                googleSheetsData.results = {
+                    calculatedType: 'Consumption',
+                    calculatedValue: calculatedC.toFixed(2),
+                    calculatedUnit: 'g/m'
+                };
+            }
+
+            // Add material breakdown
+            const finalOutput = output === 0 ? (concentration * lineSpeed) / 60 : output;
+            const totalRatio = 1 + ratio;
+            const polAmount = finalOutput / totalRatio;
+            const isoAmount = finalOutput * ratio / totalRatio;
+            
+            googleSheetsData.materialBreakdown = {
+                '1s': { pol: polAmount.toFixed(1), iso: isoAmount.toFixed(1), total: (polAmount + isoAmount).toFixed(1) },
+                '4s': { pol: (polAmount * 4).toFixed(1), iso: (isoAmount * 4).toFixed(1), total: ((polAmount + isoAmount) * 4).toFixed(1) },
+                '6s': { pol: (polAmount * 6).toFixed(1), iso: (isoAmount * 6).toFixed(1), total: ((polAmount + isoAmount) * 6).toFixed(1) }
+            };
+
+            sendDataToGoogleSheets(googleSheetsData);
         }
 
         function generatePart1MaterialText(output, ratio) {
@@ -1055,6 +1117,27 @@
 
             // Copy to clipboard
             copyToClipboard(clipboardText);
+
+            // Send data to Google Sheets
+            const googleSheetsData = {
+                part: 'part2',
+                language: currentLang,
+                inputs: {
+                    linespeed: linespeed,
+                    testTime: testTime,
+                    polyolWeight: polyolWeight,
+                    isoWeight: isoWeight,
+                    polyolRpm: polyolRpm,
+                    isoRpm: isoRpm
+                },
+                results: {
+                    ratio: ratio.toFixed(2),
+                    outputGs: outputGs.toFixed(2),
+                    consumptionGM: consumptionGM.toFixed(2)
+                }
+            };
+
+            sendDataToGoogleSheets(googleSheetsData);
         }
 
         function clearPart2() {
@@ -1184,6 +1267,38 @@
 
             // Copy to clipboard
             copyToClipboard(clipboardText);
+
+            // Send data to Google Sheets
+            const googleSheetsData = {
+                part: 'part3',
+                language: currentLang,
+                inputs: {
+                    newLinespeed: newLinespeed,
+                    newConsumption: newConsumption,
+                    newRatio: newRatio
+                },
+                results: {
+                    newOutputGs: newOutputGs.toFixed(2),
+                    polyolWeightGs: polyolWeightGs.toFixed(2),
+                    isoWeightGs: isoWeightGs.toFixed(2),
+                    polyolRpm: polyolRpm.toFixed(2),
+                    isoRpm: isoRpm.toFixed(2),
+                    timeBreakdown: {
+                        '4s': {
+                            total: (newOutputGs * 4).toFixed(1),
+                            polyol: (polyolWeightGs * 4).toFixed(1),
+                            iso: (isoWeightGs * 4).toFixed(1)
+                        },
+                        '6s': {
+                            total: (newOutputGs * 6).toFixed(1),
+                            polyol: (polyolWeightGs * 6).toFixed(1),
+                            iso: (isoWeightGs * 6).toFixed(1)
+                        }
+                    }
+                }
+            };
+
+            sendDataToGoogleSheets(googleSheetsData);
         }
 
         function clearPart3() {
@@ -1285,6 +1400,81 @@
                 animation: slideIn 0.3s ease;
             `;
             errorDiv.textContent = '✗ Failed to copy to clipboard';
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
+        }
+
+        // Google Sheets Integration Functions
+        async function sendDataToGoogleSheets(data) {
+            if (!GOOGLE_SHEETS_CONFIG.enabled || GOOGLE_SHEETS_CONFIG.webAppUrl === 'REPLACE_WITH_YOUR_WEBAPP_URL') {
+                console.log('Google Sheets integration disabled or URL not configured');
+                return;
+            }
+
+            try {
+                const response = await fetch(GOOGLE_SHEETS_CONFIG.webAppUrl, {
+                    method: 'POST',
+                    mode: 'no-cors', // Important for Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Note: no-cors mode means we can't read the response, but the request will be sent
+                console.log('Data sent to Google Sheets successfully');
+                showDataSaveSuccess();
+                
+            } catch (error) {
+                console.error('Failed to send data to Google Sheets:', error);
+                showDataSaveError();
+            }
+        }
+
+        function showDataSaveSuccess() {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'save-notification success';
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 70px;
+                right: 20px;
+                background: #27ae60;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            successDiv.textContent = '💾 Data saved to Google Sheets!';
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        function showDataSaveError() {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'save-notification error';
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 70px;
+                right: 20px;
+                background: #e74c3c;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            errorDiv.textContent = '✗ Failed to save to Google Sheets';
             document.body.appendChild(errorDiv);
             
             setTimeout(() => {
