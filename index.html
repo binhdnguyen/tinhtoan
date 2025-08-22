@@ -382,8 +382,8 @@
         }
       };
 
-      // Current language
-      let currentLang = 'en';
+      // Current language - load from localStorage or default to 'en'
+      let currentLang = localStorage.getItem('puCalculatorLanguage') || 'en';
 
       // Google Sheets Integration Configuration
       const GOOGLE_SHEETS_CONFIG = {
@@ -974,6 +974,9 @@
         // Language switching function
         function switchLanguage(lang) {
             currentLang = lang;
+            
+            // Save language preference to localStorage
+            localStorage.setItem('puCalculatorLanguage', lang);
             
             // Update active language selector
             document.querySelectorAll('.lang-link').forEach(link => {
@@ -1701,8 +1704,39 @@
             }, 5000);
         }
 
+        // Initialize language on page load
+        function initializeLanguage() {
+            // Set the active language selector based on saved preference
+            document.querySelectorAll('.lang-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the correct language link
+            const langLinks = document.querySelectorAll('.lang-link');
+            const langMap = {
+                'en': 0,
+                'vi': 1,
+                'th': 2,
+                'cn': 3
+            };
+            
+            if (langMap[currentLang] !== undefined && langLinks[langMap[currentLang]]) {
+                langLinks[langMap[currentLang]].classList.add('active');
+            } else {
+                // Fallback to English if saved language is not found
+                langLinks[0].classList.add('active');
+                currentLang = 'en';
+                localStorage.setItem('puCalculatorLanguage', 'en');
+            }
+            
+            // Update all translations to the saved language
+            updateTranslations();
+        }
+
         // Initialize with default values from the Excel file
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language first
+            initializeLanguage();
             // Initialize Part 1 values
             document.getElementById('lineSpeed').value = excelData.initial_values.line_speed;
             document.getElementById('output').value = excelData.initial_values.output;
