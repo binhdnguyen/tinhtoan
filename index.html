@@ -947,6 +947,7 @@
             // Send data to Google Sheets
             const googleSheetsData = {
                 part: 'part1',
+                sheetName: 'Part1',
                 language: currentLang,
                 inputs: {
                     lineSpeed: lineSpeed,
@@ -1081,7 +1082,7 @@
 
             displayResult('part2-result-content', translations[currentLang].ratio, ratio.toFixed(2), '');
             displayResult('part2-result-content', translations[currentLang].output, outputGs.toFixed(2), 'g/s');
-            displayResult('part2-result-content', translations[currentLang].consumption + ' C', consumptionGM.toFixed(2), 'g/m');
+            displayResult('part2-result-content', translations[currentLang].consumption, consumptionGM.toFixed(2), 'g/m');
 
             document.getElementById('part2-results').style.display = 'block';
 
@@ -1113,7 +1114,7 @@
             clipboardText += "Results:\n";
             clipboardText += `${translations[currentLang].ratio}: ${ratio.toFixed(2)}\n`;
             clipboardText += `${translations[currentLang].output}: ${outputGs.toFixed(2)} g/s\n`;
-            clipboardText += `${translations[currentLang].consumption} C: ${consumptionGM.toFixed(2)} g/m\n\n`;
+            clipboardText += `${translations[currentLang].consumption}: ${consumptionGM.toFixed(2)} g/m\n\n`;
 
             // Copy to clipboard
             copyToClipboard(clipboardText);
@@ -1121,6 +1122,7 @@
             // Send data to Google Sheets
             const googleSheetsData = {
                 part: 'part2',
+                sheetName: 'Part2',
                 language: currentLang,
                 inputs: {
                     linespeed: linespeed,
@@ -1271,6 +1273,7 @@
             // Send data to Google Sheets
             const googleSheetsData = {
                 part: 'part3',
+                sheetName: 'Part3',
                 language: currentLang,
                 inputs: {
                     newLinespeed: newLinespeed,
@@ -1426,61 +1429,12 @@
 
                 // Note: no-cors mode means we can't read the response, but the request will be sent
                 console.log('Data sent to Google Sheets successfully');
-                showDataSaveSuccess();
                 
             } catch (error) {
                 console.error('Failed to send data to Google Sheets:', error);
-                showDataSaveError();
             }
         }
 
-        function showDataSaveSuccess() {
-            const successDiv = document.createElement('div');
-            successDiv.className = 'save-notification success';
-            successDiv.style.cssText = `
-                position: fixed;
-                top: 70px;
-                right: 20px;
-                background: #27ae60;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                z-index: 1000;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                animation: slideIn 0.3s ease;
-            `;
-            successDiv.textContent = '💾 Data saved to Google Sheets!';
-            document.body.appendChild(successDiv);
-            
-            setTimeout(() => {
-                successDiv.remove();
-            }, 3000);
-        }
-
-        function showDataSaveError() {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'save-notification error';
-            errorDiv.style.cssText = `
-                position: fixed;
-                top: 70px;
-                right: 20px;
-                background: #e74c3c;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                z-index: 1000;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                animation: slideIn 0.3s ease;
-            `;
-            errorDiv.textContent = '✗ Failed to save to Google Sheets';
-            document.body.appendChild(errorDiv);
-            
-            setTimeout(() => {
-                errorDiv.remove();
-            }, 3000);
-        }
 
         function showError(message) {
             const errorDiv = document.createElement('div');
