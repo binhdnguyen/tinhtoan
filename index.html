@@ -96,6 +96,7 @@
           errorRPMWarning: "Warning: PR (Polyol RPM) and IR (Iso RPM) are not provided. RPM calculations in Part 3 will be inaccurate without these values.",
           errorPart1: "Please enter 0 for exactly one parameter to calculate.",
           errorPart3: "Please enter all Part 3 parameters.",
+          errorRatioRequired: "Ratio is mandatory and cannot be blank or zero.",
           mass: "Mass",
           clipboardHeaders: {
             part1: "Part 1: Basic Calculator",
@@ -153,6 +154,7 @@
           errorRPMWarning: "Cảnh báo: PR (Polyol RPM) và IR (Iso RPM) không được cung cấp. Tính toán RPM ở Phần 3 sẽ không chính xác.",
           errorPart1: "Vui lòng nhập 0 cho chính xác một thông số để tính toán.",
           errorPart3: "Vui lòng nhập tất cả thông số Phần 3.",
+          errorRatioRequired: "Tỷ lệ là bắt buộc và không thể để trống hoặc bằng không.",
           mass: "Khối Lượng",
           clipboardHeaders: {
             part1: "Phần 1: Máy Tính Cơ Bản",
@@ -210,6 +212,7 @@
           errorRPMWarning: "คำเตือน: PR (Polyol RPM) และ IR (Iso RPM) ไม่ได้ระบุ การคำนวณ RPM ในส่วนที่ 3 จะไม่ถูกต้อง",
           errorPart1: "กรุณาใส่ 0 สำหรับพารามิเตอร์เดียวเพื่อคำนวณ",
           errorPart3: "กรุณากรอกพารามิเตอร์ส่วนที่ 3 ทั้งหมด",
+          errorRatioRequired: "อัตราส่วนเป็นค่าบังคับและไม่สามารถเว้นว่างหรือเป็นศูนย์ได้",
           mass: "มวล",
           clipboardHeaders: {
             part1: "ส่วนที่ 1: เครื่องคำนวณพื้นฐาน",
@@ -267,6 +270,7 @@
           errorRPMWarning: "警告：未提供PR（聚醚转速）和IR（异氰酸酯转速）。第3部分的转速计算将不准确。",
           errorPart1: "请为一个参数输入0进行计算。",
           errorPart3: "请输入第3部分的所有参数。",
+          errorRatioRequired: "比例是必填项，不能为空或为零。",
           mass: "质量",
           clipboardHeaders: {
             part1: "第1部分：基础计算器",
@@ -924,7 +928,14 @@
             const lineSpeed = parseFloat(document.getElementById('lineSpeed').value) || 0;
             const output = parseFloat(document.getElementById('output').value) || 0;
             const concentration = parseFloat(document.getElementById('concentration').value) || 0;
-            const ratio = parseFloat(document.getElementById('ratio').value) || 1.65;
+            const ratioValue = document.getElementById('ratio').value;
+            const ratio = parseFloat(ratioValue);
+            
+            // Validate ratio is mandatory and not zero
+            if (!ratioValue || isNaN(ratio) || ratio <= 0) {
+                showError(translations[currentLang].errorRatioRequired);
+                return;
+            }
 
             const resultContainer = document.getElementById('part1-result-content');
             resultContainer.innerHTML = '';
@@ -1236,7 +1247,7 @@
             resultContainer.appendChild(componentHeader);
             
             displayResult('part3-result-content', translations[currentLang].polyolWeight, polyolWeightGs.toFixed(2), 'g/s');
-            displayResult('part3-result-content', translations[currentLang].isocyanateWeight.replace('I - ', ''), isoWeightGs.toFixed(2), 'g/s');
+            displayResult('part3-result-content', translations[currentLang].isocyanateWeight, isoWeightGs.toFixed(2), 'g/s');
 
             // Time-based breakdown section
             const timeHeader = document.createElement('div');
@@ -1292,7 +1303,7 @@
             
             clipboardText += `${translations[currentLang].componentWeights}:\n`;
             clipboardText += `${translations[currentLang].polyolWeight}: ${polyolWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].isocyanateWeight.replace('I - ', '')}: ${isoWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
+            clipboardText += `${translations[currentLang].isocyanateWeight}: ${isoWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
             
             clipboardText += `${translations[currentLang].timeBasedBreakdown}:\n`;
             clipboardText += timeBreakdownText + "\n";
