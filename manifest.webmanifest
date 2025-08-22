@@ -1,6 +1,6 @@
 {
-  "name": "Interfoam Calc",
-  "short_name": "Interfoam Calc",
+  "name": "PU Calculation",
+  "short_name": "PUCal",
   "description": "PU Machine Operation Parameters Calculator for polyurethane spraying process",
   "start_url": "./index.html",
   "display": "standalone",
