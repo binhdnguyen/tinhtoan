@@ -1,5 +1,5 @@
 # Hide all files except index.html
-*
+
 !index.html
 !.gitignore
 !README.md

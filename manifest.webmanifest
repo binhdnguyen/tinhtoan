@@ -1,0 +1,33 @@
+{
+  "name": "Interfoam Calc",
+  "short_name": "Interfoam Calc",
+  "description": "PU Machine Operation Parameters Calculator for polyurethane spraying process",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#3498db",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["productivity", "utilities", "business"],
+  "screenshots": []
+}
