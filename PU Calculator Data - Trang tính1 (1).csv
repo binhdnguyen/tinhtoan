@@ -1,5 +1,0 @@
-Timestamp,Part,Language,L - Line Speed (m/min),O - Output (g/s),C - Consumption (g/m),Ratio (Iso/Pol),L - Test Line Speed (m/min),T - Test Time (seconds),P - Polyol Weight (g),I - Isocyanate Weight (g),PR - Polyol RPM (Hz),IR - Iso RPM (Hz),Ln - New Line Speed (m/min),Cn - New Consumption (g/m),Rn - New Ratio,Calculation Type,Main Results,RPM Results,Additional Data
-21/08/2025 17:02:12,Part 1,8,88,,"1,65",660.00,Consumption,{},,,,,,,,,,,
-21/08/2025 17:02:16,Part 2,7,4,120,180,30,40,1.50,75.00,642.86,,,,,,,,,
-21/08/2025 17:02:19,Part 3,7,643,"1,5",75.02,30.01,45.01,30.01,40.01,"{""4s"":{""total"":""300.1"",""polyol"":""120.0"",""iso"":""180.0""},""6s"":{""total"":""450.1"",""polyol"":""180.0"",""iso"":""270.1""}}",,,,,,,,,
-21/08/2025 17:03:16,Part 3,7,643,"1,5",75.02,30.01,45.01,30.01,40.01,"{""4s"":{""total"":""300.1"",""polyol"":""120.0"",""iso"":""180.0""},""6s"":{""total"":""450.1"",""polyol"":""180.0"",""iso"":""270.1""}}",,,,,,,,,

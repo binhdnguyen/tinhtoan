@@ -1,4 +1,9 @@
-# Configuration files with sensitive data
+# Hide all files except index.html
+*
+!index.html
+!.gitignore
+
+# Configuration files with sensitive data (kept for reference)
 config.js
 
 # Other common files to ignore
