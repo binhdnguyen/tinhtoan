@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PU Machine Operation Parameters Calculator</title>
 
-    // Google Analytics
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H54NMKEF6S"></script>
     <script>
@@ -64,6 +63,7 @@
         en: {
           title: "PU Machine Operation Parameters Calculator",
           subtitle: "Specialized calculator for polyurethane spraying process",
+          howToUse: "how to use",
           part1: "Part 1: Basic Calculator",
           part2: "Part 2: Test Data Analysis",
           part3: "Part 3: Parameter Adjustment",
@@ -122,6 +122,7 @@
         vi: {
           title: "Máy Tính Thông Số Hoạt Động Máy Phun PU",
           subtitle: "Máy tính chuyên dụng cho quá trình phun polyurethane",
+          howToUse: "cách sử dụng",
           part1: "Phần 1: Máy Tính Cơ Bản",
           part2: "Phần 2: Phân Tích Dữ Liệu Test",
           part3: "Phần 3: Điều Chỉnh Thông Số",
@@ -180,6 +181,7 @@
         th: {
           title: "เครื่องคำนวณพารามิเตอร์การทำงานเครื่องพ่น PU",
           subtitle: "เครื่องคำนวณเฉพาะสำหรับกระบวนการพ่นโพลียูรีเทน",
+          howToUse: "วิธีใช้",
           part1: "ส่วนที่ 1: เครื่องคำนวณพื้นฐาน",
           part2: "ส่วนที่ 2: การวิเคราะห์ข้อมูลทดสอบ",
           part3: "ส่วนที่ 3: การปรับพารามิเตอร์",
@@ -238,6 +240,7 @@
         cn: {
           title: "PU喷涂机操作参数计算器",
           subtitle: "聚氨酯喷涂工艺专用计算器",
+          howToUse: "如何使用",
           part1: "第1部分：基础计算器",
           part2: "第2部分：测试数据分析",
           part3: "第3部分：参数调整",
@@ -664,6 +667,13 @@
     <div class="container">
         <div class="header">
             <h1>PU Machine Operation Parameters Calculator</h1>
+            <div style="margin-top: 10px; margin-bottom: 10px;">
+                <a href="README.md" target="_blank" id="howToUseLink" style="color: #ffffff; text-decoration: none; background-color: rgba(255, 255, 255, 0.2); padding: 8px 16px; border-radius: 5px; font-size: 0.9em; transition: all 0.3s ease;" 
+                   onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.3)'" 
+                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'">
+                    How to use
+                </a>
+            </div>
             <div class="language-selector">
                 <span style="font-size: 1.1em; opacity: 0.9;">Language: </span>
                 <span class="lang-link active" onclick="switchLanguage('en')">En</span>
@@ -842,6 +852,9 @@
             
             // Update title
             document.querySelector('h1').textContent = t.title;
+            
+            // Update how to use button
+            document.querySelector('#howToUseLink').textContent = t.howToUse;
             
             // Update navigation buttons
             document.querySelectorAll('.nav-btn')[0].textContent = t.part1;
