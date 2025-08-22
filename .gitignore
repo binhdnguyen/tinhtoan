@@ -2,10 +2,6 @@
 *
 !index.html
 !.gitignore
-!config.example.js
-
-# Configuration files with sensitive data (kept for reference)
-config.js
 
 # Other common files to ignore
 .DS_Store
