@@ -561,7 +561,7 @@
         }
 
         .calculate-btn {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background: linear-gradient(45deg, #3498db, #2980b9);
             color: white;
             padding: 16px 30px;
             border: none;
@@ -579,7 +579,7 @@
 
         .calculate-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
         }
 
         .calculate-btn.part2 {
@@ -708,10 +708,20 @@
         }
 
         .nav-btn.active {
-            background: #3498db;
+            background: linear-gradient(45deg, #3498db, #2980b9);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .nav-btn.active.part2 {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .nav-btn.active.part3 {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
         }
 
         .nav-btn:not(.active) {
@@ -736,29 +746,137 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 5px;
+                padding: 2px;
                 font-size: 11px;
+                line-height: 1.2;
+            }
+            
+            .container {
+                margin: 2px;
+                border-radius: 8px;
+            }
+            
+            .header {
+                padding: 12px;
             }
             
             .header h1 {
-                font-size: 1.5em;
+                font-size: 1.4em;
+                margin-bottom: 5px;
+                line-height: 1.1;
+            }
+            
+            .language-selector {
+                margin-top: 8px;
+            }
+            
+            .main-content {
+                padding: 12px;
+            }
+            
+            .section {
+                margin-bottom: 12px;
+                padding: 10px;
+            }
+            
+            .section h2 {
+                margin-bottom: 12px;
+                font-size: 1.2em;
+                line-height: 1.2;
+            }
+            
+            .formula-display {
+                padding: 12px;
+                margin-bottom: 15px;
+                font-size: 1.2em;
+                line-height: 1.2;
             }
             
             .input-group {
                 grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            
+            .input-field {
+                padding: 10px;
+            }
+            
+            .input-field label {
+                margin-bottom: 4px;
+                font-size: 1em;
+            }
+            
+            .input-field input {
+                padding: 10px;
+            }
+            
+            .input-field .unit {
+                margin-top: 2px;
             }
             
             .calculate-btn {
                 width: 100%;
                 margin-right: 0;
+                margin-bottom: 8px;
+                padding: 12px 20px;
+                line-height: 1.1;
+            }
+            
+            .results {
+                padding: 10px;
+                margin-top: 12px;
+            }
+            
+            .results h3 {
+                margin-bottom: 12px;
+                font-size: 1.1em;
+                line-height: 1.2;
+            }
+            
+            .result-item {
+                padding: 8px;
+                margin-bottom: 6px;
+            }
+            
+            .materials-grid {
+                gap: 8px;
+                margin-top: 10px;
+            }
+            
+            .material-item {
+                padding: 10px;
+            }
+            
+            .material-item h4 {
+                margin-bottom: 6px;
             }
             
             .part-navigation {
                 flex-direction: column;
+                margin-bottom: 15px;
+                gap: 8px;
             }
             
             .nav-btn {
                 width: 100%;
+                padding: 8px 16px;
+            }
+            
+            .footer {
+                padding: 12px;
+                margin-top: 15px;
+            }
+            
+            #instructionsSection {
+                margin-bottom: 12px;
+                padding: 12px;
+            }
+            
+            #instructionsTitle {
+                margin-bottom: 10px;
+                font-size: 1.2em;
+                line-height: 1.2;
             }
         }
     </style>
@@ -767,7 +885,7 @@
     <div class="container">
         <div class="header">
             <h1>PU Machine Operation Parameters Calculator</h1>
-            <div style="margin-top: 10px; margin-bottom: 10px;">
+            <div style="margin-top: 6px; margin-bottom: 6px;">
                 <button type="button" id="howToUseLink" onclick="toggleInstructions()" style="color: #ffffff; background-color: rgba(255, 255, 255, 0.2); border: none; padding: 8px 16px; border-radius: 5px; font-size: 0.9em; transition: all 0.3s ease; cursor: pointer; margin-right: 8px;" 
                    onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.3)'" 
                    onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'">
@@ -792,32 +910,32 @@
 
         <div class="main-content">
             <!-- Collapsible Instructions Section -->
-            <div id="instructionsSection" style="display: none; margin-bottom: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #17a2b8;">
-                <h2 id="instructionsTitle" style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4em;">How to Use the PU Machine Calculator</h2>
+            <div id="instructionsSection" style="display: none; margin-bottom: 12px; padding: 12px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #17a2b8;">
+                <h2 id="instructionsTitle" style="color: #2c3e50; margin-bottom: 10px; font-size: 1.4em;">How to Use the PU Machine Calculator</h2>
                 
-                <div style="background: #ffffff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                    <div id="instructionsFormula" style="background: #2c3e50; color: white; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 1.1em; text-align: center; margin-bottom: 15px;">
+                <div style="background: #ffffff; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                    <div id="instructionsFormula" style="background: #2c3e50; color: white; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 1.1em; text-align: center; margin-bottom: 10px;">
                         Basic Formula: O = C × L (Output = Consumption × Line Speed)
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    <div style="background: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
-                        <h4 id="instructionsPart1Title" style="color: #3498db; margin-bottom: 10px;">Part 1: Basic Calculator</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 12px;">
+                    <div style="background: #ffffff; padding: 10px; border-radius: 8px; border-left: 4px solid #3498db;">
+                        <h4 id="instructionsPart1Title" style="color: #3498db; margin-bottom: 6px;">Part 1: Basic Calculator</h4>
                         <p id="instructionsPart1" style="color: #555; line-height: 1.5;">Basic Formula Calculator - Use this to calculate one unknown parameter when you have the other two values. Enter 0 for the parameter you want to calculate.</p>
                     </div>
-                    <div style="background: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid #e67e22;">
-                        <h4 id="instructionsPart2Title" style="color: #e67e22; margin-bottom: 10px;">Part 2: Test Data Analysis</h4>
+                    <div style="background: #ffffff; padding: 10px; border-radius: 8px; border-left: 4px solid #e67e22;">
+                        <h4 id="instructionsPart2Title" style="color: #e67e22; margin-bottom: 6px;">Part 2: Test Data Analysis</h4>
                         <p id="instructionsPart2" style="color: #555; line-height: 1.5;">Test Data Analysis - Input actual test measurements to calculate operational parameters and ratios based on real production data.</p>
                     </div>
-                    <div style="background: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid #9b59b6;">
-                        <h4 id="instructionsPart3Title" style="color: #9b59b6; margin-bottom: 10px;">Part 3: Parameter Adjustment</h4>
+                    <div style="background: #ffffff; padding: 10px; border-radius: 8px; border-left: 4px solid #9b59b6;">
+                        <h4 id="instructionsPart3Title" style="color: #9b59b6; margin-bottom: 6px;">Part 3: Parameter Adjustment</h4>
                         <p id="instructionsPart3" style="color: #555; line-height: 1.5;">Parameter Adjustment - Use results from Part 2 to calculate new operational parameters for different production requirements.</p>
                     </div>
                 </div>
 
-                <div style="background: #ffffff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                    <h4 id="instructionsStepGuideTitle" style="color: #2c3e50; margin-bottom: 10px;">Step-by-Step Guide:</h4>
+                <div style="background: #ffffff; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                    <h4 id="instructionsStepGuideTitle" style="color: #2c3e50; margin-bottom: 6px;">Step-by-Step Guide:</h4>
                     <ol id="instructionsSteps" style="color: #555; line-height: 1.8; padding-left: 20px;">
                         <li>Choose the appropriate section (Part 1, 2, or 3) based on your needs</li>
                         <li>Fill in the known values in the input fields</li>
@@ -828,7 +946,7 @@
                     </ol>
                 </div>
 
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+                <div style="background: #fff3cd; padding: 10px; border-radius: 8px; border-left: 4px solid #ffc107;">
                     <p id="instructionsNotes" style="color: #856404; margin: 0; font-weight: 500;">
                         Note: Ratio is always required and cannot be zero. RPM values in Part 2 are optional but recommended for accurate Part 3 calculations.
                     </p>
@@ -847,7 +965,7 @@
                 <div class="formula-display">
                     O = C × L
                 </div>
-                <p style="text-align: center; color: #7f8c8d; font-size: 1.1em; margin-bottom: 20px;">
+                <p style="text-align: center; color: #7f8c8d; font-size: 1.1em; margin-bottom: 12px;">
                     O (Output), C (Consumption), L (Line speed)
                 </p>
 
@@ -893,7 +1011,7 @@
             <!-- Part 2: Test Data Analysis -->
             <div id="part2-section" class="section part2" style="display: none;">
                 <h2>Part 2: Test Data Analysis</h2>
-                <p style="color: #7f8c8d; margin-bottom: 20px;">Calculate parameters based on actual test data</p>
+                <p style="color: #7f8c8d; margin-bottom: 12px;">Calculate parameters based on actual test data</p>
                 
                 <div class="input-group">
                     <div class="input-field">
@@ -940,7 +1058,7 @@
             <!-- Part 3: Parameter Adjustment -->
             <div id="part3-section" class="section part3" style="display: none;">
                 <h2>Part 3: Parameter Adjustment</h2>
-                <p style="color: #7f8c8d; margin-bottom: 20px;">Adjust parameters based on Part 2 results</p>
+                <p style="color: #7f8c8d; margin-bottom: 12px;">Adjust parameters based on Part 2 results</p>
                 
                 <div class="input-group">
                     <div class="input-field">
@@ -967,7 +1085,7 @@
                     <h3>Part 3 Results</h3>
                     <div id="part3-result-content"></div>
                     
-                    <div class="results" style="margin-top: 20px;">
+                    <div class="results" style="margin-top: 12px;">
                         <h3>RPM Adjustment Parameters</h3>
                         <div id="part3-rpm-content"></div>
                     </div>
@@ -1212,12 +1330,20 @@
             document.getElementById('part2-section').style.display = 'none';
             document.getElementById('part3-section').style.display = 'none';
             
-            // Remove active class from all nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            // Remove active class and part classes from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'part2', 'part3');
+            });
             
-            // Show selected section and activate nav button
+            // Show selected section and activate nav button with appropriate part class
             document.getElementById(`part${partNumber}-section`).style.display = 'block';
-            document.querySelectorAll('.nav-btn')[partNumber - 1].classList.add('active');
+            const activeBtn = document.querySelectorAll('.nav-btn')[partNumber - 1];
+            activeBtn.classList.add('active');
+            if (partNumber === 2) {
+                activeBtn.classList.add('part2');
+            } else if (partNumber === 3) {
+                activeBtn.classList.add('part3');
+            }
         }
 
         // Part 1 Functions
@@ -1818,30 +1944,103 @@
             updateTranslations();
         }
 
-        // Initialize with default values from the Excel file
+        // Save form data to localStorage
+        function saveFormData() {
+            const formData = {
+                // Part 1
+                lineSpeed: document.getElementById('lineSpeed').value,
+                output: document.getElementById('output').value,
+                concentration: document.getElementById('concentration').value,
+                ratio: document.getElementById('ratio').value,
+                // Part 2
+                part2_linespeed: document.getElementById('part2_linespeed').value,
+                part2_test_time: document.getElementById('part2_test_time').value,
+                part2_polyol: document.getElementById('part2_polyol').value,
+                part2_iso: document.getElementById('part2_iso').value,
+                part2_polyol_rpm: document.getElementById('part2_polyol_rpm').value,
+                part2_iso_rpm: document.getElementById('part2_iso_rpm').value,
+                // Part 3
+                part3_new_linespeed: document.getElementById('part3_new_linespeed').value,
+                part3_new_consumption: document.getElementById('part3_new_consumption').value,
+                part3_new_ratio: document.getElementById('part3_new_ratio').value
+            };
+            localStorage.setItem('puCalculatorFormData', JSON.stringify(formData));
+        }
+
+        // Restore form data from localStorage
+        function restoreFormData() {
+            const savedData = localStorage.getItem('puCalculatorFormData');
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                // Part 1
+                document.getElementById('lineSpeed').value = formData.lineSpeed || excelData.initial_values.line_speed;
+                document.getElementById('output').value = formData.output || excelData.initial_values.output;
+                document.getElementById('concentration').value = formData.concentration || excelData.initial_values.concentration;
+                document.getElementById('ratio').value = formData.ratio || excelData.initial_values.ratio;
+                // Part 2
+                document.getElementById('part2_linespeed').value = formData.part2_linespeed || excelData.part2.linespeed;
+                document.getElementById('part2_test_time').value = formData.part2_test_time || excelData.part2.test_time;
+                document.getElementById('part2_polyol').value = formData.part2_polyol || excelData.part2.polyol_weight;
+                document.getElementById('part2_iso').value = formData.part2_iso || excelData.part2.iso_weight;
+                document.getElementById('part2_polyol_rpm').value = formData.part2_polyol_rpm || excelData.part2.polyol_rpm;
+                document.getElementById('part2_iso_rpm').value = formData.part2_iso_rpm || excelData.part2.iso_rpm;
+                // Part 3
+                document.getElementById('part3_new_linespeed').value = formData.part3_new_linespeed || excelData.part3.new_linespeed;
+                document.getElementById('part3_new_consumption').value = formData.part3_new_consumption || excelData.part3.new_consumption_gm;
+                document.getElementById('part3_new_ratio').value = formData.part3_new_ratio || excelData.part3.new_ratio;
+                return true;
+            }
+            return false;
+        }
+
+        // Add auto-save functionality to all input fields
+        function addAutoSave() {
+            const inputIds = [
+                'lineSpeed', 'output', 'concentration', 'ratio',
+                'part2_linespeed', 'part2_test_time', 'part2_polyol', 'part2_iso', 
+                'part2_polyol_rpm', 'part2_iso_rpm',
+                'part3_new_linespeed', 'part3_new_consumption', 'part3_new_ratio'
+            ];
+            
+            inputIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', saveFormData);
+                }
+            });
+        }
+
+        // Initialize with saved data or default values from the Excel file
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize language first
             initializeLanguage();
-            // Initialize Part 1 values
-            document.getElementById('lineSpeed').value = excelData.initial_values.line_speed;
-            document.getElementById('output').value = excelData.initial_values.output;
-            document.getElementById('concentration').value = excelData.initial_values.concentration;
-            document.getElementById('ratio').value = excelData.initial_values.ratio;
+            
+            // Try to restore saved data, otherwise use defaults
+            if (!restoreFormData()) {
+                // Initialize Part 1 values
+                document.getElementById('lineSpeed').value = excelData.initial_values.line_speed;
+                document.getElementById('output').value = excelData.initial_values.output;
+                document.getElementById('concentration').value = excelData.initial_values.concentration;
+                document.getElementById('ratio').value = excelData.initial_values.ratio;
 
-            // Initialize Part 2 values
-            const part2Data = excelData.part2;
-            document.getElementById('part2_linespeed').value = part2Data.linespeed;
-            document.getElementById('part2_test_time').value = part2Data.test_time;
-            document.getElementById('part2_polyol').value = part2Data.polyol_weight;
-            document.getElementById('part2_iso').value = part2Data.iso_weight;
-            document.getElementById('part2_polyol_rpm').value = part2Data.polyol_rpm;
-            document.getElementById('part2_iso_rpm').value = part2Data.iso_rpm;
+                // Initialize Part 2 values
+                const part2Data = excelData.part2;
+                document.getElementById('part2_linespeed').value = part2Data.linespeed;
+                document.getElementById('part2_test_time').value = part2Data.test_time;
+                document.getElementById('part2_polyol').value = part2Data.polyol_weight;
+                document.getElementById('part2_iso').value = part2Data.iso_weight;
+                document.getElementById('part2_polyol_rpm').value = part2Data.polyol_rpm;
+                document.getElementById('part2_iso_rpm').value = part2Data.iso_rpm;
 
-            // Initialize Part 3 values
-            const part3Data = excelData.part3;
-            document.getElementById('part3_new_linespeed').value = part3Data.new_linespeed;
-            document.getElementById('part3_new_consumption').value = part3Data.new_consumption_gm;
-            document.getElementById('part3_new_ratio').value = part3Data.new_ratio;
+                // Initialize Part 3 values
+                const part3Data = excelData.part3;
+                document.getElementById('part3_new_linespeed').value = part3Data.new_linespeed;
+                document.getElementById('part3_new_consumption').value = part3Data.new_consumption_gm;
+                document.getElementById('part3_new_ratio').value = part3Data.new_ratio;
+            }
+            
+            // Add auto-save listeners to all input fields
+            addAutoSave();
         });
     </script>
 </body>
