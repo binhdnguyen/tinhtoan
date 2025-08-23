@@ -31,7 +31,11 @@
     gtag('config', 'G-H54NMKEF6S');
     </script>
     
+    <link rel="stylesheet" href="style.css">
     <script src="config.js"></script>
+    <script src="translations.js"></script>
+    <script src="clipboard.js"></script>
+    <script src="instructions.js"></script>
     <script>
       const excelData = {
         "initial_values": {
@@ -74,329 +78,6 @@
       // Initialize language
       let currentLanguage = 'en';
 
-      // Language translations
-      const translations = {
-        en: {
-          title: "PU Machine Operation Parameters Calculator",
-          subtitle: "Specialized calculator for polyurethane spraying process",
-          howToUse: "how to use",
-          addToHomeScreen: "add to home screen",
-          part1: "Part 1: Basic Calculator",
-          part2: "Part 2: Test Data Analysis",
-          part3: "Part 3: Parameter Adjustment",
-          formula_desc: "Where: O (Output), C (Consumption), L (Line speed)",
-          lineSpeed: "L - Line Speed",
-          output: "O - Output",
-          consumption: "C - Consumption",
-          ratio: "Ratio",
-          calculate: "Calculate",
-          clearData: "Clear Data",
-          calculationResults: "Calculation Results",
-          materialAnalysis: "Material Component Analysis",
-          testDataAnalysis: "Test Data Analysis",
-          testDataDesc: "Calculate parameters based on actual test data",
-          testLineSpeed: "L - Test Line Speed",
-          testTime: "T - Test Time",
-          polyolWeight: "P - Polyol Weight",
-          isocyanateWeight: "I - Isocyanate Weight",
-          polyolRPM: "PR - Polyol RPM",
-          isoRPM: "IR - Iso RPM",
-          part2Results: "Part 2 Results",
-          parameterAdjustment: "Parameter Adjustment",
-          parameterDesc: "Adjust parameters based on Part 2 results",
-          newLineSpeed: "Ln - New Line Speed",
-          newConsumption: "Cn - New Consumption",
-          newRatio: "Rn - New Ratio",
-          part3Results: "Part 3 Results",
-          rpmAdjustment: "RPM Adjustment Parameters",
-          totalOutput: "Total Output",
-          componentWeights: "Component Weights (per second)",
-          timeBasedBreakdown: "Time-based Breakdown",
-          total: "Total",
-          unitMMin: "Unit: m/min",
-          unitGs: "Unit: g/s",
-          unitGm: "Unit: g/m",
-          unitSeconds: "Unit: seconds",
-          unitGPerT: "Unit: g (per T seconds)",
-          unitHz: "Unit: Hz",
-          isoPolRatio: "Iso/Pol Ratio",
-          placeholder: "Enter 0 to calculate",
-          errorMandatory: "Please enter all mandatory Part 2 parameters (L, T, P, I).",
-          errorRPMWarning: "Warning: PR (Polyol RPM) and IR (Iso RPM) are not provided. RPM calculations in Part 3 will be inaccurate without these values.",
-          errorPart1: "Please enter 0 for exactly one parameter to calculate.",
-          errorPart3: "Please enter all Part 3 parameters.",
-          errorRatioRequired: "Ratio is mandatory and cannot be blank or zero.",
-          mass: "Mass",
-          clipboardHeaders: {
-            part1: "Part 1: Basic Calculator",
-            part2: "Part 2: Test Data Analysis", 
-            part3: "Part 3: Parameter Adjustment",
-            inputParameters: "Input Parameters",
-            results: "Results",
-            calculated: "calculated"
-          },
-          instructions: {
-            title: "How to Use the PU Machine Calculator",
-            part1Title: "Part 1: Basic Calculator",
-            part2Title: "Part 2: Test Data Analysis", 
-            part3Title: "Part 3: Parameter Adjustment",
-            stepGuideTitle: "Step-by-Step Guide:",
-            part1Desc: "Basic Formula Calculator - Use this to calculate one unknown parameter when you have the other two values. Enter 0 for the parameter you want to calculate.",
-            part2Desc: "Test Data Analysis - Input actual test measurements to calculate operational parameters and ratios based on real production data.",
-            part3Desc: "Parameter Adjustment - Use results from Part 2 to calculate new operational parameters for different production requirements.",
-            steps: [
-              "Choose the appropriate section (Part 1, 2, or 3) based on your needs",
-              "Fill in the known values in the input fields", 
-              "For Part 1: Enter 0 in the field you want to calculate",
-              "Click Calculate to get results",
-              "Results are automatically copied to clipboard",
-              "Use Clear Data to reset the form"
-            ],
-            formula: "Basic Formula: O = C × L (Output = Consumption × Line Speed)",
-            notes: "Note: Ratio is always required and cannot be zero. RPM values in Part 2 are optional but recommended for accurate Part 3 calculations."
-          }
-        },
-        vi: {
-          title: "Máy Tính Thông Số Hoạt Động Máy Phun PU",
-          subtitle: "Máy tính chuyên dụng cho quá trình phun polyurethane",
-          howToUse: "cách sử dụng",
-          addToHomeScreen: "thêm vào màn hình chính",
-          part1: "Phần 1: Máy Tính Cơ Bản",
-          part2: "Phần 2: Phân Tích Dữ Liệu Test",
-          part3: "Phần 3: Điều Chỉnh Thông Số",
-          formula_desc: "Trong đó: O (Sản lượng), C (Tiêu hao), L (Tốc độ dây chuyền)",
-          lineSpeed: "L - Tốc Độ Dây Chuyền",
-          output: "O - Sản Lượng",
-          consumption: "C - Tiêu Hao",
-          ratio: "Tỷ Lệ",
-          calculate: "Tính Toán",
-          clearData: "Xóa Dữ Liệu",
-          calculationResults: "Kết Quả Tính Toán",
-          materialAnalysis: "Phân Tích Thành Phần Vật Liệu",
-          testDataAnalysis: "Phân Tích Dữ Liệu Test",
-          testDataDesc: "Tính toán các thông số dựa trên dữ liệu test thực tế",
-          testLineSpeed: "L - Tốc Độ Dây Chuyền Test",
-          testTime: "T - Thời Gian Test",
-          polyolWeight: "P - Khối Lượng Polyol",
-          isocyanateWeight: "I - Khối Lượng Isocyanate",
-          polyolRPM: "PR - Polyol RPM",
-          isoRPM: "IR - Iso RPM",
-          part2Results: "Kết Quả Phần 2",
-          parameterAdjustment: "Điều Chỉnh Thông Số",
-          parameterDesc: "Điều chỉnh thông số dựa trên kết quả Phần 2",
-          newLineSpeed: "Ln - Tốc Độ Dây Chuyền Mới",
-          newConsumption: "Cn - Tiêu Hao Mới",
-          newRatio: "Rn - Tỷ Lệ Mới",
-          part3Results: "Kết Quả Phần 3",
-          rpmAdjustment: "Thông Số Điều Chỉnh RPM",
-          totalOutput: "Tổng Sản Lượng",
-          componentWeights: "Khối Lượng Thành Phần (mỗi giây)",
-          timeBasedBreakdown: "Phân Tích Theo Thời Gian",
-          total: "Tổng",
-          unitMMin: "Đơn vị: m/phút",
-          unitGs: "Đơn vị: g/s",
-          unitGm: "Đơn vị: g/m",
-          unitSeconds: "Đơn vị: giây",
-          unitGPerT: "Đơn vị: g (mỗi T giây)",
-          unitHz: "Đơn vị: Hz",
-          isoPolRatio: "Tỷ Lệ Iso/Pol",
-          placeholder: "Nhập 0 để tính toán",
-          errorMandatory: "Vui lòng nhập tất cả thông số bắt buộc Phần 2 (L, T, P, I).",
-          errorRPMWarning: "Cảnh báo: PR (Polyol RPM) và IR (Iso RPM) không được cung cấp. Tính toán RPM ở Phần 3 sẽ không chính xác.",
-          errorPart1: "Vui lòng nhập 0 cho chính xác một thông số để tính toán.",
-          errorPart3: "Vui lòng nhập tất cả thông số Phần 3.",
-          errorRatioRequired: "Tỷ lệ là bắt buộc và không thể để trống hoặc bằng không.",
-          mass: "Khối Lượng",
-          clipboardHeaders: {
-            part1: "Phần 1: Máy Tính Cơ Bản",
-            part2: "Phần 2: Phân Tích Dữ Liệu Test",
-            part3: "Phần 3: Điều Chỉnh Thông Số",
-            inputParameters: "Thông Số Đầu Vào",
-            results: "Kết Quả",
-            calculated: "được tính toán"
-          },
-          instructions: {
-            title: "Cách Sử Dụng Máy Tính PU",
-            part1Title: "Phần 1: Máy Tính Cơ Bản",
-            part2Title: "Phần 2: Phân Tích Dữ Liệu Test", 
-            part3Title: "Phần 3: Điều Chỉnh Thông Số",
-            stepGuideTitle: "Hướng Dẫn Từng Bước:",
-            part1Desc: "Máy Tính Công Thức Cơ Bản - Dùng để tính một thông số chưa biết khi bạn có hai giá trị còn lại. Nhập 0 cho thông số bạn muốn tính.",
-            part2Desc: "Phân Tích Dữ Liệu Test - Nhập các phép đo test thực tế để tính các thông số hoạt động và tỷ lệ dựa trên dữ liệu sản xuất thực.",
-            part3Desc: "Điều Chỉnh Thông Số - Sử dụng kết quả từ Phần 2 để tính các thông số hoạt động mới cho các yêu cầu sản xuất khác nhau.",
-            steps: [
-              "Chọn phần phù hợp (Phần 1, 2, hoặc 3) theo nhu cầu của bạn",
-              "Điền các giá trị đã biết vào các ô nhập liệu",
-              "Đối với Phần 1: Nhập 0 vào ô bạn muốn tính",
-              "Nhấn Tính Toán để có kết quả",
-              "Kết quả được tự động sao chép vào clipboard",
-              "Dùng Xóa Dữ Liệu để reset form"
-            ],
-            formula: "Công Thức Cơ Bản: O = C × L (Sản Lượng = Tiêu Hao × Tốc Độ Dây Chuyền)",
-            notes: "Lưu ý: Tỷ lệ luôn bắt buộc và không thể bằng không. Giá trị RPM trong Phần 2 là tùy chọn nhưng khuyến khích để tính toán chính xác ở Phần 3."
-          }
-        },
-        th: {
-          title: "เครื่องคำนวณพารามิเตอร์การทำงานเครื่องพ่น PU",
-          subtitle: "เครื่องคำนวณเฉพาะสำหรับกระบวนการพ่นโพลียูรีเทน",
-          howToUse: "วิธีใช้",
-          addToHomeScreen: "เพิ่มไปยังหน้าจอหลัก",
-          part1: "ส่วนที่ 1: เครื่องคำนวณพื้นฐาน",
-          part2: "ส่วนที่ 2: การวิเคราะห์ข้อมูลทดสอบ",
-          part3: "ส่วนที่ 3: การปรับพารามิเตอร์",
-          formula_desc: "โดยที่: O (ผลผลิต), C (การใช้), L (ความเร็วสาย)",
-          lineSpeed: "L - ความเร็วสาย",
-          output: "O - ผลผลิต",
-          consumption: "C - การใช้",
-          ratio: "อัตราส่วน",
-          calculate: "คำนวณ",
-          clearData: "ล้างข้อมูล",
-          calculationResults: "ผลการคำนวณ",
-          materialAnalysis: "การวิเคราะห์องค์ประกอบวัสดุ",
-          testDataAnalysis: "การวิเคราะห์ข้อมูลทดสอบ",
-          testDataDesc: "คำนวณพารามิเตอร์จากข้อมูลทดสอบจริง",
-          testLineSpeed: "L - ความเร็วสายทดสอบ",
-          testTime: "T - เวลาทดสอบ",
-          polyolWeight: "P - น้ำหนัก Polyol",
-          isocyanateWeight: "I - น้ำหนัก Isocyanate",
-          polyolRPM: "PR - Polyol RPM",
-          isoRPM: "IR - Iso RPM",
-          part2Results: "ผลลัพธ์ส่วนที่ 2",
-          parameterAdjustment: "การปรับพารามิเตอร์",
-          parameterDesc: "ปรับพารามิเตอร์จากผลลัพธ์ส่วนที่ 2",
-          newLineSpeed: "Ln - ความเร็วสายใหม่",
-          newConsumption: "Cn - การใช้ใหม่",
-          newRatio: "Rn - อัตราส่วนใหม่",
-          part3Results: "ผลลัพธ์ส่วนที่ 3",
-          rpmAdjustment: "พารามิเตอร์ปรับ RPM",
-          totalOutput: "ผลผลิตรวม",
-          componentWeights: "น้ำหนักองค์ประกอบ (ต่อวินาที)",
-          timeBasedBreakdown: "การแบ่งตามเวลา",
-          total: "รวม",
-          unitMMin: "หน่วย: ม./นาที",
-          unitGs: "หน่วย: ก./วินาที",
-          unitGm: "หน่วย: ก./ม.",
-          unitSeconds: "หน่วย: วินาที",
-          unitGPerT: "หน่วย: ก. (ต่อ T วินาที)",
-          unitHz: "หน่วย: Hz",
-          isoPolRatio: "อัตราส่วน Iso/Pol",
-          placeholder: "ใส่ 0 เพื่อคำนวณ",
-          errorMandatory: "กรุณากรอกพารามิเตอร์บังคับทั้งหมดของส่วนที่ 2 (L, T, P, I)",
-          errorRPMWarning: "คำเตือน: PR (Polyol RPM) และ IR (Iso RPM) ไม่ได้ระบุ การคำนวณ RPM ในส่วนที่ 3 จะไม่ถูกต้อง",
-          errorPart1: "กรุณาใส่ 0 สำหรับพารามิเตอร์เดียวเพื่อคำนวณ",
-          errorPart3: "กรุณากรอกพารามิเตอร์ส่วนที่ 3 ทั้งหมด",
-          errorRatioRequired: "อัตราส่วนเป็นค่าบังคับและไม่สามารถเว้นว่างหรือเป็นศูนย์ได้",
-          mass: "มวล",
-          clipboardHeaders: {
-            part1: "ส่วนที่ 1: เครื่องคำนวณพื้นฐาน",
-            part2: "ส่วนที่ 2: การวิเคราะห์ข้อมูลทดสอบ",
-            part3: "ส่วนที่ 3: การปรับพารามิเตอร์",
-            inputParameters: "พารามิเตอร์อินพุต",
-            results: "ผลลัพธ์",
-            calculated: "คำนวณแล้ว"
-          },
-          instructions: {
-            title: "วิธีใช้เครื่องคำนวณ PU",
-            part1Title: "ส่วนที่ 1: เครื่องคำนวณพื้นฐาน",
-            part2Title: "ส่วนที่ 2: การวิเคราะห์ข้อมูลทดสอบ", 
-            part3Title: "ส่วนที่ 3: การปรับพารามิเตอร์",
-            stepGuideTitle: "คู่มือทีละขั้นตอน:",
-            part1Desc: "เครื่องคำนวณสูตรพื้นฐาน - ใช้คำนวณพารามิเตอร์ที่ไม่ทราบค่าเมื่อมีค่าอื่นสองค่า ใส่ 0 สำหรับพารามิเตอร์ที่ต้องการคำนวณ",
-            part2Desc: "การวิเคราะห์ข้อมูลทดสอบ - ใส่ข้อมูลการทดสอบจริงเพื่อคำนวณพารามิเตอร์การทำงานและอัตราส่วนจากข้อมูลการผลิตจริง",
-            part3Desc: "การปรับพารามิเตอร์ - ใช้ผลลัพธ์จากส่วนที่ 2 เพื่อคำนวณพารามิเตอร์การทำงานใหม่สำหรับความต้องการการผลิตที่แตกต่างกัน",
-            steps: [
-              "เลือกส่วนที่เหมาะสม (ส่วนที่ 1, 2, หรือ 3) ตามความต้องการ",
-              "กรอกค่าที่ทราบในช่องข้อมูลนำเข้า",
-              "สำหรับส่วนที่ 1: ใส่ 0 ในช่องที่ต้องการคำนวณ",
-              "คลิกคำนวณเพื่อได้ผลลัพธ์",
-              "ผลลัพธ์จะถูกคัดลอกไปยังคลิปบอร์ดโดยอัตโนมัติ",
-              "ใช้ล้างข้อมูลเพื่อรีเซ็ตฟอร์ม"
-            ],
-            formula: "สูตรพื้นฐาน: O = C × L (ผลผลิต = การใช้ × ความเร็วสาย)",
-            notes: "หมายเหตุ: อัตราส่วนจำเป็นต้องใส่เสมอและไม่สามารถเป็นศูนย์ได้ ค่า RPM ในส่วนที่ 2 เป็นตัวเลือกแต่แนะนำให้ใส่เพื่อการคำนวณที่แม่นยำในส่วนที่ 3"
-          }
-        },
-        cn: {
-          title: "PU喷涂机操作参数计算器",
-          subtitle: "聚氨酯喷涂工艺专用计算器",
-          howToUse: "如何使用",
-          addToHomeScreen: "添加到主屏幕",
-          part1: "第1部分：基础计算器",
-          part2: "第2部分：测试数据分析",
-          part3: "第3部分：参数调整",
-          formula_desc: "其中：O（产量），C（消耗），L（线速度）",
-          lineSpeed: "L - 线速度",
-          output: "O - 产量",
-          consumption: "C - 消耗",
-          ratio: "比例",
-          calculate: "计算",
-          clearData: "清除数据",
-          calculationResults: "计算结果",
-          materialAnalysis: "材料成分分析",
-          testDataAnalysis: "测试数据分析",
-          testDataDesc: "基于实际测试数据计算参数",
-          testLineSpeed: "L - 测试线速度",
-          testTime: "T - 测试时间",
-          polyolWeight: "P - 聚醚重量",
-          isocyanateWeight: "I - 异氰酸酯重量",
-          polyolRPM: "PR - 聚醚转速",
-          isoRPM: "IR - 异氰酸酯转速",
-          part2Results: "第2部分结果",
-          parameterAdjustment: "参数调整",
-          parameterDesc: "基于第2部分结果调整参数",
-          newLineSpeed: "Ln - 新线速度",
-          newConsumption: "Cn - 新消耗",
-          newRatio: "Rn - 新比例",
-          part3Results: "第3部分结果",
-          rpmAdjustment: "转速调整参数",
-          totalOutput: "总产量",
-          componentWeights: "组件重量（每秒）",
-          timeBasedBreakdown: "基于时间的分解",
-          total: "总计",
-          unitMMin: "单位：米/分钟",
-          unitGs: "单位：克/秒",
-          unitGm: "单位：克/米",
-          unitSeconds: "单位：秒",
-          unitGPerT: "单位：克（每T秒）",
-          unitHz: "单位：赫兹",
-          isoPolRatio: "异氰酸酯/聚醚比例",
-          placeholder: "输入0进行计算",
-          errorMandatory: "请输入第2部分所有必需参数（L，T，P，I）。",
-          errorRPMWarning: "警告：未提供PR（聚醚转速）和IR（异氰酸酯转速）。第3部分的转速计算将不准确。",
-          errorPart1: "请为一个参数输入0进行计算。",
-          errorPart3: "请输入第3部分的所有参数。",
-          errorRatioRequired: "比例是必填项，不能为空或为零。",
-          mass: "质量",
-          clipboardHeaders: {
-            part1: "第1部分：基础计算器",
-            part2: "第2部分：测试数据分析",
-            part3: "第3部分：参数调整",
-            inputParameters: "输入参数",
-            results: "结果",
-            calculated: "已计算"
-          },
-          instructions: {
-            title: "如何使用PU计算器",
-            part1Title: "第1部分：基础计算器",
-            part2Title: "第2部分：测试数据分析", 
-            part3Title: "第3部分：参数调整",
-            stepGuideTitle: "逐步指南:",
-            part1Desc: "基础公式计算器 - 当您有其他两个值时，用于计算一个未知参数。在要计算的参数中输入0。",
-            part2Desc: "测试数据分析 - 输入实际测试测量值，根据真实生产数据计算操作参数和比例。",
-            part3Desc: "参数调整 - 使用第2部分的结果为不同的生产要求计算新的操作参数。",
-            steps: [
-              "根据需要选择合适的部分（第1、2或3部分）",
-              "在输入字段中填入已知值",
-              "对于第1部分：在要计算的字段中输入0",
-              "点击计算获得结果",
-              "结果自动复制到剪贴板",
-              "使用清除数据重置表单"
-            ],
-            formula: "基础公式：O = C × L（产量 = 消耗 × 线速度）",
-            notes: "注意：比例始终是必需的，不能为零。第2部分中的RPM值是可选的，但建议填写以确保第3部分计算的准确性。"
-          }
-        }
-      };
 
       // Current language - load from localStorage or default to 'en'
       let currentLang = localStorage.getItem('puCalculatorLanguage') || 'en';
@@ -410,476 +91,6 @@
         enabled: true
       };
     </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 10px;
-            font-size: 12px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(45deg, #2c3e50, #3498db);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 1.9em;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .language-selector {
-            margin-top: 15px;
-            font-size: 1.1em;
-        }
-
-        .lang-link {
-            cursor: pointer;
-            padding: 2px 4px;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .lang-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .lang-link.active {
-            background-color: rgba(255, 255, 255, 0.3);
-            font-weight: bold;
-        }
-
-        .main-content {
-            padding: 20px;
-        }
-
-        .section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 5px solid #3498db;
-        }
-
-        .section.part2 {
-            border-left-color: #e67e22;
-        }
-
-        .section.part3 {
-            border-left-color: #9b59b6;
-        }
-
-        .section h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-        }
-
-        .formula-display {
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
-
-        .input-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .input-field {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus-within {
-            border-color: #3498db;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
-        }
-
-        .input-field label {
-            display: block;
-            color: #2c3e50;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-
-        .input-field input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1.2em;
-            transition: border-color 0.3s;
-        }
-
-        .input-field input:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .input-field .unit {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        .calculate-btn {
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            padding: 16px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.3em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            min-height: 48px;
-            touch-action: manipulation;
-            line-height: 1.2;
-        }
-
-        .calculate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
-        }
-
-        .calculate-btn.part2 {
-            background: linear-gradient(45deg, #e67e22, #d35400);
-        }
-
-        .calculate-btn.part3 {
-            background: linear-gradient(45deg, #9b59b6, #8e44ad);
-        }
-
-        .results {
-            background: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .results h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-        }
-
-        .result-item {
-            background: white;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border-left: 4px solid #27ae60;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .result-label {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .result-value {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #27ae60;
-        }
-
-        .material-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .material-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #e0e0e0;
-        }
-
-        .material-item h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .material-value {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: #8e44ad;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .error {
-            color: #e74c3c;
-            font-weight: 600;
-        }
-
-        .warning {
-            background: #f39c12;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .footer {
-            background: linear-gradient(45deg, #2c3e50, #34495e);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 0 0 15px 15px;
-        }
-
-        .footer p {
-            margin: 0;
-            font-size: 1.1em;
-            font-weight: 500;
-            opacity: 0.9;
-        }
-
-        .part-navigation {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .nav-btn.active.part2 {
-            background: linear-gradient(45deg, #e67e22, #d35400);
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
-        }
-
-        .nav-btn.active.part3 {
-            background: linear-gradient(45deg, #9b59b6, #8e44ad);
-            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
-        }
-
-        .nav-btn:not(.active) {
-            background: #ecf0f1;
-            color: #7f8c8d;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 2px;
-                font-size: 11px;
-                line-height: 1.2;
-            }
-            
-            .container {
-                margin: 2px;
-                border-radius: 8px;
-            }
-            
-            .header {
-                padding: 12px;
-            }
-            
-            .header h1 {
-                font-size: 1.4em;
-                margin-bottom: 5px;
-                line-height: 1.1;
-            }
-            
-            .language-selector {
-                margin-top: 8px;
-            }
-            
-            .main-content {
-                padding: 12px;
-            }
-            
-            .section {
-                margin-bottom: 12px;
-                padding: 10px;
-            }
-            
-            .section h2 {
-                margin-bottom: 12px;
-                font-size: 1.2em;
-                line-height: 1.2;
-            }
-            
-            .formula-display {
-                padding: 12px;
-                margin-bottom: 15px;
-                font-size: 1.2em;
-                line-height: 1.2;
-            }
-            
-            .input-group {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                margin-bottom: 12px;
-            }
-            
-            .input-field {
-                padding: 10px;
-            }
-            
-            .input-field label {
-                margin-bottom: 4px;
-                font-size: 1em;
-            }
-            
-            .input-field input {
-                padding: 10px;
-            }
-            
-            .input-field .unit {
-                margin-top: 2px;
-            }
-            
-            .calculate-btn {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 8px;
-                padding: 12px 20px;
-                line-height: 1.1;
-            }
-            
-            .results {
-                padding: 10px;
-                margin-top: 12px;
-            }
-            
-            .results h3 {
-                margin-bottom: 12px;
-                font-size: 1.1em;
-                line-height: 1.2;
-            }
-            
-            .result-item {
-                padding: 8px;
-                margin-bottom: 6px;
-            }
-            
-            .materials-grid {
-                gap: 8px;
-                margin-top: 10px;
-            }
-            
-            .material-item {
-                padding: 10px;
-            }
-            
-            .material-item h4 {
-                margin-bottom: 6px;
-            }
-            
-            .part-navigation {
-                flex-direction: column;
-                margin-bottom: 15px;
-                gap: 8px;
-            }
-            
-            .nav-btn {
-                width: 100%;
-                padding: 8px 16px;
-            }
-            
-            .footer {
-                padding: 12px;
-                margin-top: 15px;
-            }
-            
-            #instructionsSection {
-                margin-bottom: 12px;
-                padding: 12px;
-            }
-            
-            #instructionsTitle {
-                margin-bottom: 10px;
-                font-size: 1.2em;
-                line-height: 1.2;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -909,49 +120,6 @@
         </div>
 
         <div class="main-content">
-            <!-- Collapsible Instructions Section -->
-            <div id="instructionsSection" style="display: none; margin-bottom: 12px; padding: 12px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #17a2b8;">
-                <h2 id="instructionsTitle" style="color: #2c3e50; margin-bottom: 10px; font-size: 1.4em;">How to Use the PU Machine Calculator</h2>
-                
-                <div style="background: #ffffff; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                    <div id="instructionsFormula" style="background: #2c3e50; color: white; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 1.1em; text-align: center; margin-bottom: 10px;">
-                        Basic Formula: O = C × L (Output = Consumption × Line Speed)
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 12px;">
-                    <div style="background: #ffffff; padding: 10px; border-radius: 8px; border-left: 4px solid #3498db;">
-                        <h4 id="instructionsPart1Title" style="color: #3498db; margin-bottom: 6px;">Part 1: Basic Calculator</h4>
-                        <p id="instructionsPart1" style="color: #555; line-height: 1.5;">Basic Formula Calculator - Use this to calculate one unknown parameter when you have the other two values. Enter 0 for the parameter you want to calculate.</p>
-                    </div>
-                    <div style="background: #ffffff; padding: 10px; border-radius: 8px; border-left: 4px solid #e67e22;">
-                        <h4 id="instructionsPart2Title" style="color: #e67e22; margin-bottom: 6px;">Part 2: Test Data Analysis</h4>
-                        <p id="instructionsPart2" style="color: #555; line-height: 1.5;">Test Data Analysis - Input actual test measurements to calculate operational parameters and ratios based on real production data.</p>
-                    </div>
-                    <div style="background: #ffffff; padding: 10px; border-radius: 8px; border-left: 4px solid #9b59b6;">
-                        <h4 id="instructionsPart3Title" style="color: #9b59b6; margin-bottom: 6px;">Part 3: Parameter Adjustment</h4>
-                        <p id="instructionsPart3" style="color: #555; line-height: 1.5;">Parameter Adjustment - Use results from Part 2 to calculate new operational parameters for different production requirements.</p>
-                    </div>
-                </div>
-
-                <div style="background: #ffffff; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                    <h4 id="instructionsStepGuideTitle" style="color: #2c3e50; margin-bottom: 6px;">Step-by-Step Guide:</h4>
-                    <ol id="instructionsSteps" style="color: #555; line-height: 1.8; padding-left: 20px;">
-                        <li>Choose the appropriate section (Part 1, 2, or 3) based on your needs</li>
-                        <li>Fill in the known values in the input fields</li>
-                        <li>For Part 1: Enter 0 in the field you want to calculate</li>
-                        <li>Click Calculate to get results</li>
-                        <li>Results are automatically copied to clipboard</li>
-                        <li>Use Clear Data to reset the form</li>
-                    </ol>
-                </div>
-
-                <div style="background: #fff3cd; padding: 10px; border-radius: 8px; border-left: 4px solid #ffc107;">
-                    <p id="instructionsNotes" style="color: #856404; margin: 0; font-weight: 500;">
-                        Note: Ratio is always required and cannot be zero. RPM values in Part 2 are optional but recommended for accurate Part 3 calculations.
-                    </p>
-                </div>
-            </div>
             
             <div class="part-navigation">
                 <button class="nav-btn active" onclick="showPart(1)">Part 1: Basic Calculator</button>
@@ -1099,15 +267,6 @@
     </div>
 
     <script>
-        // Instructions toggle function
-        function toggleInstructions() {
-            const instructionsSection = document.getElementById('instructionsSection');
-            if (instructionsSection.style.display === 'none') {
-                instructionsSection.style.display = 'block';
-            } else {
-                instructionsSection.style.display = 'none';
-            }
-        }
 
         // PWA Install functionality
         let deferredPrompt;
@@ -1279,47 +438,9 @@
             if (resultHeadings[3]) resultHeadings[3].textContent = t.part3Results;
             if (resultHeadings[4]) resultHeadings[4].textContent = t.rpmAdjustment;
             
-            // Update instructions content
-            if (document.getElementById('instructionsTitle')) {
-                document.getElementById('instructionsTitle').textContent = t.instructions.title;
-            }
-            if (document.getElementById('instructionsFormula')) {
-                document.getElementById('instructionsFormula').textContent = t.instructions.formula;
-            }
-            if (document.getElementById('instructionsPart1Title')) {
-                document.getElementById('instructionsPart1Title').textContent = t.instructions.part1Title;
-            }
-            if (document.getElementById('instructionsPart2Title')) {
-                document.getElementById('instructionsPart2Title').textContent = t.instructions.part2Title;
-            }
-            if (document.getElementById('instructionsPart3Title')) {
-                document.getElementById('instructionsPart3Title').textContent = t.instructions.part3Title;
-            }
-            if (document.getElementById('instructionsStepGuideTitle')) {
-                document.getElementById('instructionsStepGuideTitle').textContent = t.instructions.stepGuideTitle;
-            }
-            if (document.getElementById('instructionsPart1')) {
-                document.getElementById('instructionsPart1').textContent = t.instructions.part1Desc;
-            }
-            if (document.getElementById('instructionsPart2')) {
-                document.getElementById('instructionsPart2').textContent = t.instructions.part2Desc;
-            }
-            if (document.getElementById('instructionsPart3')) {
-                document.getElementById('instructionsPart3').textContent = t.instructions.part3Desc;
-            }
-            if (document.getElementById('instructionsNotes')) {
-                document.getElementById('instructionsNotes').textContent = t.instructions.notes;
-            }
-            
-            // Update instructions steps
-            const stepsList = document.getElementById('instructionsSteps');
-            if (stepsList) {
-                stepsList.innerHTML = '';
-                t.instructions.steps.forEach(step => {
-                    const li = document.createElement('li');
-                    li.textContent = step;
-                    stepsList.appendChild(li);
-                });
+            // Update instructions content using external function
+            if (typeof updateInstructionsTranslations !== 'undefined') {
+                updateInstructionsTranslations(currentLang);
             }
         }
 
@@ -1363,25 +484,18 @@
             const resultContainer = document.getElementById('part1-result-content');
             resultContainer.innerHTML = '';
 
-            let clipboardText = `=== ${translations[currentLang].clipboardHeaders.part1} ===\n\n`;
-            clipboardText += `${translations[currentLang].clipboardHeaders.inputParameters}:\n`;
-            clipboardText += `${translations[currentLang].lineSpeed}: ${lineSpeed === 0 ? `0 (${translations[currentLang].clipboardHeaders.calculated})` : lineSpeed} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].output}: ${output === 0 ? `0 (${translations[currentLang].clipboardHeaders.calculated})` : output} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].consumption}: ${concentration === 0 ? `0 (${translations[currentLang].clipboardHeaders.calculated})` : concentration} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].ratio}: ${ratio}\n\n`;
+            let calculationType = '';
 
             if (lineSpeed === 0 && output > 0 && concentration > 0) {
+                calculationType = 'lineSpeed';
                 const outputInGmin = output * 60;
                 const calculatedL = outputInGmin / concentration;
                 displayResult('part1-result-content', translations[currentLang].lineSpeed, calculatedL.toFixed(1), 'm/min');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
                 
-                clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-                clipboardText += `${translations[currentLang].lineSpeed}: ${calculatedL.toFixed(1)} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n\n`;
-                clipboardText += generatePart1MaterialText(output, ratio);
-                
             } else if (output === 0 && lineSpeed > 0 && concentration > 0) {
+                calculationType = 'output';
                 const calculatedO_gmin = concentration * lineSpeed;
                 const calculatedO_gs = calculatedO_gmin / 60;
                 
@@ -1389,27 +503,21 @@
                 calculatePart1MaterialBreakdown(calculatedO_gs, ratio);
                 document.getElementById('part1-results').style.display = 'block';
                 
-                clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-                clipboardText += `${translations[currentLang].output}: ${calculatedO_gs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
-                clipboardText += generatePart1MaterialText(calculatedO_gs, ratio);
-                
             } else if (concentration === 0 && lineSpeed > 0 && output > 0) {
+                calculationType = 'consumption';
                 const outputInGmin = output * 60;
                 const calculatedC = outputInGmin / lineSpeed;
                 displayResult('part1-result-content', translations[currentLang].consumption, calculatedC.toFixed(2), 'g/m');
                 calculatePart1MaterialBreakdown(output, ratio);
                 document.getElementById('part1-results').style.display = 'block';
                 
-                clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-                clipboardText += `${translations[currentLang].consumption}: ${calculatedC.toFixed(2)} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n\n`;
-                clipboardText += generatePart1MaterialText(output, ratio);
-                
             } else {
                 showError(translations[currentLang].errorPart1);
                 return;
             }
 
-            // Copy to clipboard
+            // Generate and copy clipboard text
+            const clipboardText = generatePart1ClipboardText(lineSpeed, output, concentration, ratio, currentLang, calculationType);
             copyToClipboard(clipboardText);
 
             // Send data to Google Sheets
@@ -1466,23 +574,6 @@
             sendDataToGoogleSheets(googleSheetsData);
         }
 
-        function generatePart1MaterialText(output, ratio) {
-            const totalRatio = 1 + ratio;
-            const polAmount = output / totalRatio;
-            const isoAmount = output * ratio / totalRatio;
-
-            let materialText = `${translations[currentLang].materialAnalysis}:\n`;
-            const multipliers = [1, 4, 6];
-            
-            multipliers.forEach(multiplier => {
-                const pol = polAmount * multiplier;
-                const iso = isoAmount * multiplier;
-                const sum = pol + iso;
-                materialText += `Weight x ${multiplier}s: Pol: ${pol.toFixed(1)}g, Iso: ${iso.toFixed(1)}g, ${translations[currentLang].total}: ${sum.toFixed(1)}g\n`;
-            });
-
-            return materialText;
-        }
 
         function calculatePart1MaterialBreakdown(output, ratio) {
             const container = document.getElementById('part1MaterialBreakdown');
@@ -1566,25 +657,11 @@
 
             // Auto-populate Part 3 inputs with Part 2 results
             document.getElementById('part3_new_linespeed').value = linespeed;
-            document.getElementById('part3_new_consumption').value = Math.round(consumptionGM);
+            document.getElementById('part3_new_consumption').value = consumptionGM.toFixed(2);
             document.getElementById('part3_new_ratio').value = ratio.toFixed(2);
 
-            // Generate clipboard text
-            let clipboardText = `=== ${translations[currentLang].clipboardHeaders.part2} ===\n\n`;
-            clipboardText += `${translations[currentLang].clipboardHeaders.inputParameters}:\n`;
-            clipboardText += `${translations[currentLang].testLineSpeed}: ${linespeed} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].testTime}: ${testTime} ${translations[currentLang].unitSeconds.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].polyolWeight}: ${polyolWeight} g\n`;
-            clipboardText += `${translations[currentLang].isocyanateWeight}: ${isoWeight} g\n`;
-            clipboardText += `${translations[currentLang].polyolRPM}: ${polyolRpm} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].isoRPM}: ${isoRpm} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n\n`;
-
-            clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-            clipboardText += `${translations[currentLang].ratio}: ${ratio.toFixed(2)}\n`;
-            clipboardText += `${translations[currentLang].output}: ${outputGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].consumption}: ${consumptionGM.toFixed(2)} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n\n`;
-
-            // Copy to clipboard
+            // Generate and copy clipboard text
+            const clipboardText = generatePart2ClipboardText(linespeed, testTime, polyolWeight, isoWeight, polyolRpm, isoRpm, ratio, outputGs, consumptionGM, currentLang);
             copyToClipboard(clipboardText);
 
             // Send data to Google Sheets
@@ -1646,11 +723,13 @@
 
             if (window.part2Results) {
                 // Use Part 2 RPM as baseline and scale based on weight changes
-                const polyolScaleFactor = polyolWeightGs / (window.part2Results.outputGs / (1 + window.part2Results.ratio));
-                const isoScaleFactor = isoWeightGs / (window.part2Results.outputGs * window.part2Results.ratio / (1 + window.part2Results.ratio));
+                // Formula: part3 polyol RPM = (Part2 input polyol RPM) * ((part3 polyol weight per second) / (part2 polyol weight per second))
+                // Formula: part3 iso RPM = (Part2 input iso RPM) * ((part3 iso weight per second) / (part2 iso weight per second))
+                const part2PolyolWeightPerSecond = window.part2Results.outputGs / (1 + window.part2Results.ratio);
+                const part2IsoWeightPerSecond = window.part2Results.outputGs * window.part2Results.ratio / (1 + window.part2Results.ratio);
                 
-                polyolRpm = (excelData.part2.polyol_rpm * polyolScaleFactor) || polyolWeightGs;
-                isoRpm = (excelData.part2.iso_rpm * isoScaleFactor) || (polyolRpm * newRatio / excelData.part2.ratio);
+                polyolRpm = (window.part2Results.polyolRpm * polyolWeightGs) / part2PolyolWeightPerSecond;
+                isoRpm = (window.part2Results.isoRpm * isoWeightGs) / part2IsoWeightPerSecond;
             } else {
                 // Use Excel data as fallback
                 polyolRpm = excelData.part3.polyol_rpm;
@@ -1714,28 +793,8 @@
 
             document.getElementById('part3-results').style.display = 'block';
 
-            // Generate clipboard text
-            let clipboardText = `=== ${translations[currentLang].clipboardHeaders.part3} ===\n\n`;
-            clipboardText += `${translations[currentLang].clipboardHeaders.inputParameters}:\n`;
-            clipboardText += `${translations[currentLang].newLineSpeed}: ${newLinespeed} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].newConsumption}: ${newConsumption} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].newRatio}: ${newRatio}\n\n`;
-
-            clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-            clipboardText += `${translations[currentLang].totalOutput}: ${newOutputGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
-            
-            clipboardText += `${translations[currentLang].componentWeights}:\n`;
-            clipboardText += `${translations[currentLang].polyolWeight}: ${polyolWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].isocyanateWeight}: ${isoWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
-            
-            clipboardText += `${translations[currentLang].timeBasedBreakdown}:\n`;
-            clipboardText += timeBreakdownText + "\n";
-            
-            clipboardText += `${translations[currentLang].rpmAdjustment}:\n`;
-            clipboardText += `${translations[currentLang].polyolRPM}: ${polyolRpm.toFixed(2)} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n`;
-            clipboardText += `${translations[currentLang].isoRPM}: ${isoRpm.toFixed(2)} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n\n`;
-
-            // Copy to clipboard
+            // Generate and copy clipboard text
+            const clipboardText = generatePart3ClipboardText(newLinespeed, newConsumption, newRatio, newOutputGs, polyolWeightGs, isoWeightGs, timeBreakdownText, polyolRpm, isoRpm, currentLang);
             copyToClipboard(clipboardText);
 
             // Send data to Google Sheets
@@ -1791,91 +850,6 @@
                 <span class="result-value">${value} ${unit}</span>
             `;
             container.appendChild(resultItem);
-        }
-
-        // Clipboard functionality
-        function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                // Use modern clipboard API
-                navigator.clipboard.writeText(text).then(() => {
-                    showCopySuccess();
-                }).catch(err => {
-                    console.error('Failed to copy to clipboard:', err);
-                    fallbackCopyToClipboard(text);
-                });
-            } else {
-                // Fallback for older browsers or non-HTTPS contexts
-                fallbackCopyToClipboard(text);
-            }
-        }
-
-        function fallbackCopyToClipboard(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showCopySuccess();
-            } catch (err) {
-                console.error('Fallback: Failed to copy to clipboard:', err);
-                showCopyError();
-            }
-            
-            document.body.removeChild(textArea);
-        }
-
-        function showCopySuccess() {
-            const successDiv = document.createElement('div');
-            successDiv.className = 'copy-notification success';
-            successDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #27ae60;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                z-index: 1000;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                animation: slideIn 0.3s ease;
-            `;
-            successDiv.textContent = '✓ Copied to clipboard!';
-            document.body.appendChild(successDiv);
-            
-            setTimeout(() => {
-                successDiv.remove();
-            }, 3000);
-        }
-
-        function showCopyError() {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'copy-notification error';
-            errorDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #e74c3c;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                z-index: 1000;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                animation: slideIn 0.3s ease;
-            `;
-            errorDiv.textContent = '✗ Failed to copy to clipboard';
-            document.body.appendChild(errorDiv);
-            
-            setTimeout(() => {
-                errorDiv.remove();
-            }, 3000);
         }
 
         // Google Sheets Integration Functions
@@ -2012,6 +986,11 @@
 
         // Initialize with saved data or default values from the Excel file
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize instructions first
+            if (typeof initializeInstructions !== 'undefined') {
+                initializeInstructions();
+            }
+            
             // Initialize language first
             initializeLanguage();
             
