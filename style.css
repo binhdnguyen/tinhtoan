@@ -783,6 +783,25 @@ body {
     border-color: var(--accent-error);
 }
 
+/* Part-specific notification colors */
+.copy-notification.part1-notification {
+    background: var(--part1-color) !important;
+    color: var(--bg-primary) !important;
+    border-color: var(--part1-color) !important;
+}
+
+.copy-notification.part2-notification {
+    background: var(--part2-color) !important;
+    color: var(--bg-primary) !important;
+    border-color: var(--part2-color) !important;
+}
+
+.copy-notification.part3-notification {
+    background: var(--part3-color) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--part3-color) !important;
+}
+
 @keyframes slideInRight {
     from {
         transform: translateX(100%);

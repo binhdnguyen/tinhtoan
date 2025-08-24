@@ -80,6 +80,7 @@ const translations = {
       notes: "Note: Ratio is always required and cannot be zero. RPM values in Part 2 are optional but recommended for accurate Part 3 calculations."
     },
     autoClipboard: "Auto copy to clipboard",
+    clipboardSuccess: "Copied to clipboard!",
     errorRequired: "This field is required",
     errorInvalidNumber: "Please enter a valid number",
     errorMinValue: "Minimum value is",
@@ -166,6 +167,7 @@ const translations = {
       notes: "Lưu ý: Tỷ lệ luôn bắt buộc và không thể bằng không. Giá trị RPM trong Phần 2 là tùy chọn nhưng khuyến khích để tính toán chính xác ở Phần 3."
     },
     autoClipboard: "Tự động sao chép vào clipboard",
+    clipboardSuccess: "Đã sao chép vào clipboard!",
     errorRequired: "Trường này là bắt buộc",
     errorInvalidNumber: "Vui lòng nhập một số hợp lệ",
     errorMinValue: "Giá trị tối thiểu là",
@@ -252,6 +254,7 @@ const translations = {
       notes: "หมายเหตุ: อัตราส่วนจำเป็นต้องใส่เสมอและไม่สามารถเป็นศูนย์ได้ ค่า RPM ในส่วนที่ 2 เป็นตัวเลือกแต่แนะนำให้ใส่เพื่อการคำนวณที่แม่นยำในส่วนที่ 3"
     },
     autoClipboard: "คัดลอกไปยังคลิปบอร์ดโดยอัตโนมัติ",
+    clipboardSuccess: "คัดลอกไปยังคลิปบอร์ดแล้ว!",
     errorRequired: "จำเป็นต้องกรอกช่องนี้",
     errorInvalidNumber: "กรุณาใส่ตัวเลขที่ถูกต้อง",
     errorMinValue: "ค่าต่ำสุดคือ",
@@ -338,6 +341,7 @@ const translations = {
       notes: "注意：比例始终是必需的，不能为零。第2部分中的RPM值是可选的，但建议填写以确保第3部分计算的准确性。"
     },
     autoClipboard: "自动复制到剪贴板",
+    clipboardSuccess: "已复制到剪贴板！",
     errorRequired: "此字段为必填项",
     errorInvalidNumber: "请输入有效数字",
     errorMinValue: "最小值为",

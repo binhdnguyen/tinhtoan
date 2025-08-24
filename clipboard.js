@@ -1,19 +1,19 @@
-function copyToClipboard(text) {
+function copyToClipboard(text, partNumber = null) {
     if (navigator.clipboard && window.isSecureContext) {
         // Use modern clipboard API
         navigator.clipboard.writeText(text).then(() => {
-            showCopySuccess();
+            showCopySuccess(partNumber);
         }).catch(err => {
             console.error('Failed to copy to clipboard:', err);
-            fallbackCopyToClipboard(text);
+            fallbackCopyToClipboard(text, partNumber);
         });
     } else {
         // Fallback for older browsers or non-HTTPS contexts
-        fallbackCopyToClipboard(text);
+        fallbackCopyToClipboard(text, partNumber);
     }
 }
 
-function fallbackCopyToClipboard(text) {
+function fallbackCopyToClipboard(text, partNumber = null) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
@@ -25,7 +25,7 @@ function fallbackCopyToClipboard(text) {
     
     try {
         document.execCommand('copy');
-        showCopySuccess();
+        showCopySuccess(partNumber);
     } catch (err) {
         console.error('Fallback: Failed to copy to clipboard:', err);
         showCopyError();
@@ -34,10 +34,19 @@ function fallbackCopyToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
-function showCopySuccess() {
+function showCopySuccess(partNumber) {
     const successDiv = document.createElement('div');
     successDiv.className = 'copy-notification success';
-    successDiv.textContent = 'Copied to clipboard!';
+    
+    // Add part-specific theme class
+    if (partNumber) {
+        successDiv.classList.add(`part${partNumber}-notification`);
+    }
+    
+    // Use translated text
+    const t = translations[currentLang] || translations.en;
+    successDiv.textContent = t.clipboardSuccess;
+    
     document.body.appendChild(successDiv);
     
     setTimeout(() => {

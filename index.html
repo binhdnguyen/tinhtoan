@@ -610,7 +610,7 @@
             // Generate and copy clipboard text if global toggle is enabled
             if (document.getElementById('globalAutoClipboard').checked) {
                 const clipboardText = generatePart1ClipboardText(lineSpeed, output, concentration, ratio, currentLang, calculationType);
-                copyToClipboard(clipboardText);
+                copyToClipboard(clipboardText, 1);
             }
 
             // Send data to Google Sheets
@@ -770,7 +770,7 @@
             // Generate and copy clipboard text if global toggle is enabled
             if (document.getElementById('globalAutoClipboard').checked) {
                 const clipboardText = generatePart2ClipboardText(linespeed, testTime, polyolWeight, isoWeight, polyolRpm, isoRpm, ratio, outputGs, consumptionGM, currentLang);
-                copyToClipboard(clipboardText);
+                copyToClipboard(clipboardText, 2);
             }
 
             // Send data to Google Sheets
@@ -911,7 +911,7 @@
             // Generate and copy clipboard text if global toggle is enabled
             if (document.getElementById('globalAutoClipboard').checked) {
                 const clipboardText = generatePart3ClipboardText(newLinespeed, newConsumption, newRatio, newOutputGs, polyolWeightGs, isoWeightGs, timeBreakdownText, polyolRpm, isoRpm, currentLang);
-                copyToClipboard(clipboardText);
+                copyToClipboard(clipboardText, 3);
             }
 
             // Send data to Google Sheets
