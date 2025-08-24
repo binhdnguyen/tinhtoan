@@ -99,9 +99,13 @@
     <div class="container">
         <div class="header">
             <h1>PU Machine Operation Parameters Calculator</h1>
-            <div style="margin-top: 6px; margin-bottom: 6px;">
+            <div style="margin-top: 6px; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; justify-content: center;">
                 <button type="button" id="howToUseLink" onclick="toggleInstructions()" class="header-btn">
                 </button>
+                <label class="toggle-switch small-toggle">
+                    <input type="checkbox" id="globalAutoClipboard">
+                    <span class="slider"></span>
+                </label>
                 <button type="button" id="installAppBtn" onclick="installApp()" class="header-btn" style="display: none;">
                 </button>
             </div>
@@ -113,14 +117,6 @@
                 <span class="lang-link" onclick="switchLanguage('th')">ไทย</span>
                 <span style="opacity: 0.7;"> | </span>
                 <span class="lang-link" onclick="switchLanguage('cn')">中文</span>
-            </div>
-            
-            <div class="clipboard-toggle global-clipboard">
-                <label for="globalAutoClipboard" class="autoClipboard-label">Auto copy to clipboard</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="globalAutoClipboard">
-                    <span class="slider"></span>
-                </label>
             </div>
         </div>
 
@@ -137,9 +133,6 @@
                 <div class="formula-display">
                     O = C × L
                 </div>
-                <p style="text-align: center; color: #7f8c8d; font-size: 1.1em; margin-bottom: 12px;">
-                    O (Output), C (Consumption), L (Line speed)
-                </p>
 
                 <div class="input-group">
                     <div class="input-field">

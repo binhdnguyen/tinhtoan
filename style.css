@@ -453,6 +453,27 @@ body {
     box-shadow: 0 0 16px rgba(226, 98, 116, 0.2);
 }
 
+/* Small toggle switch for header */
+.small-toggle {
+    width: 32px !important;
+    height: 16px !important;
+}
+
+.small-toggle .slider {
+    border-radius: 16px !important;
+}
+
+.small-toggle .slider:before {
+    height: 12px !important;
+    width: 12px !important;
+    left: 2px !important;
+    bottom: 2px !important;
+}
+
+.small-toggle input:checked + .slider:before {
+    transform: translateX(16px) !important;
+}
+
 /* Button Styles */
 .calculate-btn {
     background: var(--part1-color);
