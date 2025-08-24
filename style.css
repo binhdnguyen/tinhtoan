@@ -71,11 +71,23 @@ body {
 /* Header Styles */
 .header {
     background: var(--bg-secondary);
-    color: var(--part1-color);
     padding: 32px 24px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    transition: color 0.5s ease;
+}
+
+.header.header-part1 {
+    color: var(--part1-color);
+}
+
+.header.header-part2 {
+    color: var(--part2-color);
+}
+
+.header.header-part3 {
+    color: var(--part3-color);
 }
 
 .header::before {
@@ -87,6 +99,15 @@ body {
     bottom: 0;
     background: linear-gradient(45deg, transparent 30%, rgba(249,236,126,0.1) 50%, transparent 70%);
     pointer-events: none;
+    transition: background 0.5s ease;
+}
+
+.header.header-part2::before {
+    background: linear-gradient(45deg, transparent 30%, rgba(227,204,178,0.1) 50%, transparent 70%);
+}
+
+.header.header-part3::before {
+    background: linear-gradient(45deg, transparent 30%, rgba(226,98,116,0.1) 50%, transparent 70%);
 }
 
 .header h1 {
@@ -122,20 +143,42 @@ body {
 }
 
 .lang-link:hover {
-    background-color: rgba(249, 236, 126, 0.2);
     transform: translateY(-2px);
 }
 
+.header.header-part1 .lang-link:hover {
+    background-color: rgba(249, 236, 126, 0.2);
+}
+
+.header.header-part2 .lang-link:hover {
+    background-color: rgba(227, 204, 178, 0.2);
+}
+
+.header.header-part3 .lang-link:hover {
+    background-color: rgba(226, 98, 116, 0.2);
+}
+
 .lang-link.active {
-    background-color: rgba(249, 236, 126, 0.3);
     font-weight: 600;
+}
+
+.header.header-part1 .lang-link.active {
+    background-color: rgba(249, 236, 126, 0.3);
     box-shadow: 0 4px 12px rgba(249, 236, 126, 0.2);
+}
+
+.header.header-part2 .lang-link.active {
+    background-color: rgba(227, 204, 178, 0.3);
+    box-shadow: 0 4px 12px rgba(227, 204, 178, 0.2);
+}
+
+.header.header-part3 .lang-link.active {
+    background-color: rgba(226, 98, 116, 0.3);
+    box-shadow: 0 4px 12px rgba(226, 98, 116, 0.2);
 }
 
 /* Header Buttons */
 .header-btn {
-    color: var(--part1-color);
-    background-color: rgba(249, 236, 126, 0.2);
     border: none;
     padding: 8px 16px;
     border-radius: 5px;
@@ -146,9 +189,35 @@ body {
     font-weight: 500;
 }
 
+.header.header-part1 .header-btn {
+    color: var(--part1-color);
+    background-color: rgba(249, 236, 126, 0.2);
+}
+
+.header.header-part2 .header-btn {
+    color: var(--part2-color);
+    background-color: rgba(227, 204, 178, 0.2);
+}
+
+.header.header-part3 .header-btn {
+    color: var(--part3-color);
+    background-color: rgba(226, 98, 116, 0.2);
+}
+
 .header-btn:hover {
-    background-color: rgba(249, 236, 126, 0.3);
     transform: translateY(-1px);
+}
+
+.header.header-part1 .header-btn:hover {
+    background-color: rgba(249, 236, 126, 0.3);
+}
+
+.header.header-part2 .header-btn:hover {
+    background-color: rgba(227, 204, 178, 0.3);
+}
+
+.header.header-part3 .header-btn:hover {
+    background-color: rgba(226, 98, 116, 0.3);
 }
 
 /* Main Content */
@@ -347,15 +416,15 @@ body {
 }
 
 /* Part-specific clipboard toggle colors */
-.part1-section .clipboard-toggle .autoClipboard-label {
+.header.header-part1 .clipboard-toggle .autoClipboard-label {
     color: var(--part1-color);
 }
 
-.part2-section .clipboard-toggle .autoClipboard-label {
+.header.header-part2 .clipboard-toggle .autoClipboard-label {
     color: var(--part2-color);
 }
 
-.part3-section .clipboard-toggle .autoClipboard-label {
+.header.header-part3 .clipboard-toggle .autoClipboard-label {
     color: var(--part3-color);
 }
 
@@ -399,58 +468,39 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.toggle-switch input:checked + .slider {
+.header.header-part1 .toggle-switch input:checked + .slider {
     background: linear-gradient(135deg, var(--part1-color) 0%, rgba(249, 236, 126, 0.8) 100%);
     box-shadow: 0 0 20px rgba(249, 236, 126, 0.3);
 }
 
-.toggle-switch input:checked + .slider:before {
-    transform: translateX(28px);
-    box-shadow: 0 4px 12px rgba(249, 236, 126, 0.4);
-}
-
-.toggle-switch:hover .slider {
-    box-shadow: 0 0 16px rgba(249, 236, 126, 0.2);
-}
-
-/* Part-specific toggle switch styles */
-.part1-section .toggle-switch input:checked + .slider {
-    background: linear-gradient(135deg, var(--part1-color) 0%, rgba(249, 236, 126, 0.8) 100%);
-    box-shadow: 0 0 20px rgba(249, 236, 126, 0.3);
-}
-
-.part1-section .toggle-switch input:checked + .slider:before {
-    box-shadow: 0 4px 12px rgba(249, 236, 126, 0.4);
-}
-
-.part1-section .toggle-switch:hover .slider {
-    box-shadow: 0 0 16px rgba(249, 236, 126, 0.2);
-}
-
-.part2-section .toggle-switch input:checked + .slider {
+.header.header-part2 .toggle-switch input:checked + .slider {
     background: linear-gradient(135deg, var(--part2-color) 0%, rgba(227, 204, 178, 0.8) 100%);
     box-shadow: 0 0 20px rgba(227, 204, 178, 0.3);
 }
 
-.part2-section .toggle-switch input:checked + .slider:before {
-    box-shadow: 0 4px 12px rgba(227, 204, 178, 0.4);
-}
-
-.part2-section .toggle-switch:hover .slider {
-    box-shadow: 0 0 16px rgba(227, 204, 178, 0.2);
-}
-
-.part3-section .toggle-switch input:checked + .slider {
+.header.header-part3 .toggle-switch input:checked + .slider {
     background: linear-gradient(135deg, var(--part3-color) 0%, rgba(226, 98, 116, 0.8) 100%);
     box-shadow: 0 0 20px rgba(226, 98, 116, 0.3);
 }
 
-.part3-section .toggle-switch input:checked + .slider:before {
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(28px);
+}
+
+.header.header-part1 .toggle-switch input:checked + .slider:before {
+    box-shadow: 0 4px 12px rgba(249, 236, 126, 0.4);
+}
+
+.header.header-part2 .toggle-switch input:checked + .slider:before {
+    box-shadow: 0 4px 12px rgba(227, 204, 178, 0.4);
+}
+
+.header.header-part3 .toggle-switch input:checked + .slider:before {
     box-shadow: 0 4px 12px rgba(226, 98, 116, 0.4);
 }
 
-.part3-section .toggle-switch:hover .slider {
-    box-shadow: 0 0 16px rgba(226, 98, 116, 0.2);
+.toggle-switch:hover .slider {
+    box-shadow: 0 0 16px rgba(249, 236, 126, 0.2);
 }
 
 /* Small toggle switch for header */

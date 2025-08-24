@@ -97,7 +97,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <div class="header header-part1">
             <h1>PU Machine Operation Parameters Calculator</h1>
             <div style="margin-top: 6px; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; justify-content: center;">
                 <button type="button" id="howToUseLink" onclick="toggleInstructions()" class="header-btn">
@@ -517,12 +517,12 @@
             document.getElementById('part1-section').style.display = 'none';
             document.getElementById('part2-section').style.display = 'none';
             document.getElementById('part3-section').style.display = 'none';
-            
+
             // Remove active class and part classes from all nav buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active', 'part2', 'part3');
             });
-            
+
             // Show selected section and activate nav button with appropriate part class
             document.getElementById(`part${partNumber}-section`).style.display = 'block';
             const activeBtn = document.querySelectorAll('.nav-btn')[partNumber - 1];
@@ -532,6 +532,11 @@
             } else if (partNumber === 3) {
                 activeBtn.classList.add('part3');
             }
+
+            // Update header style
+            const header = document.querySelector('.header');
+            header.classList.remove('header-part1', 'header-part2', 'header-part3');
+            header.classList.add(`header-part${partNumber}`);
         }
 
         // Loading state functions
