@@ -77,7 +77,8 @@ const translations = {
       ],
       formula: "Basic Formula: O = C × L (Output = Consumption × Line Speed)",
       notes: "Note: Ratio is always required and cannot be zero. RPM values in Part 2 are optional but recommended for accurate Part 3 calculations."
-    }
+    },
+    autoClipboard: "Auto copy to clipboard"
   },
   vi: {
     title: "Máy Tính Thông Số Hoạt Động Máy Phun PU",
@@ -157,7 +158,8 @@ const translations = {
       ],
       formula: "Công Thức Cơ Bản: O = C × L (Sản Lượng = Tiêu Hao × Tốc Độ Dây Chuyền)",
       notes: "Lưu ý: Tỷ lệ luôn bắt buộc và không thể bằng không. Giá trị RPM trong Phần 2 là tùy chọn nhưng khuyến khích để tính toán chính xác ở Phần 3."
-    }
+    },
+    autoClipboard: "Tự động sao chép vào clipboard"
   },
   th: {
     title: "เครื่องคำนวณพารามิเตอร์การทำงานเครื่องพ่น PU",
@@ -237,7 +239,8 @@ const translations = {
       ],
       formula: "สูตรพื้นฐาน: O = C × L (ผลผลิต = การใช้ × ความเร็วสาย)",
       notes: "หมายเหตุ: อัตราส่วนจำเป็นต้องใส่เสมอและไม่สามารถเป็นศูนย์ได้ ค่า RPM ในส่วนที่ 2 เป็นตัวเลือกแต่แนะนำให้ใส่เพื่อการคำนวณที่แม่นยำในส่วนที่ 3"
-    }
+    },
+    autoClipboard: "คัดลอกไปยังคลิปบอร์ดโดยอัตโนมัติ"
   },
   cn: {
     title: "PU喷涂机操作参数计算器",
@@ -317,6 +320,7 @@ const translations = {
       ],
       formula: "基础公式：O = C × L（产量 = 消耗 × 线速度）",
       notes: "注意：比例始终是必需的，不能为零。第2部分中的RPM值是可选的，但建议填写以确保第3部分计算的准确性。"
-    }
+    },
+    autoClipboard: "自动复制到剪贴板"
   }
 };

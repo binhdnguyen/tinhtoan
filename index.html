@@ -160,6 +160,13 @@
                     </div>
                 </div>
 
+                <div class="clipboard-toggle">
+                    <label for="autoClipboard1" class="autoClipboard-label">Auto copy to clipboard</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoClipboard1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
                 <button type="button" class="calculate-btn" onclick="calculateBasic()">Calculate</button>
                 <button type="button" class="calculate-btn" onclick="clearPart1()">Clear Data</button>
 
@@ -214,6 +221,13 @@
                     </div>
                 </div>
 
+                <div class="clipboard-toggle">
+                    <label for="autoClipboard2" class="autoClipboard-label">Auto copy to clipboard</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoClipboard2">
+                        <span class="slider"></span>
+                    </label>
+                </div>
                 <button type="button" class="calculate-btn part2" onclick="calculatePart2()">Calculate</button>
                 <button type="button" class="calculate-btn part2" onclick="clearPart2()">Clear Data</button>
 
@@ -246,6 +260,13 @@
                     </div>
                 </div>
 
+                <div class="clipboard-toggle">
+                    <label for="autoClipboard3" class="autoClipboard-label">Auto copy to clipboard</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoClipboard3">
+                        <span class="slider"></span>
+                    </label>
+                </div>
                 <button type="button" class="calculate-btn part3" onclick="calculatePart3()">Calculate</button>
                 <button type="button" class="calculate-btn part3" onclick="clearPart3()">Clear Data</button>
 
@@ -438,6 +459,11 @@
             if (resultHeadings[3]) resultHeadings[3].textContent = t.part3Results;
             if (resultHeadings[4]) resultHeadings[4].textContent = t.rpmAdjustment;
             
+            // Update clipboard toggle labels
+            document.querySelectorAll('.autoClipboard-label').forEach(label => {
+                label.textContent = t.autoClipboard;
+            });
+            
             // Update instructions content using external function
             if (typeof updateInstructionsTranslations !== 'undefined') {
                 updateInstructionsTranslations(currentLang);
@@ -516,9 +542,11 @@
                 return;
             }
 
-            // Generate and copy clipboard text
-            const clipboardText = generatePart1ClipboardText(lineSpeed, output, concentration, ratio, currentLang, calculationType);
-            copyToClipboard(clipboardText);
+            // Generate and copy clipboard text if toggle is enabled
+            if (document.getElementById('autoClipboard1').checked) {
+                const clipboardText = generatePart1ClipboardText(lineSpeed, output, concentration, ratio, currentLang, calculationType);
+                copyToClipboard(clipboardText);
+            }
 
             // Send data to Google Sheets
             const googleSheetsData = {
@@ -660,9 +688,11 @@
             document.getElementById('part3_new_consumption').value = consumptionGM.toFixed(2);
             document.getElementById('part3_new_ratio').value = ratio.toFixed(2);
 
-            // Generate and copy clipboard text
-            const clipboardText = generatePart2ClipboardText(linespeed, testTime, polyolWeight, isoWeight, polyolRpm, isoRpm, ratio, outputGs, consumptionGM, currentLang);
-            copyToClipboard(clipboardText);
+            // Generate and copy clipboard text if toggle is enabled
+            if (document.getElementById('autoClipboard2').checked) {
+                const clipboardText = generatePart2ClipboardText(linespeed, testTime, polyolWeight, isoWeight, polyolRpm, isoRpm, ratio, outputGs, consumptionGM, currentLang);
+                copyToClipboard(clipboardText);
+            }
 
             // Send data to Google Sheets
             const googleSheetsData = {
@@ -793,9 +823,11 @@
 
             document.getElementById('part3-results').style.display = 'block';
 
-            // Generate and copy clipboard text
-            const clipboardText = generatePart3ClipboardText(newLinespeed, newConsumption, newRatio, newOutputGs, polyolWeightGs, isoWeightGs, timeBreakdownText, polyolRpm, isoRpm, currentLang);
-            copyToClipboard(clipboardText);
+            // Generate and copy clipboard text if toggle is enabled
+            if (document.getElementById('autoClipboard3').checked) {
+                const clipboardText = generatePart3ClipboardText(newLinespeed, newConsumption, newRatio, newOutputGs, polyolWeightGs, isoWeightGs, timeBreakdownText, polyolRpm, isoRpm, currentLang);
+                copyToClipboard(clipboardText);
+            }
 
             // Send data to Google Sheets
             const googleSheetsData = {

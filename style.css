@@ -147,6 +147,78 @@ body {
     margin-top: 5px;
 }
 
+.clipboard-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0 10px 0;
+    font-size: 1.1em;
+}
+
+.clipboard-toggle .autoClipboard-label {
+    cursor: pointer;
+    color: #2c3e50;
+    font-weight: 500;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.clipboard-toggle:hover .autoClipboard-label {
+    color: #3498db;
+}
+
+/* Toggle Switch Styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #3498db;
+}
+
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-switch:hover .slider {
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
 .calculate-btn {
     background: linear-gradient(45deg, #3498db, #2980b9);
     color: white;
