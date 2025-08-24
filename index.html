@@ -255,7 +255,7 @@
         </div>
         
         <div class="footer">
-            <p>Binh D. Nguyen - Interfoam</p>
+            <p onclick="toggleEmail()" style="cursor: pointer;">Binh D. Nguyen - Interfoam</p>
         </div>
     </div>
 
@@ -312,6 +312,38 @@
                 cn: "要将此应用添加到主屏幕:\n\n• Chrome/Edge: 点击菜单 (⋮) → '添加到主屏幕'\n• Safari: 点击分享 (⤴) → '添加到主屏幕'\n• Firefox: 点击菜单 (⋮) → '安装'"
             };
             alert(instructions[currentLang] || instructions.en);
+        }
+
+        // Toggle email display function
+        function toggleEmail() {
+            let emailSection = document.getElementById('emailSection');
+            
+            if (!emailSection) {
+                // Create email section if it doesn't exist
+                emailSection = document.createElement('div');
+                emailSection.id = 'emailSection';
+                emailSection.className = 'email-info';
+                emailSection.innerHTML = `
+                    <div class="email-content">
+                        <h3>Contact Information</h3>
+                        <p><a href="mailto:binh.interfoam@gmail.com">binh.interfoam@gmail.com</a></p>
+                        <p>Interfoam Vietnam JSC.</p>
+                    </div>
+                `;
+                emailSection.style.display = 'none';
+                
+                // Insert after the footer
+                const footer = document.querySelector('.footer');
+                footer.parentNode.insertBefore(emailSection, footer.nextSibling);
+            }
+            
+            // Toggle display
+            const currentDisplay = window.getComputedStyle(emailSection).display;
+            if (currentDisplay === 'none') {
+                emailSection.style.display = 'block';
+            } else {
+                emailSection.style.display = 'none';
+            }
         }
 
         // Check if app is already installed
