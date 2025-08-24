@@ -930,9 +930,10 @@ body {
     
     .formula-display {
         font-size: 1.3em;
-        padding: 12px;
+        padding: 6px 12px;
         letter-spacing: 1px;
-        margin-bottom: 12px;
+        margin-bottom: 6px;
+        margin-top: 4px;
     }
     
     .input-field {
@@ -1091,13 +1092,16 @@ body {
     
     /* Mobile optimizations for contact section */
     .footer {
-        padding: 8px 12px;
+        padding: 4px 8px;
+        min-height: auto;
     }
     
     .footer p {
-        padding: 3px 8px;
-        font-size: 0.8em;
+        padding: 2px 6px;
+        font-size: 0.75em;
         margin: 0;
+        line-height: 1.1;
+        display: inline-block;
     }
     
     .email-info {
