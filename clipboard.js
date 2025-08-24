@@ -37,20 +37,7 @@ function fallbackCopyToClipboard(text) {
 function showCopySuccess() {
     const successDiv = document.createElement('div');
     successDiv.className = 'copy-notification success';
-    successDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #27ae60;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        animation: slideIn 0.3s ease;
-    `;
-    successDiv.textContent = '✓ Copied to clipboard!';
+    successDiv.textContent = 'Copied to clipboard!';
     document.body.appendChild(successDiv);
     
     setTimeout(() => {
@@ -61,20 +48,7 @@ function showCopySuccess() {
 function showCopyError() {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'copy-notification error';
-    errorDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #e74c3c;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        animation: slideIn 0.3s ease;
-    `;
-    errorDiv.textContent = '✗ Failed to copy to clipboard';
+    errorDiv.textContent = 'Failed to copy to clipboard';
     document.body.appendChild(errorDiv);
     
     setTimeout(() => {
@@ -102,75 +76,105 @@ function generatePart1MaterialText(output, ratio, currentLang) {
 }
 
 function generatePart1ClipboardText(lineSpeed, output, concentration, ratio, currentLang, calculationType) {
-    let clipboardText = `=== ${translations[currentLang].clipboardHeaders.part1} ===\n\n`;
-    clipboardText += `${translations[currentLang].clipboardHeaders.inputParameters}:\n`;
-    clipboardText += `${translations[currentLang].lineSpeed}: ${lineSpeed === 0 ? `0 (${translations[currentLang].clipboardHeaders.calculated})` : lineSpeed} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].output}: ${output === 0 ? `0 (${translations[currentLang].clipboardHeaders.calculated})` : output} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].consumption}: ${concentration === 0 ? `0 (${translations[currentLang].clipboardHeaders.calculated})` : concentration} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].ratio}: ${ratio}\n\n`;
-
-    // Add results based on calculation type
+    const t = translations[currentLang] || translations['en'];
+    let clipboardText = `${t.part1}\n\n`;
+    
+    // Calculate final values based on calculation type
+    let finalLineSpeed = lineSpeed;
+    let finalOutput = output;
+    let finalConsumption = concentration;
+    
     if (calculationType === 'lineSpeed') {
         const outputInGmin = output * 60;
-        const calculatedL = outputInGmin / concentration;
-        clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-        clipboardText += `${translations[currentLang].lineSpeed}: ${calculatedL.toFixed(1)} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n\n`;
-        clipboardText += generatePart1MaterialText(output, ratio, currentLang);
+        finalLineSpeed = outputInGmin / concentration;
     } else if (calculationType === 'output') {
         const calculatedO_gmin = concentration * lineSpeed;
-        const calculatedO_gs = calculatedO_gmin / 60;
-        clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-        clipboardText += `${translations[currentLang].output}: ${calculatedO_gs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
-        clipboardText += generatePart1MaterialText(calculatedO_gs, ratio, currentLang);
+        finalOutput = calculatedO_gmin / 60;
     } else if (calculationType === 'consumption') {
         const outputInGmin = output * 60;
-        const calculatedC = outputInGmin / lineSpeed;
-        clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-        clipboardText += `${translations[currentLang].consumption}: ${calculatedC.toFixed(2)} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n\n`;
-        clipboardText += generatePart1MaterialText(output, ratio, currentLang);
+        finalConsumption = outputInGmin / lineSpeed;
     }
+    
+    // Show only non-zero input parameters (but use calculated values)
+    if (lineSpeed !== 0) {
+        clipboardText += `${t.lineSpeed}: ${Math.round(finalLineSpeed)} m/min\n`;
+    }
+    if (output !== 0) {
+        clipboardText += `${t.output}: ${Math.round(finalOutput)} g/s\n`;
+    }
+    if (concentration !== 0) {
+        clipboardText += `${t.consumption}: ${finalConsumption.toFixed(2)} g/m\n`;
+    }
+    clipboardText += `${t.ratio}: ${ratio}\n\n`;
+    
+    // Results section - show the calculated field (whichever input was 0)
+    clipboardText += `${t.clipboardHeaders.results}:\n`;
+    
+    // Show the calculated value based on which input was 0
+    if (calculationType === 'lineSpeed') {
+        clipboardText += `${t.lineSpeed}: ${finalLineSpeed.toFixed(2)} m/min\n`;
+    } else if (calculationType === 'output') {
+        clipboardText += `${t.output}: ${finalOutput.toFixed(2)} g/s\n`;
+    } else if (calculationType === 'consumption') {
+        clipboardText += `${t.consumption}: ${finalConsumption.toFixed(2)} g/m\n`;
+    }
+    
+    // Add material breakdown (Pol/Iso)
+    const totalRatio = 1 + ratio;
+    const polAmount = finalOutput / totalRatio;
+    const isoAmount = finalOutput * ratio / totalRatio;
+    clipboardText += `Pol: ${polAmount.toFixed(1)} g/s\n`;
+    clipboardText += `Iso: ${isoAmount.toFixed(1)} g/s\n`;
 
     return clipboardText;
 }
 
 function generatePart2ClipboardText(linespeed, testTime, polyolWeight, isoWeight, polyolRpm, isoRpm, ratio, outputGs, consumptionGM, currentLang) {
-    let clipboardText = `=== ${translations[currentLang].clipboardHeaders.part2} ===\n\n`;
-    clipboardText += `${translations[currentLang].clipboardHeaders.inputParameters}:\n`;
-    clipboardText += `${translations[currentLang].testLineSpeed}: ${linespeed} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].testTime}: ${testTime} ${translations[currentLang].unitSeconds.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].polyolWeight}: ${polyolWeight} g\n`;
-    clipboardText += `${translations[currentLang].isocyanateWeight}: ${isoWeight} g\n`;
-    clipboardText += `${translations[currentLang].polyolRPM}: ${polyolRpm} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].isoRPM}: ${isoRpm} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n\n`;
+    const t = translations[currentLang] || translations['en'];
+    let clipboardText = `${t.part2}\n\n`;
+    
+    // Input parameters
+    clipboardText += `${t.testLineSpeed}: ${linespeed} m/min\n`;
+    clipboardText += `${t.testTime}: ${testTime} seconds\n`;
+    clipboardText += `${t.polyolWeight}: ${polyolWeight} g\n`;
+    clipboardText += `${t.isocyanateWeight}: ${isoWeight} g\n`;
+    
+    // Only show RPM values if they are greater than 0
+    if (polyolRpm > 0) {
+        clipboardText += `${t.polyolRPM}: ${polyolRpm} Hz\n`;
+    }
+    if (isoRpm > 0) {
+        clipboardText += `${t.isoRPM}: ${isoRpm} Hz\n`;
+    }
 
-    clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-    clipboardText += `${translations[currentLang].ratio}: ${ratio.toFixed(2)}\n`;
-    clipboardText += `${translations[currentLang].output}: ${outputGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].consumption}: ${consumptionGM.toFixed(2)} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n\n`;
+    // Results section
+    clipboardText += `\n${t.clipboardHeaders.results}:\n`;
+    clipboardText += `${t.ratio}: ${ratio.toFixed(2)}\n`;
+    clipboardText += `${t.output}: ${outputGs.toFixed(2)} g/s\n`;
+    clipboardText += `${t.consumption}: ${consumptionGM.toFixed(2)} g/m\n`;
 
     return clipboardText;
 }
 
 function generatePart3ClipboardText(newLinespeed, newConsumption, newRatio, newOutputGs, polyolWeightGs, isoWeightGs, timeBreakdownText, polyolRpm, isoRpm, currentLang) {
-    let clipboardText = `=== ${translations[currentLang].clipboardHeaders.part3} ===\n\n`;
-    clipboardText += `${translations[currentLang].clipboardHeaders.inputParameters}:\n`;
-    clipboardText += `${translations[currentLang].newLineSpeed}: ${newLinespeed} ${translations[currentLang].unitMMin.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].newConsumption}: ${newConsumption} ${translations[currentLang].unitGm.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].newRatio}: ${newRatio}\n\n`;
+    const t = translations[currentLang] || translations['en'];
+    let clipboardText = `${t.part3}\n\n`;
+    
+    // Input parameters
+    clipboardText += `${t.newLineSpeed}: ${newLinespeed} m/min\n`;
+    clipboardText += `${t.newConsumption}: ${newConsumption} g/m\n`;
+    clipboardText += `${t.newRatio}: ${newRatio}\n\n`;
 
-    clipboardText += `${translations[currentLang].clipboardHeaders.results}:\n`;
-    clipboardText += `${translations[currentLang].totalOutput}: ${newOutputGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
+    // Results section
+    clipboardText += `${t.clipboardHeaders.results}:\n`;
+    clipboardText += `${t.output}: ${newOutputGs.toFixed(2)} g/s\n`;
+    clipboardText += `Polyol: ${polyolWeightGs.toFixed(2)} g/s\n`;
+    clipboardText += `Iso: ${isoWeightGs.toFixed(2)} g/s\n`;
     
-    clipboardText += `${translations[currentLang].componentWeights}:\n`;
-    clipboardText += `${translations[currentLang].polyolWeight}: ${polyolWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].isocyanateWeight}: ${isoWeightGs.toFixed(2)} ${translations[currentLang].unitGs.replace('Unit: ', '')}\n\n`;
-    
-    clipboardText += `${translations[currentLang].timeBasedBreakdown}:\n`;
-    clipboardText += timeBreakdownText + "\n";
-    
-    clipboardText += `${translations[currentLang].rpmAdjustment}:\n`;
-    clipboardText += `${translations[currentLang].polyolRPM}: ${polyolRpm.toFixed(2)} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n`;
-    clipboardText += `${translations[currentLang].isoRPM}: ${isoRpm.toFixed(2)} ${translations[currentLang].unitHz.replace('Unit: ', '')}\n\n`;
+    // New RPMs section - use translated header
+    clipboardText += `${t.clipboardHeaders.newRPMs}:\n`;
+    clipboardText += `Polyol: ${polyolRpm.toFixed(2)} Hz\n`;
+    clipboardText += `Iso: ${isoRpm.toFixed(2)} Hz\n`;
 
     return clipboardText;
 }

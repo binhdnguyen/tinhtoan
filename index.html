@@ -31,6 +31,9 @@
     gtag('config', 'G-H54NMKEF6S');
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="config.js"></script>
     <script src="translations.js"></script>
@@ -97,15 +100,9 @@
         <div class="header">
             <h1>PU Machine Operation Parameters Calculator</h1>
             <div style="margin-top: 6px; margin-bottom: 6px;">
-                <button type="button" id="howToUseLink" onclick="toggleInstructions()" style="color: #ffffff; background-color: rgba(255, 255, 255, 0.2); border: none; padding: 8px 16px; border-radius: 5px; font-size: 0.9em; transition: all 0.3s ease; cursor: pointer; margin-right: 8px;" 
-                   onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.3)'" 
-                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'">
-                    how to use
+                <button type="button" id="howToUseLink" onclick="toggleInstructions()" class="header-btn">
                 </button>
-                <button type="button" id="installAppBtn" onclick="installApp()" style="color: #ffffff; background-color: rgba(255, 255, 255, 0.2); border: none; padding: 8px 16px; border-radius: 5px; font-size: 0.9em; transition: all 0.3s ease; cursor: pointer; display: none;" 
-                   onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.3)'" 
-                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'">
-                    add to home screen
+                <button type="button" id="installAppBtn" onclick="installApp()" class="header-btn" style="display: none;">
                 </button>
             </div>
             <div class="language-selector">
@@ -116,6 +113,14 @@
                 <span class="lang-link" onclick="switchLanguage('th')">ไทย</span>
                 <span style="opacity: 0.7;"> | </span>
                 <span class="lang-link" onclick="switchLanguage('cn')">中文</span>
+            </div>
+            
+            <div class="clipboard-toggle global-clipboard">
+                <label for="globalAutoClipboard" class="autoClipboard-label">Auto copy to clipboard</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="globalAutoClipboard">
+                    <span class="slider"></span>
+                </label>
             </div>
         </div>
 
@@ -128,8 +133,7 @@
             </div>
 
             <!-- Part 1: Basic Calculator -->
-            <div id="part1-section" class="section">
-                <h2>Part 1: Basic Formula Calculator</h2>
+            <div id="part1-section" class="section part1-section">
                 <div class="formula-display">
                     O = C × L
                 </div>
@@ -138,11 +142,6 @@
                 </p>
 
                 <div class="input-group">
-                    <div class="input-field">
-                        <label for="ratio">Ratio</label>
-                        <input type="number" id="ratio" value="1.65" step="0.01" inputmode="decimal">
-                        <div class="unit">Iso/Pol Ratio</div>
-                    </div>
                     <div class="input-field">
                         <label for="lineSpeed">L - Line Speed</label>
                         <input type="number" id="lineSpeed" step="0.1" placeholder="Enter 0 to calculate" inputmode="decimal">
@@ -158,15 +157,13 @@
                         <input type="number" id="concentration" step="0.01" placeholder="Enter 0 to calculate" inputmode="decimal">
                         <div class="unit">Unit: g/m</div>
                     </div>
+                    <div class="input-field">
+                        <label for="ratio">Ratio</label>
+                        <input type="number" id="ratio" value="1.65" step="0.01" inputmode="decimal">
+                        <div class="unit">Iso/Pol Ratio</div>
+                    </div>
                 </div>
 
-                <div class="clipboard-toggle">
-                    <label for="autoClipboard1" class="autoClipboard-label">Auto copy to clipboard</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="autoClipboard1">
-                        <span class="slider"></span>
-                    </label>
-                </div>
                 <button type="button" class="calculate-btn" onclick="calculateBasic()">Calculate</button>
                 <button type="button" class="calculate-btn" onclick="clearPart1()">Clear Data</button>
 
@@ -184,9 +181,7 @@
             </div>
 
             <!-- Part 2: Test Data Analysis -->
-            <div id="part2-section" class="section part2" style="display: none;">
-                <h2>Part 2: Test Data Analysis</h2>
-                <p style="color: #7f8c8d; margin-bottom: 12px;">Calculate parameters based on actual test data</p>
+            <div id="part2-section" class="section part2 part2-section" style="display: none;">
                 
                 <div class="input-group">
                     <div class="input-field">
@@ -221,13 +216,6 @@
                     </div>
                 </div>
 
-                <div class="clipboard-toggle">
-                    <label for="autoClipboard2" class="autoClipboard-label">Auto copy to clipboard</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="autoClipboard2">
-                        <span class="slider"></span>
-                    </label>
-                </div>
                 <button type="button" class="calculate-btn part2" onclick="calculatePart2()">Calculate</button>
                 <button type="button" class="calculate-btn part2" onclick="clearPart2()">Clear Data</button>
 
@@ -238,9 +226,7 @@
             </div>
 
             <!-- Part 3: Parameter Adjustment -->
-            <div id="part3-section" class="section part3" style="display: none;">
-                <h2>Part 3: Parameter Adjustment</h2>
-                <p style="color: #7f8c8d; margin-bottom: 12px;">Adjust parameters based on Part 2 results</p>
+            <div id="part3-section" class="section part3 part3-section" style="display: none;">
                 
                 <div class="input-group">
                     <div class="input-field">
@@ -260,13 +246,6 @@
                     </div>
                 </div>
 
-                <div class="clipboard-toggle">
-                    <label for="autoClipboard3" class="autoClipboard-label">Auto copy to clipboard</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="autoClipboard3">
-                        <span class="slider"></span>
-                    </label>
-                </div>
                 <button type="button" class="calculate-btn part3" onclick="calculatePart3()">Calculate</button>
                 <button type="button" class="calculate-btn part3" onclick="clearPart3()">Clear Data</button>
 
@@ -370,12 +349,18 @@
         
         function updateTranslations() {
             const t = translations[currentLang];
+            if (!t) {
+                console.error('No translations found for language:', currentLang);
+                return;
+            }
             
             // Update title
-            document.querySelector('h1').textContent = t.title;
+            const titleElement = document.querySelector('h1');
+            if (titleElement) titleElement.textContent = t.title;
             
             // Update how to use button
-            document.querySelector('#howToUseLink').textContent = t.howToUse;
+            const howToUseBtn = document.querySelector('#howToUseLink');
+            if (howToUseBtn) howToUseBtn.textContent = t.howToUse;
             
             // Update add to home screen button
             const installBtn = document.querySelector('#installAppBtn');
@@ -384,23 +369,32 @@
             }
             
             // Update navigation buttons
-            document.querySelectorAll('.nav-btn')[0].textContent = t.part1;
-            document.querySelectorAll('.nav-btn')[1].textContent = t.part2;
-            document.querySelectorAll('.nav-btn')[2].textContent = t.part3;
+            const navBtns = document.querySelectorAll('.nav-btn');
+            if (navBtns[0]) navBtns[0].textContent = t.part1;
+            if (navBtns[1]) navBtns[1].textContent = t.part2;
+            if (navBtns[2]) navBtns[2].textContent = t.part3;
             
             // Update Part 1
-            document.querySelector('#part1-section h2').textContent = t.part1;
-            document.querySelector('#part1-section p').textContent = t.formula_desc;
-            document.querySelector('label[for="lineSpeed"]').textContent = t.lineSpeed;
-            document.querySelector('label[for="output"]').textContent = t.output;
-            document.querySelector('label[for="concentration"]').textContent = t.consumption;
-            document.querySelector('label[for="ratio"]').textContent = t.ratio;
+            const part1Title = document.querySelector('#part1-section h2');
+            const part1Formula = document.querySelector('#part1-section p');
+            const lineSpeedLabel = document.querySelector('label[for="lineSpeed"]');
+            const outputLabel = document.querySelector('label[for="output"]');
+            const concentrationLabel = document.querySelector('label[for="concentration"]');
+            const ratioLabel = document.querySelector('label[for="ratio"]');
+            
+            if (part1Title) part1Title.textContent = t.part1;
+            if (part1Formula) part1Formula.textContent = t.formula_desc;
+            if (lineSpeedLabel) lineSpeedLabel.textContent = t.lineSpeed;
+            if (outputLabel) outputLabel.textContent = t.output;
+            if (concentrationLabel) concentrationLabel.textContent = t.consumption;
+            if (ratioLabel) ratioLabel.textContent = t.ratio;
             
             // Update units
-            document.querySelectorAll('.unit')[0].textContent = t.unitMMin;
-            document.querySelectorAll('.unit')[1].textContent = t.unitGs;
-            document.querySelectorAll('.unit')[2].textContent = t.unitGm;
-            document.querySelectorAll('.unit')[3].textContent = t.isoPolRatio;
+            const units = document.querySelectorAll('.unit');
+            if (units[0]) units[0].textContent = t.unitMMin;
+            if (units[1]) units[1].textContent = t.unitGs;
+            if (units[2]) units[2].textContent = t.unitGm;
+            if (units[3]) units[3].textContent = t.isoPolRatio;
             
             // Update placeholders
             document.querySelectorAll('input[placeholder]').forEach(input => {
@@ -408,48 +402,69 @@
             });
             
             // Update buttons
-            document.querySelector('#part1-section .calculate-btn:first-of-type').textContent = t.calculate;
-            document.querySelector('#part1-section .calculate-btn:last-of-type').textContent = t.clearData;
+            const part1CalcBtn = document.querySelector('#part1-section .calculate-btn:first-of-type');
+            const part1ClearBtn = document.querySelector('#part1-section .calculate-btn:last-of-type');
+            if (part1CalcBtn) part1CalcBtn.textContent = t.calculate;
+            if (part1ClearBtn) part1ClearBtn.textContent = t.clearData;
             
             // Update Part 2
-            document.querySelector('#part2-section h2').textContent = t.part2;
-            document.querySelector('#part2-section > p').textContent = t.testDataDesc;
-            document.querySelector('label[for="part2_linespeed"]').textContent = t.testLineSpeed;
-            document.querySelector('label[for="part2_test_time"]').textContent = t.testTime;
-            document.querySelector('label[for="part2_polyol"]').textContent = t.polyolWeight;
-            document.querySelector('label[for="part2_iso"]').textContent = t.isocyanateWeight;
-            document.querySelector('label[for="part2_polyol_rpm"]').textContent = t.polyolRPM;
-            document.querySelector('label[for="part2_iso_rpm"]').textContent = t.isoRPM;
+            const part2Title = document.querySelector('#part2-section h2');
+            const part2Desc = document.querySelector('#part2-section > p');
+            const part2LineSpeedLabel = document.querySelector('label[for="part2_linespeed"]');
+            const part2TestTimeLabel = document.querySelector('label[for="part2_test_time"]');
+            const part2PolyolLabel = document.querySelector('label[for="part2_polyol"]');
+            const part2IsoLabel = document.querySelector('label[for="part2_iso"]');
+            const part2PolyolRpmLabel = document.querySelector('label[for="part2_polyol_rpm"]');
+            const part2IsoRpmLabel = document.querySelector('label[for="part2_iso_rpm"]');
+            
+            if (part2Title) part2Title.textContent = t.part2;
+            if (part2Desc) part2Desc.textContent = t.testDataDesc;
+            if (part2LineSpeedLabel) part2LineSpeedLabel.textContent = t.testLineSpeed;
+            if (part2TestTimeLabel) part2TestTimeLabel.textContent = t.testTime;
+            if (part2PolyolLabel) part2PolyolLabel.textContent = t.polyolWeight;
+            if (part2IsoLabel) part2IsoLabel.textContent = t.isocyanateWeight;
+            if (part2PolyolRpmLabel) part2PolyolRpmLabel.textContent = t.polyolRPM;
+            if (part2IsoRpmLabel) part2IsoRpmLabel.textContent = t.isoRPM;
             
             // Update Part 2 units
             const part2Units = document.querySelectorAll('#part2-section .unit');
-            part2Units[0].textContent = t.unitMMin;
-            part2Units[1].textContent = t.unitSeconds;
-            part2Units[2].textContent = t.unitGPerT;
-            part2Units[3].textContent = t.unitGPerT;
-            part2Units[4].textContent = t.unitHz;
-            part2Units[5].textContent = t.unitHz;
+            if (part2Units[0]) part2Units[0].textContent = t.unitMMin;
+            if (part2Units[1]) part2Units[1].textContent = t.unitSeconds;
+            if (part2Units[2]) part2Units[2].textContent = t.unitGPerT;
+            if (part2Units[3]) part2Units[3].textContent = t.unitGPerT;
+            if (part2Units[4]) part2Units[4].textContent = t.unitHz;
+            if (part2Units[5]) part2Units[5].textContent = t.unitHz;
             
             // Update Part 2 buttons
-            document.querySelector('#part2-section .calculate-btn:first-of-type').textContent = t.calculate;
-            document.querySelector('#part2-section .calculate-btn:last-of-type').textContent = t.clearData;
+            const part2CalcBtn = document.querySelector('#part2-section .calculate-btn:first-of-type');
+            const part2ClearBtn = document.querySelector('#part2-section .calculate-btn:last-of-type');
+            if (part2CalcBtn) part2CalcBtn.textContent = t.calculate;
+            if (part2ClearBtn) part2ClearBtn.textContent = t.clearData;
             
             // Update Part 3
-            document.querySelector('#part3-section h2').textContent = t.part3;
-            document.querySelector('#part3-section > p').textContent = t.parameterDesc;
-            document.querySelector('label[for="part3_new_linespeed"]').textContent = t.newLineSpeed;
-            document.querySelector('label[for="part3_new_consumption"]').textContent = t.newConsumption;
-            document.querySelector('label[for="part3_new_ratio"]').textContent = t.newRatio;
+            const part3Title = document.querySelector('#part3-section h2');
+            const part3Desc = document.querySelector('#part3-section > p');
+            const part3LineSpeedLabel = document.querySelector('label[for="part3_new_linespeed"]');
+            const part3ConsumptionLabel = document.querySelector('label[for="part3_new_consumption"]');
+            const part3RatioLabel = document.querySelector('label[for="part3_new_ratio"]');
+            
+            if (part3Title) part3Title.textContent = t.part3;
+            if (part3Desc) part3Desc.textContent = t.parameterDesc;
+            if (part3LineSpeedLabel) part3LineSpeedLabel.textContent = t.newLineSpeed;
+            if (part3ConsumptionLabel) part3ConsumptionLabel.textContent = t.newConsumption;
+            if (part3RatioLabel) part3RatioLabel.textContent = t.newRatio;
             
             // Update Part 3 units
             const part3Units = document.querySelectorAll('#part3-section .unit');
-            part3Units[0].textContent = t.unitMMin;
-            part3Units[1].textContent = t.unitGm;
-            part3Units[2].textContent = t.isoPolRatio;
+            if (part3Units[0]) part3Units[0].textContent = t.unitMMin;
+            if (part3Units[1]) part3Units[1].textContent = t.unitGm;
+            if (part3Units[2]) part3Units[2].textContent = t.isoPolRatio;
             
             // Update Part 3 buttons
-            document.querySelector('#part3-section .calculate-btn:first-of-type').textContent = t.calculate;
-            document.querySelector('#part3-section .calculate-btn:last-of-type').textContent = t.clearData;
+            const part3CalcBtn = document.querySelector('#part3-section .calculate-btn:first-of-type');
+            const part3ClearBtn = document.querySelector('#part3-section .calculate-btn:last-of-type');
+            if (part3CalcBtn) part3CalcBtn.textContent = t.calculate;
+            if (part3ClearBtn) part3ClearBtn.textContent = t.clearData;
             
             // Update result headings
             const resultHeadings = document.querySelectorAll('h3');
@@ -466,6 +481,7 @@
             
             // Update instructions content using external function
             if (typeof updateInstructionsTranslations !== 'undefined') {
+                // Always call the function - it will check if instructions exist
                 updateInstructionsTranslations(currentLang);
             }
         }
@@ -493,8 +509,25 @@
             }
         }
 
+        // Loading state functions
+        function showLoading(buttonElement) {
+            buttonElement.disabled = true;
+            buttonElement.style.opacity = '0.7';
+            const originalText = buttonElement.textContent;
+            buttonElement.dataset.originalText = originalText;
+            buttonElement.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 8px;"><div class="spinner"></div>Calculating...</span>';
+        }
+        
+        function hideLoading(buttonElement) {
+            buttonElement.disabled = false;
+            buttonElement.style.opacity = '1';
+            buttonElement.textContent = buttonElement.dataset.originalText || 'Calculate';
+        }
+
         // Part 1 Functions
         function calculateBasic() {
+            const calculateButton = event.target;
+            showLoading(calculateButton);
             const lineSpeed = parseFloat(document.getElementById('lineSpeed').value) || 0;
             const output = parseFloat(document.getElementById('output').value) || 0;
             const concentration = parseFloat(document.getElementById('concentration').value) || 0;
@@ -503,6 +536,7 @@
             
             // Validate ratio is mandatory and not zero
             if (!ratioValue || isNaN(ratio) || ratio <= 0) {
+                hideLoading(calculateButton);
                 showError(translations[currentLang].errorRatioRequired);
                 return;
             }
@@ -538,12 +572,13 @@
                 document.getElementById('part1-results').style.display = 'block';
                 
             } else {
+                hideLoading(calculateButton);
                 showError(translations[currentLang].errorPart1);
                 return;
             }
 
-            // Generate and copy clipboard text if toggle is enabled
-            if (document.getElementById('autoClipboard1').checked) {
+            // Generate and copy clipboard text if global toggle is enabled
+            if (document.getElementById('globalAutoClipboard').checked) {
                 const clipboardText = generatePart1ClipboardText(lineSpeed, output, concentration, ratio, currentLang, calculationType);
                 copyToClipboard(clipboardText);
             }
@@ -600,6 +635,9 @@
             };
 
             sendDataToGoogleSheets(googleSheetsData);
+            
+            // Hide loading state after a short delay
+            setTimeout(() => hideLoading(calculateButton), 300);
         }
 
 
@@ -617,16 +655,24 @@
                 const pol = polAmount * multiplier;
                 const iso = isoAmount * multiplier;
                 const sum = pol + iso;
+                const timeLabel = `${multiplier}s`;
 
-                const materialItem = document.createElement('div');
-                materialItem.className = 'material-item';
-                materialItem.innerHTML = `
-                    <h4>Weight x ${multiplier}s</h4>
-                    <div class="material-value">Pol: ${pol.toFixed(1)}g</div>
-                    <div class="material-value">Iso: ${iso.toFixed(1)}g</div>
-                    <div class="material-value">${translations[currentLang].total}: ${sum.toFixed(1)}g</div>
+                // Create a grouped display matching Part 3 format
+                const timeGroup = document.createElement('div');
+                timeGroup.className = 'result-item';
+                timeGroup.style.flexDirection = 'column';
+                timeGroup.style.alignItems = 'flex-start';
+                timeGroup.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 5px;">
+                        <span class="result-label" style="font-weight: 700;">${timeLabel} ${translations[currentLang].total}</span>
+                        <span class="result-value">${sum.toFixed(1)}g</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%; font-size: 1.1em; opacity: 0.8;">
+                        <span>Polyol: ${pol.toFixed(1)}g</span>
+                        <span>Iso: ${iso.toFixed(1)}g</span>
+                    </div>
                 `;
-                container.appendChild(materialItem);
+                container.appendChild(timeGroup);
             });
         }
 
@@ -642,6 +688,8 @@
 
         // Part 2 Functions
         function calculatePart2() {
+            const calculateButton = event.target;
+            showLoading(calculateButton);
             const linespeed = parseFloat(document.getElementById('part2_linespeed').value) || 0;
             const testTime = parseFloat(document.getElementById('part2_test_time').value) || 0;
             const polyolWeight = parseFloat(document.getElementById('part2_polyol').value) || 0;
@@ -650,6 +698,7 @@
             const isoRpm = parseFloat(document.getElementById('part2_iso_rpm').value) || 0;
 
             if (linespeed <= 0 || testTime <= 0 || polyolWeight <= 0 || isoWeight <= 0) {
+                hideLoading(calculateButton);
                 showError(translations[currentLang].errorMandatory);
                 return;
             }
@@ -688,8 +737,8 @@
             document.getElementById('part3_new_consumption').value = consumptionGM.toFixed(2);
             document.getElementById('part3_new_ratio').value = ratio.toFixed(2);
 
-            // Generate and copy clipboard text if toggle is enabled
-            if (document.getElementById('autoClipboard2').checked) {
+            // Generate and copy clipboard text if global toggle is enabled
+            if (document.getElementById('globalAutoClipboard').checked) {
                 const clipboardText = generatePart2ClipboardText(linespeed, testTime, polyolWeight, isoWeight, polyolRpm, isoRpm, ratio, outputGs, consumptionGM, currentLang);
                 copyToClipboard(clipboardText);
             }
@@ -715,6 +764,9 @@
             };
 
             sendDataToGoogleSheets(googleSheetsData);
+            
+            // Hide loading state after a short delay
+            setTimeout(() => hideLoading(calculateButton), 300);
         }
 
         function clearPart2() {
@@ -730,11 +782,14 @@
 
         // Part 3 Functions
         function calculatePart3() {
+            const calculateButton = event.target;
+            showLoading(calculateButton);
             const newLinespeed = parseFloat(document.getElementById('part3_new_linespeed').value) || 0;
             const newConsumption = parseFloat(document.getElementById('part3_new_consumption').value) || 0;
             const newRatio = parseFloat(document.getElementById('part3_new_ratio').value) || 0;
 
             if (newLinespeed <= 0 || newConsumption <= 0 || newRatio <= 0) {
+                hideLoading(calculateButton);
                 showError(translations[currentLang].errorPart3);
                 return;
             }
@@ -823,8 +878,8 @@
 
             document.getElementById('part3-results').style.display = 'block';
 
-            // Generate and copy clipboard text if toggle is enabled
-            if (document.getElementById('autoClipboard3').checked) {
+            // Generate and copy clipboard text if global toggle is enabled
+            if (document.getElementById('globalAutoClipboard').checked) {
                 const clipboardText = generatePart3ClipboardText(newLinespeed, newConsumption, newRatio, newOutputGs, polyolWeightGs, isoWeightGs, timeBreakdownText, polyolRpm, isoRpm, currentLang);
                 copyToClipboard(clipboardText);
             }
@@ -861,6 +916,9 @@
             };
 
             sendDataToGoogleSheets(googleSheetsData);
+            
+            // Hide loading state after a short delay
+            setTimeout(() => hideLoading(calculateButton), 300);
         }
 
         function clearPart3() {
@@ -909,6 +967,105 @@
             }
         }
 
+
+        // Input validation functions
+        function validateInput(inputElement, min = null, max = null, required = true) {
+            const value = parseFloat(inputElement.value);
+            const fieldContainer = inputElement.closest('.input-field');
+            
+            // Remove existing validation messages
+            const existingError = fieldContainer.querySelector('.validation-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            fieldContainer.classList.remove('error', 'success');
+            
+            if (required && (!inputElement.value || inputElement.value.trim() === '')) {
+                if (inputElement.value !== '0') {
+                    showFieldError(fieldContainer, translations[currentLang].errorRequired || 'This field is required');
+                    return false;
+                }
+            }
+            
+            if (inputElement.value && isNaN(value)) {
+                showFieldError(fieldContainer, translations[currentLang].errorInvalidNumber || 'Please enter a valid number');
+                return false;
+            }
+            
+            if (min !== null && value < min && value !== 0) {
+                showFieldError(fieldContainer, `${translations[currentLang].errorMinValue || 'Minimum value is'} ${min}`);
+                return false;
+            }
+            
+            if (max !== null && value > max) {
+                showFieldError(fieldContainer, `${translations[currentLang].errorMaxValue || 'Maximum value is'} ${max}`);
+                return false;
+            }
+            
+            // Show success state
+            fieldContainer.classList.add('success');
+            return true;
+        }
+        
+        function showFieldError(fieldContainer, message) {
+            fieldContainer.classList.add('error');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error';
+            errorDiv.textContent = message;
+            fieldContainer.appendChild(errorDiv);
+        }
+        
+        function addInputValidation() {
+            const inputIds = [
+                'lineSpeed', 'output', 'concentration', 'ratio'
+            ];
+            
+            inputIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('blur', function() {
+                        // Set validation rules based on input type
+                        let min = null, max = null, required = true;
+                        
+                        if (id === 'ratio' || id.includes('_ratio')) {
+                            min = 0.1;
+                            max = 5; // Ratio: 0.1-5
+                        } else if (id === 'lineSpeed') {
+                            // Line Speed: 4-20 m/min (allow 0 for calculation)
+                            min = 4;
+                            max = 20;
+                            required = false;
+                        } else if (id === 'output') {
+                            // Output: 10-1000 g/s (allow 0 for calculation)  
+                            min = 10;
+                            max = 1000;
+                            required = false;
+                        } else if (id === 'concentration') {
+                            // Consumption: 1-10000 g/m (allow 0 for calculation)
+                            min = 1;
+                            max = 10000;
+                            required = false;
+                        } else {
+                            min = 0;
+                            max = 10000;
+                        }
+                        
+                        validateInput(this, min, max, required);
+                    });
+                    
+                    // Real-time validation on input
+                    element.addEventListener('input', function() {
+                        const fieldContainer = this.closest('.input-field');
+                        fieldContainer.classList.remove('error', 'success');
+                        const existingError = fieldContainer.querySelector('.validation-error');
+                        if (existingError) {
+                            existingError.remove();
+                        }
+                    });
+                }
+            });
+        }
 
         function showError(message) {
             const errorDiv = document.createElement('div');
@@ -968,7 +1125,9 @@
                 // Part 3
                 part3_new_linespeed: document.getElementById('part3_new_linespeed').value,
                 part3_new_consumption: document.getElementById('part3_new_consumption').value,
-                part3_new_ratio: document.getElementById('part3_new_ratio').value
+                part3_new_ratio: document.getElementById('part3_new_ratio').value,
+                // Global settings
+                globalAutoClipboard: document.getElementById('globalAutoClipboard').checked
             };
             localStorage.setItem('puCalculatorFormData', JSON.stringify(formData));
         }
@@ -994,6 +1153,8 @@
                 document.getElementById('part3_new_linespeed').value = formData.part3_new_linespeed || excelData.part3.new_linespeed;
                 document.getElementById('part3_new_consumption').value = formData.part3_new_consumption || excelData.part3.new_consumption_gm;
                 document.getElementById('part3_new_ratio').value = formData.part3_new_ratio || excelData.part3.new_ratio;
+                // Global settings
+                document.getElementById('globalAutoClipboard').checked = formData.globalAutoClipboard !== undefined ? formData.globalAutoClipboard : false;
                 return true;
             }
             return false;
@@ -1002,10 +1163,7 @@
         // Add auto-save functionality to all input fields
         function addAutoSave() {
             const inputIds = [
-                'lineSpeed', 'output', 'concentration', 'ratio',
-                'part2_linespeed', 'part2_test_time', 'part2_polyol', 'part2_iso', 
-                'part2_polyol_rpm', 'part2_iso_rpm',
-                'part3_new_linespeed', 'part3_new_consumption', 'part3_new_ratio'
+                'lineSpeed', 'output', 'concentration', 'ratio'
             ];
             
             inputIds.forEach(id => {
@@ -1014,17 +1172,23 @@
                     element.addEventListener('input', saveFormData);
                 }
             });
+            
+            // Add auto-save for global clipboard toggle
+            const globalToggle = document.getElementById('globalAutoClipboard');
+            if (globalToggle) {
+                globalToggle.addEventListener('change', saveFormData);
+            }
         }
 
         // Initialize with saved data or default values from the Excel file
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize instructions first
+            // Initialize language first
+            initializeLanguage();
+            
+            // Initialize instructions after language is set
             if (typeof initializeInstructions !== 'undefined') {
                 initializeInstructions();
             }
-            
-            // Initialize language first
-            initializeLanguage();
             
             // Try to restore saved data, otherwise use defaults
             if (!restoreFormData()) {
@@ -1052,6 +1216,9 @@
             
             // Add auto-save listeners to all input fields
             addAutoSave();
+            
+            // Add input validation
+            addInputValidation();
         });
     </script>
 </body>
