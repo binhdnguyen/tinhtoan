@@ -983,4 +983,30 @@ body {
     .clipboard-toggle {
         display: none;
     }
+    
+    /* Mobile optimizations for contact section */
+    .email-info {
+        padding: 16px 12px;
+    }
+    
+    .email-content {
+        max-width: 100%;
+        padding: 0 8px;
+    }
+    
+    .email-content h3 {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+    
+    .email-content p {
+        font-size: 0.9em;
+        margin-bottom: 6px;
+        word-break: break-all;
+    }
+    
+    .email-content a {
+        word-break: break-all;
+        font-size: 0.85em;
+    }
 }
